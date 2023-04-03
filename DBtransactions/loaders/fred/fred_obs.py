@@ -12,7 +12,7 @@ import pandas as pd
 
 __all__ = ["fetch"]
 
-config = dotenv_values(f"../../../.env")
+config = dotenv_values(".env")
 
 
 

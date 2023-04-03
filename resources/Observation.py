@@ -58,7 +58,7 @@ class Observations:
             return None
 
         try:
-            observation.add_observations(**d)
+            observation.add_obs(**d)
             resp.status = falcon.HTTP_201
             d['upsert'] = 'ok'
             resp.text = json.dumps(d)
@@ -66,5 +66,4 @@ class Observations:
             resp.status = falcon.HTTP_405
             d['upsert'] = 'Fail'
             resp.text = json.dumps(d)    
-
 

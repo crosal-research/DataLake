@@ -7,7 +7,7 @@ import pandas as pd
 from dotenv import dotenv_values
 
 # import from app
-from DBtransactions.helpers import _cursor, connect
+from DBtransactions.helpers import _cursor, connect, _parser_to_input
 from DBtransactions.helpers import Q
 from DBtransactions.loaders.fetcher_obs import fetch
 
