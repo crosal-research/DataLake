@@ -1,0 +1,21 @@
+[
+    {
+        "UMCSENT": "ECON",
+        "CFNAI": "ECON",
+        "USRECD": "ECON",
+        "PCEPI": "ECON",
+        "PCEPILFE": "ECON",
+        "PCEC96": "ECON",
+        "VXEWZCLS": "FRED-FIN",
+        "T10YIE": "FRED-FIN",
+        "VIXCLS": "FRED-FIN",
+        "CIVPART": "ECON",
+        "UNRATE": "ECON",
+        "CPILFESL": "ECON",
+        "CPIAUCSL": "ECON",
+        "PAYEMS": "ECON",
+        "INDPRO": "ECON",
+        "ICSA": "ECON",
+        "DGS10": "FRED-FIN"
+    }
+]
