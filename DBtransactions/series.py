@@ -70,8 +70,8 @@ def query_series(series_tickers:List[str]=[], survey:str='', source:str='') -> L
     select Series.series_id, Series.description, Source.full_name from Series
     join Survey on Series.survey_id = Survey.survey_id
     join Source on Survey.source_id = Source.source_id
-    where series_id in ({seq})
-    """.format(seq=','.join([f"{Q}".upper()]*len(series_tickers)))
+    where series_id in ({sep})
+    """.format(sep=','.join([f"{Q}".upper()]*len(series_tickers)))
 
     with connect() as conn:
         cur = _cursor(conn)
