@@ -50,22 +50,22 @@ def add_table(ticker_tbl:str,
             cur.executemany(string_relation_sql, inputs)
 
 
-def query_table(tickers:List[str]):
+def query_table(tickers:List[str]) -> pd.DataFrame:
     """
     Extrai informaçoes de um lista de Tables
     da base de dados a patir das tickers
     das tables
     """
-    string_sql = f"""
-    select * from uTable where utable_id = {Q}
-    """
+    string_sql = """
+    select * from uTable 
+    where utable_id in ({sep})
+    """.format(sep=','.join([f"{Q}".upper()]*len(tickers)))
     with connect() as conn:
         cur = _cursor(conn)
-        cs = []
-        for tck in tickers:
-            cs.append(cur.execute(string_sql, (tck,)))
+        c = cur.execute(string_sql, tickers)
             
-    return pd.DataFrame(data=[c.fetchone() for c in cs])
+    return pd.DataFrame(data=c.fetchall(), 
+                        columns=['nome', 'descricao', 'propriestario'])
 
 
 def delete_table(tickers:List[str]) -> None:
@@ -73,12 +73,10 @@ def delete_table(tickers:List[str]) -> None:
     Remove lista de tables da base de dados a parit
     dos seus tickers.
     """
-    string_sql = f"""
+    string_sql = """
     delete from uTable 
-    where utable_id = {Q}
-    """
-    tickers = [(tck,) for tck in tickers]
-    
+    where utable_id in ({sep})
+    """.format(sep=','.join([f"{Q}".upper()]*len(tickers)))
     with connect() as conn:
         cur = _cursor(conn)
-        cur.executemany(string_sql, tickers)
+        cur.execute(string_sql, tickers)
