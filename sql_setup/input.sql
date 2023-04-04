@@ -92,5 +92,6 @@ INSERT INTO Series (series_id, description, survey_id)
 INSERT INTO Series (series_id, description, survey_id)
       VALUES ('FRED.DGS10', 'TAXA DE JUROS DA TAXA DE 10 ANOS DO TÍTULO DO GOVERNO DOS E.U.A (TREASURY)', 'FRED_FIN');
 INSERT INTO Series (series_id, description, survey_id)
-      VALUES ('FRED.EFFR', 'TAXA FED FUNDS EFETIVA', 'FRED_FIN');            
+      VALUES ('FRED.EFFR', 'TAXA FED FUNDS EFETIVA', 'FRED_FIN');INSERT INTO Series (series_id, description, survey_id)
+      VALUES ('FRED.VXEWZCLS', 'VOLATILIDADE IMPLICITA DO ETF EWZ DE ACÕES BRAZILEIRAS', 'FRED_FIN');                        
 COMMIT;
