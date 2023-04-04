@@ -1,3 +1,8 @@
+##################################################
+# Define transacoes do recurso Table com a 
+# base de dados
+##################################################
+
 # import from system
 import os
 from typing import List, Tuple, Optional
@@ -16,7 +21,9 @@ def add_table(ticker_tbl:str,
               description:str,
               proprietario:str, 
               tickers_series: Optional[List[str]] = None) -> None:
-
+    """
+    Insere/rodifica Table à base de dados
+    """
     string_table_sql = f"""
     insert into Utable(utable_id, description, proprietario)
     values ({Q}, {Q}, {Q}) on conflict(utable_id) do update set
@@ -44,6 +51,11 @@ def add_table(ticker_tbl:str,
 
 
 def query_table(tickers:List[str]):
+    """
+    Extrai informaçoes de um lista de Tables
+    da base de dados a patir das tickers
+    das tables
+    """
     string_sql = f"""
     select * from uTable where utable_id = {Q}
     """
@@ -57,6 +69,10 @@ def query_table(tickers:List[str]):
 
 
 def delete_table(tickers:List[str]) -> None:
+    """
+    Remove lista de tables da base de dados a parit
+    dos seus tickers.
+    """
     string_sql = f"""
     delete from uTable 
     where utable_id = {Q}

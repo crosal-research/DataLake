@@ -1,3 +1,9 @@
+##################################################
+# define funcão/transacoes de recurso Conta
+# conta a base de dados
+##################################################
+
+
 # import from system
 import os
 from typing import List, Tuple, Optional
@@ -14,9 +20,9 @@ from DBtransactions.helpers import Q
 # Conta
 def add_conta(contas_info:List[Tuple[str]])-> None:
     """
-    Insere/atualiza conta na base na base the dados
+    Insere/atualiza conta na base na base the dados.
+    input: list(conta_id, nome))
     """
-    
     string_sql = f"""
     insert into Conta(conta_id, nome)
     values ({Q}, {Q}) on conflict (conta_id) do update set
@@ -30,17 +36,37 @@ def add_conta(contas_info:List[Tuple[str]])-> None:
             print('fail')
 
 
-def query_conta(contas:List[str]):
+def query_conta(contas:Optional[List[str]]=None) -> List[Tuple]:
     """
     Extrai informações de contas a partir
     dos identificadores das contas
     """
-    pass
+    with connect() as conn:
+        cur = _cursor(conn)
+        if contas:
+            string_sql = """
+            select * from conta 
+            where conta_id in ({sep})
+            """.format(sep=','.join([f"{Q}".upper()]*len(contas)))
+            c = cur.execute(string_sql, contas)
+        else:
+            string_sql = """
+            select * from conta;
+            """
+            c = cur.execute(string_sql) 
+    return pd.DataFrame(data=c.fetchall(), 
+                        columns=['conta_id', 'nome'])
 
 
-def delete_conta(contas:List[str]):
+def delete_conta(contas:List[str]) -> None:
     """
     Remove contas a partir
     dos identificadores das contas
     """
-    pass
+    string_sql = """
+    delete from conta 
+    where conta_id in ({seq})
+    """.format(seq=','.join([f"{Q}".upper()]*len(contas)))
+    with connect() as conn:
+        cur = _cursor(conn)
+        c = cur.execute(string_sql, contas)

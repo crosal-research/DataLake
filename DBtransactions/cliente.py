@@ -15,7 +15,7 @@ from DBtransactions.helpers import Q
 def add_cliente(clientes_info:List[Tuple[str]])-> None:
     """
     Insere/atualiza cliente à  base na base the dados
-    list(nome, email, senha, conta_id)
+    input: list(nome, email, senha, conta_id)
     """
     
     string_sql = f"""

@@ -60,7 +60,11 @@ def query_tickers(survey:Optional[str]=None,
 
 def query_series(series_tickers:List[str]=[], survey:str='', source:str='') -> List[Tuple[str]]:
     """
-    Fetch series' informations for a list of series
+    extrai informações de series determinadas pela
+    1) list do seus respectivos tickers
+    2) o survey a qual pertencem
+    3) fonte a qual pertencem
+    4) totas as series
     """
     string_sql = """
     select Series.series_id, Series.description, Source.full_name from Series
@@ -77,6 +81,10 @@ def query_series(series_tickers:List[str]=[], survey:str='', source:str='') -> L
 
 
 def delete_series(tickers=List[str]):
+    """
+    remove da base de dados um list de séries determinadas
+    por uma lista do seus respectivos tickers
+    """
     string_sql="""
     delete from series where series_id in ({seq})
     """.format(seq=','.join([f"{Q}".upper()]*len(tickers)))

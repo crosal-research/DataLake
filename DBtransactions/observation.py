@@ -15,7 +15,13 @@ from DBtransactions.loaders.fetcher_obs import fetch
 LDATE="1800" #limite inferior para datas na base de dados
 
 
-def query_obs(tickers:List[str], limit:Optional[str]=LDATE):
+def query_obs(tickers:List[str], 
+              limit:Optional[str]=LDATE) -> pd.DataFrame:
+    """
+    Extrai observations de um lista de séries indentificadas
+    pela a lista de seus respectivos tickers, a parti de uma 
+    data limite inferior
+    """
     string_sql="""
     select dat, valor, series_id from observation
     where series_id in ({seq}) and dat >= {limit}
