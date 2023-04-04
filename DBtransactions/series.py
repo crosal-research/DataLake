@@ -1,3 +1,10 @@
+##################################################
+# Define transacoes do recurso Series com a 
+# base de dados
+##################################################
+
+
+
 # import from system
 import os
 from typing import List, Tuple, Optional
