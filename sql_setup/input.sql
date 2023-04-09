@@ -31,7 +31,11 @@ INSERT INTO Source (source_id, full_name)
 INSERT INTO Source (source_id, full_name)
        VALUES ('FRED', 'Federal Reserve of Saint Louis');
 INSERT INTO Source (source_id, full_name)
-       VALUES ('IPEA', 'INSTITUTO DE PESQUISA ECONOMICA APLICADA');              
+       VALUES ('BLS', 'BUREAU OF LABOR STATISTICS');       
+INSERT INTO Source (source_id, full_name)
+       VALUES ('IPEA', 'INSTITUTO DE PESQUISA ECONOMICA APLICADA');
+INSERT INTO Source (source_id, full_name)
+       VALUES ('IMF', 'FUNDO MONETARIO INTERNACIONAL');                     
 COMMIT;	      
 
 
@@ -53,7 +57,14 @@ INSERT INTO Survey (survey_id, description, source_id)
       VALUES ('FRED_FIN', 'DADOS FINANCEIROS DISPONIBILIZADOS PELO FRED', 'FRED');
 INSERT INTO Survey (survey_id, description, source_id)
       VALUES ('IPEA', 'DADOS GENERICOS DISPONIBILIZADOS PELO IPEA', 'IPEA');
-INSERT INTO Survey (survey_id, description, source_id) VALUES ('IPEA_ECON', 'DADOS ECONOMICOS DISPONIBILIZADOS PELO IPEA', 'IPEA');   INSERT INTO Survey (survey_id, description, source_id) VALUES ('IPEA_FIN', 'DADOS FINANCEIROS DISPONIBILIZADOS PELO IPEA', 'IPEA');                                    
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('IPEA_ECON', 'DADOS ECONOMICOS DISPONIBILIZADOS PELO IPEA', 'IPEA');   
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('IPEA_FIN', 'DADOS FINANCEIROS DISPONIBILIZADOS PELO IPEA', 'IPEA');
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('BLS_CPI', 'DADOS DE INFLACAO AO CONSUMIDOR DOS E.U.A.', 'BLS');
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('IMF_PCPS', 'PRECO DE COMMODITIES PRIMARIAS', 'IMF');                                                  
 COMMIT;
 
 
@@ -92,6 +103,7 @@ INSERT INTO Series (series_id, description, survey_id)
 INSERT INTO Series (series_id, description, survey_id)
       VALUES ('FRED.DGS10', 'TAXA DE JUROS DA TAXA DE 10 ANOS DO TÍTULO DO GOVERNO DOS E.U.A (TREASURY)', 'FRED_FIN');
 INSERT INTO Series (series_id, description, survey_id)
-      VALUES ('FRED.EFFR', 'TAXA FED FUNDS EFETIVA', 'FRED_FIN');INSERT INTO Series (series_id, description, survey_id)
+      VALUES ('FRED.EFFR', 'TAXA FED FUNDS EFETIVA', 'FRED_FIN');
+INSERT INTO Series (series_id, description, survey_id)      
       VALUES ('FRED.VXEWZCLS', 'VOLATILIDADE IMPLICITA DO ETF EWZ DE ACÕES BRAZILEIRAS', 'FRED_FIN');                        
 COMMIT;

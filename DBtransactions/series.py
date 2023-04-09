@@ -4,7 +4,6 @@
 ##################################################
 
 
-
 # import from system
 import os
 from typing import List, Tuple, Optional
@@ -16,14 +15,16 @@ from dotenv import dotenv_values
 # import from app
 from DBtransactions.helpers import _cursor, connect
 from DBtransactions.helpers import Q
+from DBtransactions.loaders.fetcher_info import fetch_infos
 
 
 # Series
-def add_series(series_info:List[Tuple[str]]) -> None:
+def add_series(source:Optional[str]=None, tickers:List[Optional[str]]=None) -> None:
     """
     Insert/Update a list of series in the
     database
     """
+    global df
     string_sql = f"""
         insert into series(series_id, description, survey_id)
            values ({Q}, {Q}, {Q})
@@ -31,7 +32,8 @@ def add_series(series_info:List[Tuple[str]]) -> None:
         	  description=excluded.description,
         	  survey_id=excluded.survey_id;
         """
-    sf = [tuple(s) for s in series_info]
+    df = fetch_infos(source=source, tickers=tickers)
+    sf = [tuple(df.loc[i,:]) for i in df.index]
     with connect() as conn:
         cur = _cursor(conn)
         cur.executemany(string_sql, sf)

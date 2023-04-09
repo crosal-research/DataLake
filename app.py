@@ -4,7 +4,6 @@
 #  - add resource to the App's route
 ##################################################
 
-
 # import app packages
 import falcon
 

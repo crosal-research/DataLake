@@ -15,7 +15,6 @@ __all__ = ["fetch"]
 config = dotenv_values(".env")
 
 
-
 def build_fred(key, ticker, limit: Optional[int]=None):
     """
     builds url to fetch observations, depending on whether
@@ -55,10 +54,3 @@ def fetch(tickers: List[str], limit: Optional[int] = None) -> List[pd.DataFrame]
     for i,df in enumerate(dfs):
         df.columns = [tickers[i].upper()]
     return dfs    
-
-
-# if __name__ == "__main__":
-    # tickers_eco = fetch_series_list("FRED", "ECO", "SERIES-TEMPORAIS")
-    # tickers_fin = fetch_series_list("FRED", "FRED-FIN", "FINANCE")
-    # fetch(tickers_eco + tickers_fin)
-

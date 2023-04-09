@@ -28,7 +28,7 @@ def query_obs(tickers:List[str],
     order by dat asc
     
     """.format(seq=','.join([f"{Q}".upper()]*len(tickers)), limit=Q)
-    ticks =(*tickers, limit)
+    ticks = (*tickers, limit)
 
 
     with connect() as conn:
