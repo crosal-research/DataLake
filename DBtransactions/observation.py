@@ -88,6 +88,8 @@ def add_obs(tickers:Optional[List[str]]=None,
             else:
                 c = cur.execute(string_sql_aux)
             tcks = [tck[0] for tck in c.fetchall()]
-        dfs = fetch(tcks)
-        for df in dfs:
-            cur.executemany(string_sql, _parser_to_input(df))
+        llobs = fetch(tcks)
+        for lobs in llobs:
+            mobs = [tuple(obs.dict().values()) 
+                                   for obs in lobs]
+            cur.executemany(string_sql, mobs)

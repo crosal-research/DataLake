@@ -40,12 +40,20 @@ def _parser_to_input(df:pd.DataFrame) -> List[Tuple]:
              ticker) for i in df.index ]
 
 
+
+def connect():
+    """
+    Opens a connects with an specific
+    connections
+    """
+    return engine.connect(DB)
+
+
 def _cursor(conn:sqlite3.Connection) -> sqlite3.Cursor:
     """
     Helper-factory iniciates a cursor with foregin keys
     automatically activated
     """
-
     cur = conn.cursor()
     cur.execute("PRAGMA foreign_keys = ON;") # allows for foreign_keys constraing
     cur.execute("PRAGMA journal_model = ON;") # <--
@@ -58,6 +66,4 @@ def _cursor(conn:sqlite3.Connection) -> sqlite3.Cursor:
 
 
 
-def connect():
-    return engine.connect(DB)
 

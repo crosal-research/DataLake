@@ -4,12 +4,15 @@
 
 # import from system
 from concurrent.futures import ThreadPoolExecutor as executor
-import time
-from typing import List, Dict
+from typing import List, Dict, Tuple
 
 #import from packages
 import requests
 import pandas as pd
+
+#import from app
+from DBtransactions.DBtypes import Series
+
 
 __all__ = ["tickers_ipea", "fetch_info"]
 
@@ -408,7 +411,7 @@ def build_url(tck:str) -> str:
     return URL + f"Metadados('{tck}')"
     
 
-def process(resp:requests.models.Response) ->  Dict:
+def process(resp:requests.models.Response) ->  Series:
     """
     handles a response of a request to the ipea's ipea for
     metadados for a particular seires.
@@ -416,32 +419,29 @@ def process(resp:requests.models.Response) ->  Dict:
     if resp.ok:
         js = resp.json()['value'][0]
         d = dict([(k, js[k]) for k in ('SERCODIGO', 'SERNOME', 'FNTSIGLA', "PERNOME")])
-        d["Survey"] = 'IPEA_FIN' if d['SERCODIGO'] == 'JPM366_EMBI366' else 'IPEA_ECON'
-        d["SERCODIGO"] = f"IPEA.{d['SERCODIGO']}" 
-        d["SERNOME"] = f"{d['SERNOME']}" + f", { d['PERNOME'] if d['PERNOME'].upper() else ''}"
-        d["SERNOME"] = f"{d['SERNOME']}" + f", { d['FNTSIGLA'] if d['FNTSIGLA'].upper() else ''}"
-        d.pop('PERNOME')
+        d["survey_id"] = 'IPEA_FIN' if d['SERCODIGO'] == 'JPM366_EMBI366' else 'IPEA_ECON'
+        d["series_id"] = f"IPEA.{d['SERCODIGO']}" 
+        d["description"] = f"{d['SERNOME']}" + f", { d['PERNOME'] if d['PERNOME'].upper() else ''}"
+        d["description"] = f"{d['description']}" + f", { d['FNTSIGLA'] if d['FNTSIGLA'].upper() else ''}"
+        d.pop('SERCODIGO')
+        d.pop('SERNOME')
         d.pop('FNTSIGLA')
-        return d
+        d.pop('PERNOME')
+        return Series(**d)
     else:
         print(f"Could not reach {resp.url}")
 
 
-def fetch_info(tickers: List[str]) -> pd.DataFrame:
+def fetch_info(tickers: List[str]) -> List[List[Series]]:
     """
     takes a list of tickers, 
     fetches meta information on them from
     IPEA api and then inserts that information in the datebase
-
     """
-    t0=time.time()
     urls =[build_url(tck.split(".")[1]) for tck in tickers]
     with requests.session() as session:
         with executor() as e:
-            ljs = list(e.map(lambda u: process(session.get(u)), urls))
-            
-    df = pd.DataFrame(data=ljs)
-    df.columns = ['series_id', 'description', 'survey']
-    return df
+            srs = list(e.map(lambda u: process(session.get(u)), urls))
+    return srs
 
 

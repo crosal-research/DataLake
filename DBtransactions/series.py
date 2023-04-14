@@ -3,7 +3,6 @@
 # base de dados
 ##################################################
 
-
 # import from system
 import os
 from typing import List, Tuple, Optional
@@ -16,27 +15,37 @@ from dotenv import dotenv_values
 from DBtransactions.helpers import _cursor, connect
 from DBtransactions.helpers import Q
 from DBtransactions.loaders.fetcher_info import fetch_infos
+from DBtransactions.DBtypes import Series
 
 
 # Series
-def add_series(source:Optional[str]=None, tickers:List[Optional[str]]=None) -> None:
+def add_series(source:Optional[str]=None,
+               survey: Optional[str]=None,
+               tickers:List[Optional[str]]=None) -> None:
     """
     Insert/Update a list of series in the
     database
     """
-    global df
     string_sql = f"""
         insert into series(series_id, description, survey_id)
-           values ({Q}, {Q}, {Q})
+           values({Q}, {Q}, {Q})
            on conflict(series_id) do update set
         	  description=excluded.description,
         	  survey_id=excluded.survey_id;
         """
-    df = fetch_infos(source=source, tickers=tickers)
-    sf = [tuple(df.loc[i,:]) for i in df.index]
+    def _input(linfo: List[Series]) -> List[Tuple[str]]:
+        return [tuple(l.dict().values()) for l in linfo]
+    
+    if source is not  None:
+        linfo = fetch_infos(source=source)
+    elif survey is not  None:
+        linfo = fetch_infos(survey=survey)
+    else:
+        linfo = fetch_infos(tickers=tickers)
+
     with connect() as conn:
         cur = _cursor(conn)
-        cur.executemany(string_sql, sf)
+        cur.executemany(string_sql, _input(linfo))
 
 
 def query_tickers(survey:Optional[str]=None,
@@ -61,7 +70,7 @@ def query_tickers(survey:Optional[str]=None,
         """
         query_var = source
 
-    with connect(DB) as conn:
+    with connect() as conn:
         cur = _cursor(conn)
         c = cur.execute(string_sql, (query_var,))
         return [d[0] for d in c.fetchall()]
@@ -97,7 +106,6 @@ def delete_series(tickers=List[str]):
     string_sql="""
     delete from series where series_id in ({seq})
     """.format(seq=','.join([f"{Q}".upper()]*len(tickers)))
-    print(string_sql)
 
     with connect() as conn:
         cur = _cursor(conn)

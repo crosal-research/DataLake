@@ -16,29 +16,7 @@ import pandas as pd
 URL = "https://stats.bis.org/api/v1/data/"
 INI = "2023-01-01"
 
-# real exchange rates
-tickers_eff = ["BIS.WS_EER_M/M.R.B.NZ", 
-               "BIS.WS_EER_M/M.R.B.DE", 
-               "BIS.WS_EER_M/M.R.B.BR"]
 
-
-# daily nominal exchange rates
-tickers_xru = ["BIS.WS_XRU_D/D.NZ",
-               "BIS.WS_XRU_D/D.EUR",
-               "BIS.WS_XRU_D/D.BR"]
-
-
-# daily monetary policy rates
-tickers_pol = ["BIS.WS_XRU_D/D.NZ",
-               "BIS.WS_XRU_D/D.EUR",
-               "BIS.WS_XRU_D/D.EUR",
-               "BIS.WS_XRU_D/D.US",
-               "BIS.WS_XRU_D/D.BR"]
-
-# WS_EER_M: survey
-# M: frequency
-# R: Real, EET_TYPE
-# B: Broad Basket
 
 # WS_CBPOL_D: daily policy rate
 # WS_XRU_D: daily exchange rate
@@ -75,6 +53,8 @@ def fetch(tickers:List[str],
           ini:str=INI, end:str=None) -> List[pd.DataFrame]:
     """
     Fetches observations for tickers from BIS api
+    and return a List of DataFrames, each one with
+    with one of the series.
     """
     urls = [_build_url(tck) for tck in tickers]
     with requests.sessions.Session() as session:

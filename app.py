@@ -8,7 +8,6 @@
 import falcon
 
 # import from app
-
 from resources.Observation import Observations
 from resources.Cliente import Cliente
 from resources.Conta import Conta

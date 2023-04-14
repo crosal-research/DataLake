@@ -7,6 +7,7 @@ import json, os
 import requests
 
 # import from app
+from DBtransactions.DBtypes import Series
 
 
 def build_fred(key:str, ticker:str):

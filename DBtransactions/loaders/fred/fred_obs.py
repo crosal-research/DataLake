@@ -2,13 +2,15 @@
 from concurrent.futures import ThreadPoolExecutor as executor
 from typing import Optional, List
 from datetime import datetime as dt
-import time, json, os
-from dotenv import dotenv_values
+import json, os
 
 # import from backages
 import requests
 import pandas as pd
+from dotenv import dotenv_values
 
+# import from app
+from DBtransactions.DBtypes import Observation
 
 __all__ = ["fetch"]
 
@@ -29,28 +31,28 @@ def build_fred(key, ticker, limit: Optional[int]=None):
             "&limit=10&sort_order=desc"
 
 
-def process(resp: requests.models.Response) -> List[pd.DataFrame]:
+def process(resp: requests.models.Response) -> List[Observation]:
     """
     processes (handles) the response from the fred's api
     and returns dataframe with processed observations
     """
     dj = resp.json()["observations"]
+    ticker = "FRED." + (resp.url).split("=")[1].split("&")[0]
     df = pd.DataFrame(dj).iloc[:, [2,3]].set_index(["date"])
-    df.index = [dt.strptime(i, "%Y-%m-%d") for i in df.index]
-    return (df.applymap(lambda v: float(v) if v != "." else None)).sort_index().dropna()
+    dfinal = (df.applymap(lambda v: float(v) if v != "." else None)).sort_index().dropna()
+    return [Observation(**{'dat': i, 'valor': dfinal.loc[i].value, 'series_id': ticker}) 
+            for i in dfinal.index]
 
 
-def fetch(tickers: List[str], limit: Optional[int] = None) -> List[pd.DataFrame]:
+def fetch(tickers: List[str], limit: Optional[int] = None) -> List[List[Observation]]:
     """
     fetches observations from fred's api for tickers. If limit is None, add
-    full observations, else the last n-limit observations.
+    all observations, or else the last n-limit observations. Returns a list
+    of DataFrames, each one with a series linked to the tickers
     """
     key = config['FRED_KEY']
-    global dfs
     urls =[build_fred(key, tck.split(".")[1], limit) for tck in tickers]
     with requests.session() as session:
         with executor() as e:
-            dfs = list(e.map(lambda url: process(session.get(url)), urls))
-    for i,df in enumerate(dfs):
-        df.columns = [tickers[i].upper()]
-    return dfs    
+            obs = list(e.map(lambda url: process(session.get(url)), urls))
+    return obs

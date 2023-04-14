@@ -4,7 +4,7 @@
 ##################################################
 
 # import system
-import io
+import io, json
 
 # import from packages
 import falcon
@@ -37,16 +37,17 @@ class Series:
         """
         Insere serie na base de dados
         """
-        q = req.get_media()
-        info_series = [[s['series_id'], 
-                        s['description'], 
-                        s['survey_id']] for s in q['series']]
-    
+        query = req.get_media()
+        args = {k:query[k] if k in query else None for 
+                k in ('source', 'survey', 'tickers')}
+
+        series.add_series(**args)
         try:
-            series.add_series(info_series)
             falcon.HTTP_201
+            resp.text = json.dumps({"status": True, "message": "Data upserted in the DB"})
         except:
             falcon.HTTP_405
+            resp.text = json.dumps({"status": False, "message": "Data insertion failed"})
 
     def on_delete(self, req, resp, ticker):
         """

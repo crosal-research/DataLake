@@ -35,7 +35,9 @@ INSERT INTO Source (source_id, full_name)
 INSERT INTO Source (source_id, full_name)
        VALUES ('IPEA', 'INSTITUTO DE PESQUISA ECONOMICA APLICADA');
 INSERT INTO Source (source_id, full_name)
-       VALUES ('IMF', 'FUNDO MONETARIO INTERNACIONAL');                     
+       VALUES ('IMF', 'FUNDO MONETARIO INTERNACIONAL');
+INSERT INTO Source (source_id, full_name)
+       VALUES ('BIS', 'BANCO INTERNACIONAL DE COMPENSACOES');              
 COMMIT;	      
 
 
@@ -64,7 +66,9 @@ INSERT INTO Survey (survey_id, description, source_id)
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BLS_CPI', 'DADOS DE INFLACAO AO CONSUMIDOR DOS E.U.A.', 'BLS');
 INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('IMF_PCPS', 'PRECO DE COMMODITIES PRIMARIAS', 'IMF');                                                  
+       VALUES ('IMF_PCPS', 'PRECO DE COMMODITIES PRIMARIAS', 'IMF');
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('BIS_WS_EER_M', 'TAXAS DE CAMBIOS REAL EFETIVOs', 'BIS');                                                         
 COMMIT;
 
 
@@ -80,8 +84,6 @@ INSERT INTO Series (series_id, description, survey_id)
       VALUES ('FRED.PCEPI', 'INDICE DE PRECOS PCE', 'FRED_ECON');
 INSERT INTO Series (series_id, description, survey_id)
       VALUES ('FRED.PCEPILFE', 'NUCLEO DO PCE POR EXCLUSAO DE ALIMENTOS E ENERGIA', 'FRED_ECON');
-INSERT INTO Series (series_id, description, survey_id)
-      VALUES ('FRED.VXEWZCLS', 'VOLATILIDADE IMPLICITA DO ETF BRASIL', 'FRED_FIN');
 INSERT INTO Series (series_id, description, survey_id)
       VALUES ('FRED.T10YIE', 'INFLACAO IMPLICITA de 10 ANOS EXTRAIDA DOS TITULO SOBERANDO E.U.A.', 'FRED_FIN');
 INSERT INTO Series (series_id, description, survey_id)
