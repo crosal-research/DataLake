@@ -41,8 +41,7 @@ def process(resp:str, limit:Optional[int]=None) -> Optional[List[Observation]]:
 
 def fetch(tickers:List[str], limit:Optional[int]=None) -> List[List[Observation]]:
     """
-    p
-    list of the tickers of ipea's series for which observations
+    Fetch list of the tickers of ipea's series for which observations
     are update/fetched. If limit is None, fetch all observations,
     else fetches only the last limit observations
     """

@@ -13,12 +13,14 @@ from DBtransactions.loaders.fred import fred_fetch_info
 from DBtransactions.loaders.ipea import ipea_fetch_info
 from DBtransactions.loaders.bls import bls_fetch_info
 from DBtransactions.loaders.bis import bis_fetch_info
+from DBtransactions.loaders.ibge import ibge_fetch_info
 
 
 dispatcher = {"FRED": fred_fetch_info.fetch_info,
               "IPEA": ipea_fetch_info.fetch_info, 
               "BLS": bls_fetch_info.fetch_info,
-              "BIS": bis_fetch_info.fetch_info}
+              "BIS": bis_fetch_info.fetch_info,
+              "IBGE": ibge_fetch_info.fetch_info}
 
 
 def fetch_infos(source:Optional[str]=None,
@@ -35,6 +37,10 @@ def fetch_infos(source:Optional[str]=None,
     elif survey:
         if "BIS" in survey:
             srs = dispatcher["BIS"](bis_fetch_info.ticker_bis)
+        elif "IBGE" in survey:
+            srs = dispatcher["IBGE"]([tbl for tbl in ibge_fetch_info.TABLES if tbl['s'] == survey])
+        else:
+            pass
         return srs
     else:
         sources = set([tck.split(".")[0] for tck in tickers])

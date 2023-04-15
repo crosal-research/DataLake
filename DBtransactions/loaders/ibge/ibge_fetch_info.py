@@ -1,101 +1,101 @@
-# imports from sistem
-import re, json
-from concurrent.futures import ThreadPoolExecutor, as_completed
+############################################################
+# Build the series info for IBGE's data from its api
+# 
+############################################################
+# import from system
+from concurrent.futures import ThreadPoolExecutor as executor
+from typing import List, Dict, Tuple
+from functools import reduce
 
-#import from packages
+# import from packages
 import requests
-from bs4 import BeautifulSoup as bs
 
 # import from app
-from DB.transactions import add_series
-
-data = {1620:{"v":"", "c":"", "c1": None, "s":"CN"}, #contas nacionais
-        1621:{"v":"", "c":"", "c1": None, "s": "CN"}, #contas nacionas, des
-        1846:{"v":"", "c":"", "c1": None, "s": "CN"}, #contas nacionas nominal
-        3653:{"v":[0, 1], "c": "", "c1": None, "s": "PIM"}, #PIM setorial
-        3650:{"v":[0, 1], "c": "", "c1": None, "s": "PIM"}, #PIM setorial
-        3651:{"v":[0, 1], "c": "", "c1": None, "s": "PIM"}, #PIM setorial
-        3652:{"v":[0, 1], "c": None, "c1": None, "s": "PIM"}, # PIM construção civil
-        3415:{"v":[0, 1], "c": "", "c1": None, "s": "PMC"}, #PMC material de construção
-        3416:{"v":[0, 1], "c":[0, 1], "c1": None, "s": "PMC"}, #PMC narrow
-        3417:{"v":"", "c":[0, 1], "c1": None, "s": "PMC"}, #PMC headline
-        3419:{"v":"", "c":[0, 1], "c1": "", "s": "PMC"}, #PMC
-        6443:{"v":[1], "c":[0, 1], "c1": "", "s": "PMS"}, #, #PMS
-        4093:{"v":[0, 4, 8, 12, 16, 20, 24], "c": None, "c1": None, "s": "PNAD"}, #pnad mensal 
-        5440:{"v": [0, 2], "c":"", "c1": None, "s": "PNAD"}} #pnad rendimento
+from DBtransactions.DBtypes import Series
 
 
+#__all__ == ['TABLES', 'fetch_info']
 
-# series to be added to database 
-series: list = [] # ex:[[ticker, description, country, source]]
+# IBGE's tables with relevant series
+TABLES = [
+    # Producao Industrial
+    {'t':'8887', 'v': 12606, 'c543':'all', 's': "IBGE_PIM"},   # Produção Industrial categorias
+    {'t':'8887', 'v': 12607, 'c543':'all', 's': "IBGE_PIM"},   # Produção Industrial categorias, sa
+    {'t':'8886', 'v': 12606,               's': "IBGE_PIM"},   # Produção de insumos da const. civil.
+    {'t':'8888', 'v': 12606, 'c544': 'all', 's': "IBGE_PIM"},  # Produção Industrial por secoes e atividades
+    {'t':'8888', 'v': 12607, 'c544': 'all', 's': "IBGE_PIM"},  # Produção Industrial por secoes e atividades,sa
+    # Varejo                                                           
+    {'t':'8757', 'v': 7169, 'c11046': 56732, 's': "IBGE_PMC"}, # material de construcao sa
+    {'t':'8757', 'v': 7170, 'c11046': 56732, 's': "IBGE_PMC"}, # material de construcao 
+    {'t':'8880', 'v': 7169, 'c11046': 56734, 's': "IBGE_PMC"}, # Comercio varejista
+    {'t':'8880', 'v': 7170, 'c11046': 56734, 's': "IBGE_PMC"}, # comercio varejista sa 
+    {'t':'8881', 'v': 7169, 'c11046': 56736, 's': "IBGE_PMC"}, # comercio varejista ampliado
+    {'t':'8881', 'v': 7170, 'c11046': 56736, 's': "IBGE_PMC"}, # comercio varejista ambiliado sa 
+    {'t':'8882', 'v': 7169, 'c11046': 56734, 'c85': 'all', 's': "IBGE_PMC"}, # comercio varejista por atividades
+    {'t':'8882', 'v': 7170, 'c11046': 56736, 'c85': 'all', 's': "IBGE_PMC"}, # comercio varejista por atividades sa
+    {'t':'8883', 'v': 7169, 'c11046': 56734, 'c85': 'all', 's': "IBGE_PMC"}, # comercio varejista ampliado por atividades
+    {'t':'8883', 'v': 7170, 'c11046': 56736, 'c85': 'all', 's': "IBGE_PMC"}, # comercio varejista ampliado por atividades sa
+    {'t':'8884', 'v': 7169, 'c11046': 56738, 's': "IBGE_PMC"}, # motos, auto e peças
+    {'t':'8884', 'v': 7170, 'c11046': 56738, 's': "IBGE_PMC"}, # motos, atuo e peças  sa
+    # servicos
+    {'t':'8161', 'v': 11621, 'c11046': 56736, 's': "IBGE_PMS"}, # volume de serviços
+    {'t':'8161', 'v': 11622, 'c11046': 56736, 's': "IBGE_PMS"}, # volume de serviços sa
+    {'t':'8162', 'v': 11621, 'c11046': 56736, 'c12355': 'all', 's': "IBGE_PMS"}, # volume de serviços, por atividades
+    {'t':'8162', 'v': 11622, 'c11046': 56736, 'c12355': 'all', 's': "IBGE_PMS"}, # volume de serviços, por atividas sa
+    {'t':'8165', 'v': 11621, 'c11046': 56728, 's': "IBGE_PMS"}, # volume de serviços, turismos
+    {'t':'8165', 'v': 11622, 'c11046': 56728, 's': "IBGE_PMS"}, # volume de serviços turismo sa
+    {'t':'8166', 'v': 11621, 'c11046': 56726, 'c12355': 'all' ,'s': "IBGE_PMS"}, # volume de serviços, transportes
+    {'t':'8166', 'v': 11622, 'c11046': 56726, 'c12355': 'all', 's': "IBGE_PMS"}, # volume de serviços  trnsportes sa
+    # contas nacionais
+    {'t':'1620', 'v': 583, 'c11255': 'all','s': "IBGE_CN"}, # PIB volume setores
+    {'t':'1621', 'v': 584, 'c11255': 'all','s': "IBGE_CN"}, # PIB volume setores sa
+    {'t':'1846', 'v': 585, 'c11255': 'all','s': "IBGE_CN"}, # PIB precos correntes
+    # mercado de trabalho
+]     
 
-for t in data.keys():
-    kind = len(data[t]) - 1
-    url = f"http://api.sidra.ibge.gov.br/desctabapi.aspx?c={t}"
-    html = requests.get(url).content
-    soup = bs(html,"html.parser")
-    group = soup.select("span#lblNomePesquisa")[0].get_text()
+URL = "https://apisidra.ibge.gov.br/values/"
 
-    #fetch variables
-    if (v:=data[t]["v"]) is not None:
-        if v == "":
-            nvariables = range(0, int(re.search("\d+", 
-                                   soup.select("span#lblVariaveis")[0].get_text()).group()))
-        else:
-            nvariables = v
+def _form_params(d:dict) -> str:
+    """
+    from the params of the url from line in TABLES
+    """
+    return "/".join(["/".join([str(k), str(d[k])]) 
+                     for k in d if k != 's'])
 
-    for v in nvariables:
-        vnumber = soup.select(f"span#lstVariaveis_lblIdVariavel_{v}")[0].get_text()
-        vdescription = soup.select(f"span#lstVariaveis_lblNomeVariavel_{v}")[0].get_text()
-        
-        #fetch categories c
-        if (cl:= data[t]["c"]) is not None:
-            classe = soup.select(f"span#lstClassificacoes_lblIdClassificacao_{0}")[0].get_text()
-            if cl == "":
-                nclasse = range(0,int(re.search("\d+",
-                                                soup.select(f"span#lstClassificacoes_lblQuantidadeCategorias_{0}")[0].get_text()).group()))
-            else:
-                nclasse = cl
-                
-            for c in nclasse:
-                ticker = f"IBGE.{t}/p/all/v/{vnumber}"
-                tag_id = f"span#lstClassificacoes_lstCategorias_{0}_lblIdCategoria_{c}"
-                tag_name = f"span#lstClassificacoes_lstCategorias_{0}_lblNomeCategoria_{c}"
-                cdescription = soup.select(tag_name)[0].get_text()
-                ind = soup.select(tag_id)[0].get_text()
-                ticker = f"IBGE.{t}/p/all/v/{vnumber}/c{classe}/{ind}"
-                description = f"{vdescription}, {cdescription}"
-
-                #fetch categories c1
-                if (cl1:= data[t]["c1"]) is not None:
-                    classe1 = soup.select(f"span#lstClassificacoes_lblIdClassificacao_{1}")[0].get_text()
-                    #fetch classes
-                    if cl1 == "":
-                        nclasse1 = range(0,int(re.search("\d+",
-                                                         soup.select(f"span#lstClassificacoes_lblQuantidadeCategorias_{1}")[0].get_text()).group()))
-                    else:
-                        nclasse1 = cl1
-                    for c1 in nclasse1:
-                        tag_id = f"span#lstClassificacoes_lstCategorias_{1}_lblIdCategoria_{c1}"
-                        tag_name = f"span#lstClassificacoes_lstCategorias_{1}_lblNomeCategoria_{c1}"
-                        c1description = soup.select(tag_name)[0].get_text()
-                        ind1 = soup.select(tag_id)[0].get_text()
-                        description = f"{cdescription}, {c1description}, {vdescription}"
-                        ticker = f"IBGE.{t}/p/all/v/{vnumber}/c{classe}/{ind}/c{classe1}/{ind1}"
-                        series.append([ticker, description, "IBGE", data[t]["s"], "SERIES-TEMPORAIS"]) #, description, "Brasil", "IBGE"])
-                else:
-                    series.append([ticker, description, "IBGE", data[t]["s"], "SERIES-TEMPORAIS"]) #, description, "Brasil", "IBGE"])
-        else:
-            ticker = f"IBGE.{t}/p/all/v/{vnumber}"
-            description = f"{vdescription}"
-            series.append([ticker, description, "IBGE", data[t]["s"], "SERIES-TEMPORAIS"])
-        
-print(f"done fetching {len(series)} series information!")        
+def _build_url(input:dict) -> str:
+    """
+    Build the relevante url    
+    """
+    params = _form_params(input)
+    return URL + params + "/d/2/n1/1"
 
 
-[add_series(*s) for s in series]
+def _aux_fetch_info(tbl: dict, session: requests.sessions.Session) -> List[Tuple[Series]]:
+    """
+    Fetch info from a IBGE's table and build tickers, info, etc 
+    into a series
+    """
+    url = _build_url(tbl)
+    resp = requests.get(url)
+    # process resposes
+    ls = resp.json()[1:]
+    tck = (resp.url).split("t/")[1]
+    survey = tbl['s'] 
+    ch = 'D3C' if len(tbl) > 4 else 'D2C'
+    srs = []
+    for l in ls:
+        cn = f"{l['D2N']}, {l['D1N']}, Brasil" if ch == 'DC2' else f"{l['D2N']},{l['D3N']} {l['D1N']}, Brasil"
+        srs.append(Series(**{'series_id': f"IBGE.{tck.replace('all', l[ch])}" if 'all' in tck else f"IBGE.{tck}",
+                            'description': cn, 'survey_id': survey}))
+    return srs
 
-# with ThreadPoolExecutor() as executor:
-#     executor.map(lambda s: add_series(*s), series)
-    
-print("series added to database")    
+
+def fetch_info(tbls: List[dict]) -> List[Tuple[Series]]:
+    """
+    Fetch info from a IBGE's table and build tickers, info, etc 
+    into a series
+    """
+    with requests.session() as session:
+        with executor() as e:
+            srs = list(e.map(lambda t: _aux_fetch_info(t, session), tbls))
+    return reduce(lambda x, y: x + y, srs)

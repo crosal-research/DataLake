@@ -1,4 +1,5 @@
 # import from system
+from typing import List
 from concurrent.futures import ThreadPoolExecutor as executor
 import re
 import json, time
@@ -10,56 +11,49 @@ import numpy as np
 import pendulum
 
 #import from app
-from DB.transactions import add_batch_obs
+from DBtransactions.DBtypes import Observation
 
 def _build_url(tck:str, limit=None) -> str:
     """
     builids the write url string to fetch observations, according to
     ibge's ipea. 
     """
-    tck_new = tck.split(".")[1]
+    new_tck = tck.split(".")[1]
     if not limit:
-        return f"http://api.sidra.ibge.gov.br/values/t/{tck_new}/n1/1/f/a"
-    return f"http://api.sidra.ibge.gov.br/values/t/{tck_new}/p/last {limit}/n1/1/f/a"
+        return f"http://api.sidra.ibge.gov.br/values/t/{new_tck}/p/all"
+    return f"http://api.sidra.ibge.gov.br/values/t/{new_tck}/p/last {limit}"
 
-def _process(resp: requests.models.Response)->pd.DataFrame:
+
+def _process(resp: requests.models.Response)-> List[Observation]:
     """
     Handles the sucessful response to a request to the ibge api.
     Return a Dataframe per respoonse
     """
-    try:
-        table = (re.compile("\d+")).findall(resp.url)[0]
-        df = pd.DataFrame(json.loads((resp.content).decode())[1:]).loc[:,["D1C", "V"]].set_index("D1C")
-        df.index = pd.to_datetime(df.index, format="%Y%m")
-        periods = len(np.unique(df.index.month))
-        if table in ["1620", "1621", "1846"]:
-            di = pd.period_range(df.index[0], periods=len(df), freq='Q')
-            df.index = di.to_timestamp()
-        else:
-            di = pd.period_range(df.index[0], periods=len(df), freq='M')
-            df.index = di.to_timestamp()
-        df.index.name = 'date'
-        df = df.replace(to_replace="^[\.|-]", regex=True, value=pd.NA).dropna()
-        return df.applymap(lambda v: float(v))
-    except:
-        print(resp.url)
+    global ls, tbl, ticker, dt, c 
+    tbl = (re.compile("\d+")).findall(resp.url)[0]
+    ticker = "IBGE." + ((resp.url).split("t/")[1]).split("/p")[0]
+    ls = resp.json()
+    c = [k for k in ls[0] if (("Mês" in ls[0][k]) or ("Trimestre" in ls[0][k]))][0]
+    dt = "m" if "Mês" in ls[0][c] else "T"
+    if dt == 'm':
+        return [Observation(**{'dat': pendulum.from_format(l[c], "YYYYMM").to_date_string(), 
+                               'valor': l["V"], 
+                               'series_id': ticker}) for l in ls[1:] if l["V"] != '-']
+    return [(Observation(**{'dat': pendulum.from_format(l[c][:4] + str(l[c][4:6][1]), "YYYYQ").to_date_string(), 
+                           'valor': l["V"], 
+                            'series_id': ticker}), print(l[c])) for l in ls[1:] if l["V"] != '-']
 
 
-def fetch(tickers:list, limit=None) -> None:
+def fetch(tickers:List[str], limit=None) -> List[List[Observation]]:
     """
     Fetch the observations for tickers list of ibge's series.
     Limit defines the last n-limit observations to be fetched, where 
-    None means all observations.
+    Return a list of list of Observations, each of one of them representing
+    the observations pertaining to a series
     """
-    urls = [_build_url(tck) for tck in tickers]
+    urls = [_build_url(tck, limit=limit) for tck in tickers]
     with requests.session() as session:
         with executor() as e:
             dfs = list(e.map(lambda url: _process(session.get(url)), urls))
+    return dfs
 
-    def _upsert_obs(z):
-        try:
-            add_batch_obs(*z)
-        except:
-            print(f"{z[0]} resulted in a empty dataframe")
-    [_upsert_obs(dz) for dz in zip(tickers, dfs)]
-##############################MAIN##############################

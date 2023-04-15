@@ -43,16 +43,17 @@ COMMIT;
 
 --Insert Surveys
 BEGIN TRANSACTION;
+
 INSERT INTO Survey (survey_id, description, source_id)
-      VALUES ('IBGE_PRODINDBR', 'Producao Industrial, Brasil', 'IBGE');
+      VALUES ('IBGE_PIM', 'PESQUISA INDUSTRIAL MENSAL, Brasil', 'IBGE');
 INSERT INTO Survey (survey_id, description, source_id)
-      VALUES ('IBGE_VAREJOBR', 'Vendas no Varejo, Brasil', 'IBGE');
+      VALUES ('IBGE_PMC', 'PESQUISA MENSAL DE COMERCIO, BRASIL', 'IBGE');
 INSERT INTO Survey (survey_id, description, source_id)
-      VALUES ('IBGE_IPCA15', 'INDICE DE PRECOS AMPLIADO-15, Brasil', 'IBGE');
-INSERT INTO Survey (survey_id, description, source_id)      
-      VALUES ('IBGE_IPCA', 'INDICE DE PRECOS AMPLIADO, Brasil', 'IBGE');      
+      VALUES ('IBGE_PMS', 'PESQUISA MENSAL DE SERVICO, BRASIL', 'IBGE');      
 INSERT INTO Survey (survey_id, description, source_id)
-      VALUES ('PNAD', 'Pesquisa Nacional de Amostra Domiliar Continuada, Brasil', 'IBGE');
+      VALUES ('IBGE_CN', 'CONTAS NACIONAIS TRIMESTRAIS, BRASIL', 'IBGE');
+INSERT INTO Survey (survey_id, description, source_id)
+      VALUES ('IBGE_PNAD', 'Pesquisa Nacional de Amostra Domiliar Continuada, Brasil', 'IBGE');                        
 INSERT INTO Survey (survey_id, description, source_id)
       VALUES ('FRED_ECON', 'DADOS ECONÔMICOS DISPONIBILIZADOS PELO FRED', 'FRED');
 INSERT INTO Survey (survey_id, description, source_id)
@@ -96,7 +97,7 @@ INSERT INTO Series (series_id, description, survey_id)
       VALUES ('FRED.CPILFESL', 'NUCLEO DO INDICE DE PREÇOS AO CONSUMIDOR DOS E.U.A (CPI) POR EXCLUSAO DE ALIMENTOS E ENERGIA', 'FRED_ECON');
 INSERT INTO Series (series_id, description, survey_id)
       VALUES ('FRED.CPIAUCSL', 'INDICE DE PREÇOS AO CONSUMIDOR DOS E.U.A (CPI)', 'FRED_ECON');
-INSERT INTO Series (series_id, description, survey_id)
+INSERT INTO Series (series_id, description, survey_id)n
       VALUES ('FRED.PAYEMS', 'TOTAL DE EMPREGOS CRIADOS NOS E.U.A. EXCLUIDO O SETOR AGRĨCOLA (NONFARM PAYROLL)', 'FRED_ECON');
 INSERT INTO Series (series_id, description, survey_id)
       VALUES ('FRED.INDPRO', 'PRODUCAO INDUSTRIAL DOS E.U.A. COM AJUSTE SAZONAL', 'FRED_ECON');
