@@ -1,6 +1,5 @@
 # import from system
 from typing import List
-
 # import from packages
 import pandas as pd
 
@@ -9,11 +8,13 @@ from DBtransactions.DBtypes import Observation
 from DBtransactions.loaders.fred import fred_obs
 from DBtransactions.loaders.bls import bls_obs
 from DBtransactions.loaders.ipea import ipea_obs
+from DBtransactions.loaders.ibge import ibge_obs
 
 
 fetchers = {"FRED":fred_obs.fetch, 
             "BLS": bls_obs.fetch, 
-            "IPEA":ipea_obs.fetch }
+            "IPEA":ipea_obs.fetch, 
+            "IBGE":ibge_obs.fetch}
 
 def fetch(tickers:[List[str]]) -> List[List[Observation]]:
     """
