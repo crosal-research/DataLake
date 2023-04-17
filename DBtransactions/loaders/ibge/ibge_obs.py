@@ -33,15 +33,15 @@ def _process(resp: requests.models.Response)-> List[Observation]:
     ticker = "IBGE." + ((resp.url).split("t/")[1]).split("/p")[0]
     ls = resp.json()
     c = [k for k in ls[0] if (("Mês" in ls[0][k]) or ("Trimestre" in ls[0][k]))][0]
-    dt = "m" if "Mês" in ls[0][c] else "T"
-    if dt == 'm':
+    dt = "T" if ls[0][c] == "Trimestre (Código)" else "M"
+    if dt == 'M':
         return [Observation(**{'dat': pendulum.from_format(l[c], "YYYYMM").to_date_string(), 
                                'valor': l["V"], 
-                               'series_id': ticker}) for l in ls[1:] if l["V"] != '-']
+                               'series_id': ticker}) for l in ls[1:] if re.match("\d+", l["V"]) is not None ]
 
-    return [(Observation(**{'dat': pendulum.from_format(l[c][:4] + str(l[c][4:6][1]), "YYYYQ").to_date_string(), 
+    return [Observation(**{'dat': pendulum.from_format(l[c][:4] + str(l[c][4:6][1]), "YYYYQ").to_date_string(), 
                            'valor': l["V"], 
-                            'series_id': ticker}), print(l[c])) for l in ls[1:] if l["V"] != '-']
+                           'series_id': ticker}) for l in ls[1:] if re.match("\d+", l["V"]) is not None]
 
 
 def fetch(tickers:List[str], limit=None) -> List[List[Observation]]:

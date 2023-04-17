@@ -51,6 +51,24 @@ TABLES = [
     {'t':'1621', 'v': 584, 'c11255': 'all','s': "IBGE_CN"}, # PIB volume setores sa
     {'t':'1846', 'v': 585, 'c11255': 'all','s': "IBGE_CN"}, # PIB precos correntes
     # mercado de trabalho
+    {'t':'6022', 'v': 606                  ,'s': "IBGE_PNAD"}, # Populacao
+    {'t':'6318', 'v': 1641, 'c629':   'all','s': "IBGE_PNAD"}, # Forca de trabalho e status laboral
+    {'t':'6320', 'v': 4090, 'c11913': 'all','s': "IBGE_PNAD"}, # Por tipo de vinculo empregaticio
+    {'t':'6387', 'v': 5935                ,'s': "IBGE_PNAD"},   # Rendimento médio
+    {'t':'6388', 'v': 5934                ,'s': "IBGE_PNAD"},   # Rendimento real médio
+    {'t':'6389', 'v': 5932, 'c11913': 'all','s': "IBGE_PNAD"},   # Rendimento real médio por tipo de vínculo
+    {'t':'6389', 'v': 5932, 'c11913': 'all','s': "IBGE_PNAD"},   # Rendimento real médio por tipo de vínculo
+    {'t':'6390', 'v': 5933                 ,'s': "IBGE_PNAD"},   # Rendimento real médio de todos os trabalhadores
+    {'t':'6390', 'v': 5929                 ,'s': "IBGE_PNAD"},   # Rendimento nominal médio de todos os trabalhadores
+    {'t':'6391', 'v': 5932                 ,'s': "IBGE_PNAD"},   # Rendimento real médio do trabalho principal
+    {'t':'6392', 'v': 6293                 ,'s': "IBGE_PNAD"},   # massa real de todos os trabalhdores
+    {'t':'6392', 'v': 6288                 ,'s': "IBGE_PNAD"},   # mass moninal de todos os trabalhdores
+    {'t':'6393', 'v': 6295                 ,'s': "IBGE_PNAD"},   # massa real de todos os trabalhdores effetiva
+    {'t':'6393', 'v': 6291                 ,'s': "IBGE_PNAD"},   # massa nominal de todos os trabalhdores effetiva
+    {'t':'6438', 'v': 1641,'c604': 'all'   ,'s': "IBGE_PNAD"},   # força de trabalho por tipo de subutilizacao
+    {'t':'6439', 'v': 4114                 ,'s': "IBGE_PNAD"},   # força de trabalho sub-utilizada por horas trabalhadas
+    {'t':'6440', 'v': 4116                 ,'s': "IBGE_PNAD"},   # força de trabalho desocupda e potencial
+    {'t':'6441', 'v': 4118                 ,'s': "IBGE_PNAD"},   # força de trabalho desocupda e potencial (%)
 ]     
 
 URL = "https://apisidra.ibge.gov.br/values/"
