@@ -33,6 +33,9 @@ def fetch_infos(source:Optional[str]=None,
             srs = dispatcher[source](bls_fetch_info.path_to_file)
         elif source == "BIS":
             srs = dispatcher[source](bis_fetch_info.ticker_bis)
+        else: #FRED
+            srs = dispatcher[source](fred_fetch_info.INFO_FRED)
+            
         return srs
     elif survey:
         if "BIS" in survey:
