@@ -25,7 +25,8 @@ class Observations:
         tp = req.get_param('type', required=False)
         resp.status = falcon.HTTP_200
         if tcks:
-            df = observation.query_obs([t.upper() for t in tcks])
+            utickers = [t.upper() for t in tcks]
+            df = observation.query_obs(utickers)
             output = io.StringIO()
             if tp == 'json':
                 df.to_json(output)

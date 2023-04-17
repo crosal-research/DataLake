@@ -20,8 +20,8 @@ def _build_url(tck:str, limit=None) -> str:
     """
     new_tck = tck.split(".")[1]
     if not limit:
-        return f"http://api.sidra.ibge.gov.br/values/t/{new_tck}/p/all"
-    return f"http://api.sidra.ibge.gov.br/values/t/{new_tck}/p/last {limit}"
+        return f"http://api.sidra.ibge.gov.br/values/t/{new_tck}/p/all/d/2/n1/1"
+    return f"http://api.sidra.ibge.gov.br/values/t/{new_tck}/p/last {limit}/d2/n1/1"
 
 
 def _process(resp: requests.models.Response)-> List[Observation]:
@@ -29,7 +29,6 @@ def _process(resp: requests.models.Response)-> List[Observation]:
     Handles the sucessful response to a request to the ibge api.
     Return a Dataframe per respoonse
     """
-    global ls, tbl, ticker, dt, c 
     tbl = (re.compile("\d+")).findall(resp.url)[0]
     ticker = "IBGE." + ((resp.url).split("t/")[1]).split("/p")[0]
     ls = resp.json()
@@ -39,6 +38,7 @@ def _process(resp: requests.models.Response)-> List[Observation]:
         return [Observation(**{'dat': pendulum.from_format(l[c], "YYYYMM").to_date_string(), 
                                'valor': l["V"], 
                                'series_id': ticker}) for l in ls[1:] if l["V"] != '-']
+
     return [(Observation(**{'dat': pendulum.from_format(l[c][:4] + str(l[c][4:6][1]), "YYYYQ").to_date_string(), 
                            'valor': l["V"], 
                             'series_id': ticker}), print(l[c])) for l in ls[1:] if l["V"] != '-']
@@ -54,6 +54,6 @@ def fetch(tickers:List[str], limit=None) -> List[List[Observation]]:
     urls = [_build_url(tck, limit=limit) for tck in tickers]
     with requests.session() as session:
         with executor() as e:
-            dfs = list(e.map(lambda url: _process(session.get(url)), urls))
-    return dfs
+            ls = list(e.map(lambda url: _process(session.get(url)), urls))
+    return ls
 

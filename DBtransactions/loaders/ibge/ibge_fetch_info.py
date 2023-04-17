@@ -79,7 +79,7 @@ def _aux_fetch_info(tbl: dict, session: requests.sessions.Session) -> List[Tuple
     resp = requests.get(url)
     # process resposes
     ls = resp.json()[1:]
-    tck = (resp.url).split("t/")[1]
+    tck = ((resp.url).split("t/")[1]).split("/d")[0]
     survey = tbl['s'] 
     ch = 'D3C' if len(tbl) > 4 else 'D2C'
     srs = []

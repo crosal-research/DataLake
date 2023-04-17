@@ -30,7 +30,6 @@ def query_obs(tickers:List[str],
     """.format(seq=','.join([f"{Q}".upper()]*len(tickers)), limit=Q)
     ticks = (*tickers, limit)
 
-
     with connect() as conn:
         cur = _cursor(conn)
         q = cur.execute(string_sql, ticks)
@@ -50,7 +49,6 @@ def add_obs(tickers:Optional[List[str]]=None,
     series de um survey, de uma fonta ou de toda
     a base de dados
     """
-    
     string_sql = f"""
     insert into observation(dat, valor, series_id)
     values ({Q}, {Q}, {Q}) 

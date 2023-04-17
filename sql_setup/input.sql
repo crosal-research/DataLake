@@ -73,7 +73,7 @@ INSERT INTO Survey (survey_id, description, source_id)
 COMMIT;
 
 
---Isert Series
+--Insert Series
 BEGIN TRANSACTION;
 INSERT INTO Series (series_id, description, survey_id)
       VALUES ('FRED.UNRATE', 'TAXA DE DESEMPREGO DOS E.U.A.', 'FRED_ECON');

@@ -33,8 +33,12 @@ def add_series(source:Optional[str]=None,
         	  description=excluded.description,
         	  survey_id=excluded.survey_id;
         """
+    # def _upper(x,y,z):
+    #     return x.upper(), y.
+
     def _input(linfo: List[Series]) -> List[Tuple[str]]:
-        return [tuple(l.dict().values()) for l in linfo]
+        return [tuple(map(lambda x: x.upper(), l.dict().values()))
+                for l in linfo]
     
     if source is not  None:
         linfo = fetch_infos(source=source)
