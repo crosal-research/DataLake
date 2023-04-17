@@ -38,11 +38,13 @@ function load_db(){
 case $1 in
 
     "build") build_db | sqlite3 --batch
-		  ;;
+	     ;;
     "load") load_db | sqlite3 --batch
 	    ;;
     "run")  gunicorn app:app --reload
 	    ;;
+    "backup") sqlite3 ./DB/database.db -csv -header 'select * from series' > ./DB/series.csv
+	      ;;
     *) echo "Type either build, load or run"
 esac
 
