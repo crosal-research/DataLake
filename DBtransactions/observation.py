@@ -5,6 +5,7 @@ from typing import List, Tuple, Optional
 # inport  form packages
 import pandas as pd
 from dotenv import dotenv_values
+import pendulum
 
 # import from app
 from DBtransactions.helpers import _cursor, connect, _parser_to_input
@@ -91,3 +92,7 @@ def add_obs(tickers:Optional[List[str]]=None,
             mobs = [tuple(obs.dict().values()) 
                                    for obs in lobs]
             cur.executemany(string_sql, mobs)
+            dt = pendulum.now().format("YYYY-MM-DD HH:mm:ss")
+            exp = f"update series set last_update={Q} where series_id={Q}"
+            cur.execute(exp, (dt, mobs[0][2]))
+            
