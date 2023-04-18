@@ -74,6 +74,8 @@ CREATE TABLE IF NOT EXISTS Series (
        series_id TEXT NOT NULL,
        description TEXT NOT NULL,
        survey_id TEXT,
+       frequency TEXT,
+       last_update TEXT,
        PRIMARY KEY (series_id)
        FOREIGN KEY (survey_id) REFERENCES Survey (survey_id) ON DELETE CASCADE
 );
@@ -120,8 +122,8 @@ CREATE TABLE IF NOT EXISTS Observation (
 
 -- Creates table for series search
 -- see: https://sqlite.org/spellfix1.html
-DROP TABLE IF EXISTS Search;
-CREATE VIRTUAL TABLE IF NOT EXISTS Search USING fts5(ticker, description);
+-- DROP TABLE IF EXISTS Search;
+-- CREATE VIRTUAL TABLE IF NOT EXISTS Search USING fts5(ticker, description);
 
 
 -- create auxiliar table for the case of using fuzzy search

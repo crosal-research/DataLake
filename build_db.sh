@@ -4,7 +4,7 @@
 # script para montar base de dados
 # e carrega-la com dados básicos.
 # Funciona apenas para sqlite3
-# Ultima atualização: 21/03/2023
+# Ultima atualização: 18/04/2023
 ############################################################
 
 dir_name="$(dirname $realpath $0)"
@@ -31,6 +31,9 @@ function load_db(){
 	echo ".bail on"
 	echo ".open ./DB/database.db"
 	echo ".read ./sql_setup/input.sql"
+	echo ".mode csv"
+	echo ".import ./DB/series.csv series"
+	echo "delete from series where series_id = 'series_id'"
     fi
     exit 0
 }
@@ -45,7 +48,10 @@ case $1 in
 	    ;;
     "backup") sqlite3 ./DB/database.db -csv -header 'select * from series' > ./DB/series.csv
 	      ;;
-    *) echo "Type either build, load or run"
+    "help") echo "Type either build, load, run or backup "
+	    ;;
+    *) echo "Type help"
+       ;;
 esac
 
 exit 0
