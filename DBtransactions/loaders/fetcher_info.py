@@ -41,9 +41,11 @@ def fetch_infos(source:Optional[str]=None,
         return srs
     elif survey:
         if "BIS" in survey:
-            srs = dispatcher["BIS"](bis_fetch_info.ticker_bis)
+            srs = dispatcher["BIS"](bis_fetch_info.ticker_eer)
         elif "IBGE" in survey:
             srs = dispatcher["IBGE"]([tbl for tbl in ibge_fetch_info.TABLES if tbl['s'] == survey])
+        elif "FRED" in survey:
+            srs = dispatcher["FRED"]([info for info in fred_fetch_info.INFO_FRED if info[2] == survey])            
         else:
             pass
         return srs

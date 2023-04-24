@@ -20,5 +20,5 @@ def fetch_info(p:str) -> List[Series]:
     ds = pd.read_excel(p, sheet_name="Pub level",
                        usecols=[0, 1], skiprows=[0], skipfooter=3)
     return  [Series(**{'series_id': "BLS.CUSR0000" + i[0], 
-              'description': f"{i[1]}, U.S.A. Consumer Price Index (CPI)", 
-              'survey_id': "BLS_CPI"}) for i in ds.values]
+                       'description': f"{i[1]}, U.S.A. Consumer Price Index (CPI)", 
+                       'survey_id': "BLS_CPI", 'frequency': "MENSAL"}) for i in ds.values]

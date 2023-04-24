@@ -1,5 +1,7 @@
 #############################################
-# Data from http://www.ipeadata.gov.br/api/ 
+# Data from http://www.ipeadata.gov.br/api/
+# Estudar a possibilidade de incluir frequencia
+# através da api
 #############################################
 
 # import from system
@@ -423,6 +425,7 @@ def process(resp:requests.models.Response) ->  Series:
         d["series_id"] = f"IPEA.{d['SERCODIGO']}" 
         d["description"] = f"{d['SERNOME']}" + f", { d['PERNOME'] if d['PERNOME'].upper() else ''}"
         d["description"] = f"{d['description']}" + f", { d['FNTSIGLA'] if d['FNTSIGLA'].upper() else ''}"
+        d["frequency"] = d["PERNOME"].upper()
         d.pop('SERCODIGO')
         d.pop('SERNOME')
         d.pop('FNTSIGLA')

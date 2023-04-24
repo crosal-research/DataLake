@@ -75,7 +75,7 @@ Regions = {"DZ":"Algeria",
 # R: Real, EET_TYPE
 # B: Broad Basket
 
-__all__ = ["ticker_bis", "fetch_into"]
+__all__ = ["ticker_eer", "fetch_into"]
 
 ticker_eer = 'BIS_WS_EER_M'
 
@@ -83,7 +83,7 @@ def fetch_info(survey:str) -> Optional[List[Series]]:
     if survey == 'BIS_WS_EER_M':
         return [Series(**{'series_id': f"BIS.WS_EER_M/E.R.B.{r}", 
                  'description': f"Taxa de Cambio Real Efetiva, {Regions[r]}", 
-                 'survey_id': "BIS_WS_EER_M"}) for r in Regions]
+                          'survey_id': "BIS_WS_EER_M", 'frequency': "MENSAL"}) for r in Regions]
     else:
         return None
      

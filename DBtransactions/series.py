@@ -19,6 +19,8 @@ from DBtransactions.DBtypes import Series
 
 
 # Series
+# - Necessario mudar para possibilidade inserir
+# - frequencia
 def add_series(source:Optional[str]=None,
                survey: Optional[str]=None,
                tickers:List[Optional[str]]=None) -> None:
@@ -27,19 +29,22 @@ def add_series(source:Optional[str]=None,
     database
     """
     string_sql = f"""
-        insert into series(series_id, description, survey_id)
-           values({Q}, {Q}, {Q})
+        insert into series(series_id, description, survey_id, frequency, last_update)
+           values({Q}, {Q}, {Q}, {Q}, {Q})
            on conflict(series_id) do update set
         	  description=excluded.description,
-        	  survey_id=excluded.survey_id;
+        	  survey_id=excluded.survey_id,
+        	  frequency=excluded.frequency,
+        	  last_update=excluded.last_update;
         """
-    # def _upper(x,y,z):
-    #     return x.upper(), y.
 
     def _input(linfo: List[Series]) -> List[Tuple[str]]:
-        return [tuple(map(lambda x: x.upper(), l.dict().values()))
+        """
+        Helper function to raise letters to upper case
+        """
+        return [tuple(map(lambda x: x.upper() if x is not  None else None, l.dict().values()))
                 for l in linfo]
-    
+
     if source is not  None:
         linfo = fetch_infos(source=source)
     elif survey is not  None:

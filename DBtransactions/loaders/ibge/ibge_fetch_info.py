@@ -14,8 +14,6 @@ import requests
 from DBtransactions.DBtypes import Series
 
 
-#__all__ == ['TABLES', 'fetch_info']
-
 # IBGE's tables with relevant series
 TABLES = [
     # Producao Industrial
@@ -95,16 +93,35 @@ def _aux_fetch_info(tbl: dict, session: requests.sessions.Session) -> List[Tuple
     """
     url = _build_url(tbl)
     resp = requests.get(url)
-    # process resposes
-    ls = resp.json()[1:]
+    ls = resp.json()
     tck = ((resp.url).split("t/")[1]).split("/d")[0]
     survey = tbl['s'] 
     ch = 'D3C' if len(tbl) > 4 else 'D2C'
+    freq = ""
+    if len(tbl) > 4:
+        freq = ls[0]['D5C']
+    elif len(tbl) == 4:
+        freq  = ls[0]['D4C']
+    else:
+        freq = ls[0]['D3C']
+
+    def _freq(dat: str) -> str:
+        """
+        Helper para 
+        """
+        if 'Mês' in dat:
+            return "MENSAL"
+        elif "Trimestre" in dat:
+            return "TRIMESTRAL"
+        return "ANUAL"
+        
     srs = []
-    for l in ls:
+    for l in ls[1:]:
         cn = f"{l['D2N']}, {l['D1N']}, Brasil" if ch == 'DC2' else f"{l['D2N']},{l['D3N']} {l['D1N']}, Brasil"
         srs.append(Series(**{'series_id': f"IBGE.{tck.replace('all', l[ch])}" if 'all' in tck else f"IBGE.{tck}",
-                            'description': cn, 'survey_id': survey}))
+                            'description': cn, 
+                             'survey_id': survey, 
+                             'frequency': 'TRIMESTRAL' if survey == "IBGE_CN" else "MENSAL"}))
     return srs
 
 
