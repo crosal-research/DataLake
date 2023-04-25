@@ -1,5 +1,5 @@
 # import from system
-from typing import List
+from typing import List, Optional
 # import from packages
 import pandas as pd
 
@@ -9,14 +9,16 @@ from DBtransactions.loaders.fred import fred_obs
 from DBtransactions.loaders.bls import bls_obs
 from DBtransactions.loaders.ipea import ipea_obs
 from DBtransactions.loaders.ibge import ibge_obs
+from DBtransactions.loaders.bcb import bcb_obs
 
 
 fetchers = {"FRED":fred_obs.fetch, 
             "BLS": bls_obs.fetch, 
             "IPEA":ipea_obs.fetch, 
-            "IBGE":ibge_obs.fetch}
+            "IBGE":ibge_obs.fetch,
+            "BCB": bcb_obs.fetch }
 
-def fetch(tickers:[List[str]]) -> List[List[Observation]]:
+def fetch(tickers:[List[str]], limit:Optional[str]=None) -> List[List[Observation]]:
     """
     Funcao que agrega of fetchers the todas as fontes.
     Precisa organizar as lista de data frame de acorod

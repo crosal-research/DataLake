@@ -44,12 +44,14 @@ def query_obs(tickers:List[str],
 def add_obs(tickers:Optional[List[str]]=None, 
             survey:Optional[str]=None, 
             source:Optional[str]=None, 
-            db:Optional[str]=None):
+            db:Optional[str]=None) -> None:
     """
     Insere/substituin dados para list the series,
     series de um survey, de uma fonta ou de toda
     a base de dados
     """
+    global mobs, tcks, llobs
+
     string_sql = f"""
     insert into observation(dat, valor, series_id)
     values ({Q}, {Q}, {Q}) 
@@ -76,7 +78,6 @@ def add_obs(tickers:Optional[List[str]]=None,
         string_sql_aux = f"""
         select series_id from series
         """
-
     with connect() as conn:
         cur = _cursor(conn)
         if string_sql_aux:

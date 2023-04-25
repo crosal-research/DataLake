@@ -69,5 +69,13 @@ INSERT INTO Survey (survey_id, description, source_id)
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('IMF_PCPS', 'PRECO DE COMMODITIES PRIMARIAS', 'IMF');
 INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('BIS_WS_EER_M', 'TAXAS DE CAMBIOS REAL EFETIVOs', 'BIS');                                                         
-COMMIT;
+       VALUES ('BIS_WS_EER_M', 'TAXAS DE CAMBIOS REAL EFETIVOS', 'BIS');
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('BCB_ECON', 'SERIES ECONOMICAS DO BANCO CENTRAL DO BRASIL', 'BCB');                                                INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('BCB_MERCADO-ABERTO', 'SERIES FINANCEIRAS DISPONIBILIZADAS PELO BANCO CENTRAL DO BRASIL', 'BCB');                  
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('BCB_CREDITO', 'SERIES DO MERCADO DE CREDITO E POLITICA MONETARIA DISPONIBILIZADAS PELO BANCO CENTRAL DO BRASIL', 'BCB');
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('BCB_ESTAB', 'SERIES DE ESTABILIDADE FINANCEIRA DISPONIBILIZADAS PELO BANCO CENTRAL DO BRASIL', 'BCB');           INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('BCB_FISCAL', 'SERIES DE POLITICA FISCAL DISPONIBILIZADAS PELO BANCO CENTRAL DO BRASIL', 'BCB');                   INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('BCB_SE', 'SERIES DO SETOR EXTERNO DISPONIBILIZADAS PELO BANCO CENTRAL DO BRASIL', 'BCB');                        COMMIT;
