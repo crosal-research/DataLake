@@ -15,6 +15,7 @@ from DBtransactions.loaders.bls import bls_fetch_info
 from DBtransactions.loaders.bis import bis_fetch_info
 from DBtransactions.loaders.ibge import ibge_fetch_info
 from DBtransactions.loaders.bcb import bcb_fetch_info
+from DBtransactions.loaders.imf import imf_fetch_info
 
 
 dispatcher = {"FRED": fred_fetch_info.fetch_info,
@@ -22,7 +23,8 @@ dispatcher = {"FRED": fred_fetch_info.fetch_info,
               "BLS": bls_fetch_info.fetch_info,
               "BIS": bis_fetch_info.fetch_info,
               "IBGE": ibge_fetch_info.fetch_info, 
-              "BCB": bcb_fetch_info.fetch_info}
+              "BCB": bcb_fetch_info.fetch_info,
+              "IMF": imf_fetch_info.fetch_info}
 
 
 def fetch_infos(source:Optional[str]=None,
@@ -39,16 +41,21 @@ def fetch_infos(source:Optional[str]=None,
             srs = dispatcher[source](ibge_fetch_info.TABLES)
         elif source == "BCB":
             srs = dispatcher[source](bcb_fetch_info.pfile)
+        elif source == "IMF":
+            srs = dispatcher[source](list(imf_fetch_info.DSURVEYS))
         else: # FRED
             srs = dispatcher[source](fred_fetch_info.INFO_FRED)
         return srs
+    
     elif survey:
         if "BIS" in survey:
             srs = dispatcher["BIS"](bis_fetch_info.ticker_eer)
         elif "IBGE" in survey:
             srs = dispatcher["IBGE"]([tbl for tbl in ibge_fetch_info.TABLES if tbl['s'] == survey])
         elif "FRED" in survey:
-            srs = dispatcher["FRED"]([info for info in fred_fetch_info.INFO_FRED if info[2] == survey])            
+            srs = dispatcher["FRED"]([info for info in fred_fetch_info.INFO_FRED if info[2] == survey])
+        elif "IMF" in survey:
+            srs = dispatcher["IMF"]([imf_fetch_info.DSURVEYS[survey]])
         else:
             pass
         return srs
