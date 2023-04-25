@@ -50,7 +50,7 @@ def add_obs(tickers:Optional[List[str]]=None,
     series de um survey, de uma fonta ou de toda
     a base de dados
     """
-    global mobs, tcks, llobs
+    global mobs, tcks, llobs, lobs
 
     string_sql = f"""
     insert into observation(dat, valor, series_id)
@@ -90,10 +90,11 @@ def add_obs(tickers:Optional[List[str]]=None,
             tcks = [tck[0] for tck in c.fetchall()]
         llobs = fetch(tcks)
         for lobs in llobs:
-            mobs = [tuple(obs.dict().values()) 
-                                   for obs in lobs]
-            cur.executemany(string_sql, mobs)
-            dt = pendulum.now().format("YYYY-MM-DD HH:mm:ss")
-            exp = f"update series set last_update={Q} where series_id={Q}"
-            cur.execute(exp, (dt, mobs[0][2]))
+            if len(lobs) > 0:
+                mobs = [tuple(obs.dict().values()) 
+                        for obs in lobs]
+                cur.executemany(string_sql, mobs)
+                dt = pendulum.now().format("YYYY-MM-DD HH:mm:ss")
+                exp = f"update series set last_update={Q} where series_id={Q}"
+                cur.execute(exp, (dt, mobs[0][2]))
             

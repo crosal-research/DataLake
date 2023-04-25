@@ -86,7 +86,7 @@ def _build_url(input:dict) -> str:
     return URL + params + "/d/2/n1/1"
 
 
-def _aux_fetch_info(tbl: dict, session: requests.sessions.Session) -> List[Tuple[Series]]:
+def _aux_fetch_info(tbl: dict, session: requests.sessions.Session) -> List[Series]:
     """
     Fetch info from a IBGE's table and build tickers, info, etc 
     into a series
@@ -119,7 +119,7 @@ def _aux_fetch_info(tbl: dict, session: requests.sessions.Session) -> List[Tuple
     for l in ls[1:]:
         cn = f"{l['D2N']}, {l['D1N']}, Brasil" if ch == 'DC2' else f"{l['D2N']},{l['D3N']} {l['D1N']}, Brasil"
         srs.append(Series(**{'series_id': f"IBGE.{tck.replace('all', l[ch])}" if 'all' in tck else f"IBGE.{tck}",
-                            'description': cn, 
+                             'description': cn, 
                              'survey_id': survey, 
                              'frequency': 'TRIMESTRAL' if survey == "IBGE_CN" else "MENSAL"}))
     return srs
