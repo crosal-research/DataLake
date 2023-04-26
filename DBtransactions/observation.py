@@ -91,6 +91,7 @@ def add_obs(tickers:Optional[List[str]]=None,
         llobs = fetch(tcks)
         for lobs in llobs:
             if len(lobs) > 0:
+                print(lobs[0].series_id)
                 mobs = [tuple(obs.dict().values()) 
                         for obs in lobs]
                 cur.executemany(string_sql, mobs)
