@@ -81,6 +81,29 @@ CREATE TABLE IF NOT EXISTS Series (
 );
 
 
+/*
+Creates table Tracker
+that keep track of whenever a series'
+observations is selected
+*/
+CREATE TABLE IF NOT EXISTS Tracker (
+       series_id TEXT NOT NULL,
+       timeA TEXT NOT NULL,
+       PRIMARY KEY (series_id, timeA)
+       FOREIGN KEY (series_id) REFERENCES Series (series_id) ON DELETE CASCADE
+);
+
+/*
+View to retrived the weekly requests of each
+Series by users
+*/
+DROP VIEW IF EXISTS Weekly_Traker;
+CREATE VIEW Weekly_Traker AS
+Select series_id, count(*) as series_traker from tracker
+where timeA >= datetime('now', 'localtime', '-7 days') and timeA <= datetime('now', 'localtime')
+group by series_id order by series_traker desc;
+
+
 /* 
 Creates tabel for User tables
 Due to a many-to-may relationship
@@ -119,7 +142,6 @@ CREATE TABLE IF NOT EXISTS Observation (
 );
 
 
-
 -- Creates table for series search
 -- see: https://sqlite.org/spellfix1.html
 -- DROP TABLE IF EXISTS Search;
@@ -129,6 +151,3 @@ CREATE TABLE IF NOT EXISTS Observation (
 -- create auxiliar table for the case of using fuzzy search
 -- DROP TABLE IF EXISTS Search_aux;
 -- CREATE VIRTUAL TABLE IF NOT EXISTS Search_aux USING fts5vocab(Search);
-
-
-

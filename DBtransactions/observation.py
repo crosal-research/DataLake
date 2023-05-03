@@ -31,9 +31,15 @@ def query_obs(tickers:List[str],
     """.format(seq=','.join([f"{Q}".upper()]*len(tickers)), limit=Q)
     ticks = (*tickers, limit)
 
+    
     with connect() as conn:
+        dt = pendulum.now().format("YYYY-MM-DD HH:mm:ss")
+        input = [(tck, dt) for tck in tickers]
+        exp = f"insert into tracker(series_id, timeA) values({Q}, {Q})"
         cur = _cursor(conn)
+        cur.executemany(exp, input)
         q = cur.execute(string_sql, ticks)
+        
 
     df = pd.DataFrame(data=q.fetchall(), 
                       columns=["data", "valor", "tickers"])
@@ -91,7 +97,6 @@ def add_obs(tickers:Optional[List[str]]=None,
         llobs = fetch(tcks)
         for lobs in llobs:
             if len(lobs) > 0:
-                print(lobs[0].series_id)
                 mobs = [tuple(obs.dict().values()) 
                         for obs in lobs]
                 cur.executemany(string_sql, mobs)

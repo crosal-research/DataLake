@@ -46,7 +46,7 @@ case $1 in
 	    ;;
     "run")  gunicorn app:app --reload
 	    ;;
-    "backup") sqlite3 ./DB/database.db -csv -header 'select * from series' > ./DB/series.csv
+    "backup") sqlite3 ./DB/database.db -csv -header 'select series_id, description,  survey_id from series' > ./DB/series.csv
 	      ;;
     "help") echo "Type either build, load, run or backup "
 	    ;;

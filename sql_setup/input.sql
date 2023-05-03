@@ -79,3 +79,18 @@ INSERT INTO Survey (survey_id, description, source_id)
        VALUES ('BCB_ESTAB', 'SERIES DE ESTABILIDADE FINANCEIRA DISPONIBILIZADAS PELO BANCO CENTRAL DO BRASIL', 'BCB');           INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BCB_FISCAL', 'SERIES DE POLITICA FISCAL DISPONIBILIZADAS PELO BANCO CENTRAL DO BRASIL', 'BCB');                   INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BCB_SE', 'SERIES DO SETOR EXTERNO DISPONIBILIZADAS PELO BANCO CENTRAL DO BRASIL', 'BCB');                        COMMIT;
+
+
+/*
+* Insert tables
+*/
+-- BEGIN TRANSACTION;
+-- INSERT INTO Utable (utable_id, description, proprietario)
+--     VALUES ('TBL.ATIVIDADE_BRM', 
+--             'PRINCIPAIS INDICADORES MENSAIS DE ATIVIDADES BRSILEIRA', 
+--             'ADMIM');
+--     INSERT INTO series_utable ('utable_id', 'series_id')
+--     VALUES ('TBL.ATIVIDADE_BRM', );
+--     VALUES ('TBL.ATIVIDADE_BRM', );
+--     VALUES ('TBL.ATIVIDADE_BRM', );
+-- COMMIT;

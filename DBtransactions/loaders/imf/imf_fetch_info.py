@@ -16,7 +16,8 @@ import requests
 from DBtransactions.DBtypes import Series
 
 URL = "http://dataservices.imf.org/REST/SDMX_JSON.svc/DataStructure/"
-DSURVEYS = {"IMF_PCPS": "IMF_PCPS"}
+DSURVEYS = {"IMF_PCPS": "IMF_PCPS"} # commodities
+
 
 
 def _process(resp:requests.Response)-> Optional[List[Series]]:
@@ -35,17 +36,18 @@ def _process(resp:requests.Response)-> Optional[List[Series]]:
         name = rj['Name']['#text']
 
         survey = (resp.url).split("/")[-1]
-        if survey == 'PCPS':
+        if survey in ['PCPS']:
             freq = 'M'
             area = 'W00'
             level = "IX"
+        else:
+            freq = 'M'
         aux = [c['Code'] for c in cl if c["@id"] == f"CL_INDICATOR_{survey}"][0]
         info = [Series(**{
             'series_id': f"IMF.{survey}/{freq}.{area}.{c['@value']}.{level}", 
             'description': c["Description"]["#text"], 
             'survey_id': f"IMF_{survey}",
             'frequency': dfreq[freq]}) for c in aux if c['@value'] != "All_Indicators"]
-#            'frequency': dfreq[freq]}) for c in aux if c['@value'] != "All_Indicators"]
         return info
     return None
 
