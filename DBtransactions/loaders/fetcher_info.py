@@ -16,6 +16,7 @@ from DBtransactions.loaders.bis import bis_fetch_info
 from DBtransactions.loaders.ibge import ibge_fetch_info
 from DBtransactions.loaders.bcb import bcb_fetch_info
 from DBtransactions.loaders.imf import imf_fetch_info
+from DBtransactions.loaders.bcb_exp import bcb_exp_fetch_info
 
 
 dispatcher = {"FRED": fred_fetch_info.fetch_info,
@@ -24,7 +25,8 @@ dispatcher = {"FRED": fred_fetch_info.fetch_info,
               "BIS": bis_fetch_info.fetch_info,
               "IBGE": ibge_fetch_info.fetch_info, 
               "BCB": bcb_fetch_info.fetch_info,
-              "IMF": imf_fetch_info.fetch_info}
+              "IMF": imf_fetch_info.fetch_info,
+              "BCB_EXP": bcb_exp_fetch_info.fetch_info}
 
 
 def fetch_infos(source:Optional[str]=None,
@@ -56,6 +58,9 @@ def fetch_infos(source:Optional[str]=None,
             srs = dispatcher["FRED"]([info for info in fred_fetch_info.INFO_FRED if info[2] == survey])
         elif "IMF" in survey:
             srs = dispatcher["IMF"]([imf_fetch_info.DSURVEYS[survey]])
+        elif "BCB" in survey:
+            if "EXP" in survey:
+                srs = [s for s in dispatcher["BCB_EXP"]() if s.survey_id == survey]
         else:
             pass
         return srs
