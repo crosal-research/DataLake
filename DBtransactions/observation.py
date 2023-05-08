@@ -27,7 +27,6 @@ def query_obs(tickers:List[str],
     select dat, valor, series_id from observation
     where series_id in ({seq}) and dat >= {limit}
     order by dat asc
-    
     """.format(seq=','.join([f"{Q}".upper()]*len(tickers)), limit=Q)
     ticks = (*tickers, limit)
 

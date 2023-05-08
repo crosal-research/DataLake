@@ -33,7 +33,8 @@ def fetch(tickers: List[str],
     sources = {}
     for tck in tickers: # group ticker by source
         s = tck.split(".")[0]
-        if (s.upper() == "BCB") and ("EXP" in tck.upper()): # exceptions on the rule the before dot maps to fetchers
+        # exceptions on the rule the before dot maps to directly fetchers
+        if (s.upper() == "BCB") and ("EXP" in tck.upper()): 
                 s = "BCB_EXP"
         if s in sources:
             sources[s].append(tck)
