@@ -1,11 +1,11 @@
 ##################################################
-# Definie recurso para Observation
+# Define recurso para Observation
 # ultima modificação: 31/03/2023
 ##################################################
 
 
 # import from system
-import json, io
+import json, io, asyncio
 
 # import from packcages
 import falcon
@@ -19,14 +19,18 @@ class Observations:
     Classe para gerir recursos relacionados 
     as observacoes das series e tabelas
     """
-    def on_get(self, req, resp):
+    async def on_get(self, req, resp):
         """Handles GET requests"""
         tcks = req.get_param_as_list('ticker', required=False)
         tp = req.get_param('type', required=False)
         resp.status = falcon.HTTP_200
         if tcks:
             utickers = [t.upper() for t in tcks]
-            df = observation.query_obs(utickers)
+            try:
+                loop = asyncio.get_running_loop()
+                df = await loop.run_in_executor(None, observation.query_obs, utickers)
+            except Exception as e:
+                print(e)
             output = io.StringIO()
             if tp == 'json':
                 df.to_json(output)
@@ -35,36 +39,23 @@ class Observations:
             resp.text = output.getvalue()
 
 
-    def on_post(self, req, resp):
-        tcks= req.media.get('tickers')
-        tickers = tcks if isinstance(tcks, list) else [tcks]
-        survey = req.media.get('survey')
-        source = req.media.get('source')
-        table = req.media.get('table')
-        db = req.media.get('db')
+    async def on_post(self, req, resp):
+        obj =  await req.get_media()
         
-        if tickers[0]:
-            d = {'tickers': tickers}
-        elif survey:
-            d = {'survey': survey}
-        elif source:
-            d = {'source': source}
-        elif table:
-            d = {'table': table}
-        elif db:
-            d = {'db': db}
+        if set(obj.keys()).issubset(set(['db', 'source', 'survey', 'tickers'])):
+            loop = asyncio.get_running_loop()
+            def _aux_add_obs():
+                """
+                Help function to add observation
+                using run_in_executor function
+                """
+                observation.add_obs(**obj)
+                    
+            df = await loop.run_in_executor(None, _aux_add_obs)
+            resp.status = falcon.HTTP_201
+            obj['upsert'] = 'ok'
+            resp.text = json.dumps(obj)
         else:
             resp.status = falcon.HTTP_405
             resp.text = json.dumps({'message': 'request ill formed'})    
             return None
-
-#        try:
-        observation.add_obs(**d)
-        resp.status = falcon.HTTP_201
-        d['upsert'] = 'ok'
-        resp.text = json.dumps(d)
-        # except:
-        #     resp.status = falcon.HTTP_405
-        #     d['upsert'] = 'Fail'
-        #     resp.text = json.dumps(d)    
-

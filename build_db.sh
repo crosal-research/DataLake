@@ -44,7 +44,7 @@ case $1 in
 	     ;;
     "load") load_db | sqlite3 --batch
 	    ;;
-    "run")  gunicorn app:app --reload
+    "run")  uvicorn app:app --reload --loop asyncio
 	    ;;
     "backup") sqlite3 ./DB/database.db -csv -header 'select series_id, description,  survey_id from series' > ./DB/series.csv
 	      ;;

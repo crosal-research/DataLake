@@ -10,7 +10,7 @@ class Search:
     Classe para gerir recursos relacionados 
     a pesquisa de series na base de dados
     """
-    def on_get(self, req, resp):
+    async def on_get(self, req, resp):
         """Handles GET requests"""
         q = req.get_param('words', required=False)
         tp = req.get_param('type', required=False)

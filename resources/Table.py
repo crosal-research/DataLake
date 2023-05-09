@@ -19,7 +19,7 @@ class Table:
     Classe para gerir recursos relacionados 
     as Tabelas criadas por clientes
     """
-    def on_get(self, req, resp):
+    async def on_get(self, req, resp):
         """
         Extrain informações de tables
         """
@@ -34,35 +34,45 @@ class Table:
         falcon.HTTP_200
         resp.text = output.getvalue()
 
-    def on_post(self, req, reps):
+    async def on_post(self, req, reps):
         """
         Creates new table
         """
-        q = req.get_param('ticker')
-        d = req.get_param('description')
-        tickers = req.get_param_as_list(tickers)
+        obj = req.get_media()
+        if set(obj.keys()).issubset(set(['ticker', 'description', 'tickers'])):
+            q = obj.get('ticker')
+            d = obj.get('description')
+            tickers = obj.get('tickers')
 
-        if q and d:
-            if len(tickers) > 0:
-                table.add_table(q, d, tickers=tickers)
-            else:
-                table.add_table(q, d)
+            if q and d:
+                if len(tickers) > 0:
+                    table.add_table(q, d, tickers=tickers)
+                else:
+                    table.add_table(q, d)
+        else:
+            resp.status = falcon.HTTP_405
+            resp.text = json.dumps({'message': 'request ill formed'})
 
-    def on_put(self, rep, resp):
+    async def on_put(self, rep, resp):
         """
         Modifies existing table
         """
-        q = req.get_param('ticker')
-        d = req.get_param('description')
-        tickers = req.get_param_as_list(tickers)
+        obj = req.get_media()
+        if set(obj.keys()).issubset(set(['ticker', 'description', 'tickers'])):
+            q = obj.get('ticker')
+            d = obj.get('description')
+            tickers = obj.get(tickers)
 
-        if q and d:
-            if len(tickers) > 0:
-                table.add_table(q, d, tickers=tickers)
-            else:
-                table.add_table(q, d)
+            if q and d:
+                if len(tickers) > 0:
+                    table.add_table(q, d, tickers=tickers)
+                else:
+                    table.add_table(q, d)
+        else:
+            resp.status = falcon.HTTP_405
+            resp.text = json.dumps({'message': 'request ill formed'})
 
-    def on_delete(self, req, resp, ticker):
+    async def on_delete(self, req, resp, ticker):
         """
         Deletes existing table.
         """

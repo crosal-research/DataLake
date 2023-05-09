@@ -19,7 +19,7 @@ class Cliente:
     Classe para gerir recursos relacionados 
     as observacoes das series e tabelas
     """
-    def on_get(self, req, resp):
+    async def on_get(self, req, resp):
         """Extrai informacoes 
         the clientes contidos na base de dados
         """
@@ -32,7 +32,7 @@ class Cliente:
                 falcon.HTTP_2000
             except:
                 falcon.HTTP_405
-                print("Problem wiith query")
+                print("Problem with query")
             output = io.StringIO()
             if tp == 'json':
                 df.to_json(output)
@@ -41,14 +41,14 @@ class Cliente:
             resp.text = output.getvalue()
 
 
-    def on_post(self, req, resp):
+    async def on_post(self, req, resp):
         """
         Insere um novo cliente na base de dados.
         Requeste captura json com:
         {nome:nome, email:email, 
         senha: senha, conta_id: conta_id}
         """
-        d = req.media
+        obj = await req.get_media()
         clientes = [(d['nome'], 
                      d['email'], 
                      d['senha'], 
@@ -57,7 +57,7 @@ class Cliente:
         falcon.HTTP_200
 
 
-    def on_delete(self, rep, resp, email):
+    async def on_delete(self, rep, resp, email):
         """
         Remove clientes da base de dados indentificado
         pela chave primária email

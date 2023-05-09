@@ -1,10 +1,10 @@
 ##################################################
-# Definie recurso Series
+# Define recurso Series
 # ultima modificação: 31/03/2023
 ##################################################
 
 # import system
-import io, json
+import io, json, asyncio
 
 # import from packages
 import falcon
@@ -18,7 +18,7 @@ class Series:
     Classe para gerir recursos relacionados 
     a pesquisa de series na base de dados
     """
-    def on_get(self, req, resp):
+    async def on_get(self, req, resp):
         """ Retorna informacoes de series
         """
         q = req.get_param_as_list('series', required=False)
@@ -33,24 +33,34 @@ class Series:
                 df.to_csv(output)
             resp.text = output.getvalue()
 
-    def on_post(self, req, resp):
+    async def on_post(self, req, resp):
         """
         Insere serie na base de dados
         """
-        query = req.get_media()
+        query = await req.get_media()
         args = {k:query[k] if k in query else None for 
                 k in ('source', 'survey', 'tickers')}
+        loop = asyncio.get_running_loop()
 
-        series.add_series(**args)
+        def _aux_add_series():
+            """
+            Helper function to run add_series
+            within the event loop
+            """
+            series.add_series(**args)
+
+        await loop.run_in_executor(None, _aux_add_series)    
         try:
             falcon.HTTP_201
+            await asyncio.running_in_executor(None, _aux_add_series)
             resp.text = json.dumps({"status": True, "message": "Data upserted in the DB"})
         except:
             falcon.HTTP_405
             resp.text = json.dumps({"status": False, "message": "Data insertion failed"})
 
-    def on_delete(self, req, resp, ticker):
+    async def on_delete(self, req, resp, ticker):
         """
         Remove series da base de dados
         """
-        series.delete_series(ticker.split(","))
+        loop = asyncio.get_running_loop()
+        await loop.run_in_executor(None,series.delete_series,ticker.split(","))

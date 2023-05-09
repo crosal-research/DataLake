@@ -6,6 +6,7 @@
 
 # import app packages
 import falcon
+import falcon.asgi
 
 # import from app
 from resources.Observation import Observations
@@ -17,7 +18,7 @@ from resources.Table import Table
 from resources.Cliente import Cliente
 
 # Instanciates falscon.App classe
-app = falcon.App()
+app = falcon.asgi.App()
 
 #  Instnaciates resources to the app
 conta = Conta()
