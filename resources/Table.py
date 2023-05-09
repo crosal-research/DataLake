@@ -1,6 +1,6 @@
 ##################################################
 # Definie recurso para Table
-# ultima modificação: 31/03/2023
+# ultima modificação: 09/05/2023
 ##################################################
 
 
@@ -26,7 +26,8 @@ class Table:
         q = req.get_param_as_list('table')
         if q[0]:
             try:
-                df = table.query_table(q)
+                loop = asyncio.get_running_loop()
+                df = await loop.run_in_executor(None, table.query_table, q)                
                 output = io.StringIO()
                 df.to_csv(output)
             except:
@@ -45,13 +46,18 @@ class Table:
             tickers = obj.get('tickers')
 
             if q and d:
+                loop = asyncio.get_running_loop()
                 if len(tickers) > 0:
-                    table.add_table(q, d, tickers=tickers)
+                    def _aux_add_table():
+                        table.add_table(q, d, tickers=tickers)
+                    await loop.run_in_executor(None, _aux_add_table)
+
                 else:
-                    table.add_table(q, d)
+                    await loop.run_in_execturo(None, table.add_table, (q, d))
         else:
             resp.status = falcon.HTTP_405
             resp.text = json.dumps({'message': 'request ill formed'})
+
 
     async def on_put(self, rep, resp):
         """
@@ -65,9 +71,11 @@ class Table:
 
             if q and d:
                 if len(tickers) > 0:
-                    table.add_table(q, d, tickers=tickers)
+                    def _aux_add_table():
+                        table.add_table(q, d, tickers=tickers)
+                    await loop.run_in_executor(None, _aux_add_table)
                 else:
-                    table.add_table(q, d)
+                    await loop.run_in_execturo(None, table.add_table, (q, d))
         else:
             resp.status = falcon.HTTP_405
             resp.text = json.dumps({'message': 'request ill formed'})
@@ -78,7 +86,8 @@ class Table:
         """
         if ticker:
             try:
-                table.delete_table([ticker])
+                loop = asyncio.get_running_loop()
+                loop.run_in_executor(None, table.delete_table, [ticker])
                 falcon.HTTP_200
                 resp.text = json.dumps({"table": ticker, "deletion": 'ok'})
             except:

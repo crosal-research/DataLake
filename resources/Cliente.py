@@ -1,11 +1,10 @@
 ##################################################
 # Definie recurso Clientes
-# ultima modificação: 31/03/2023
+# ultima modificação: 09/05/2023
 ##################################################
 
-
 # import from system
-import json, io
+import json, io, asyncio
 
 # import from packcages
 import falcon
@@ -28,7 +27,8 @@ class Cliente:
 
         if e:
             try:
-                df = cliente.query_cliente(e)
+                loop = asyncio.get_running_loop()
+                df = await loop.run_in_executor(None,cliente.query_cliente, e)
                 falcon.HTTP_2000
             except:
                 falcon.HTTP_405
@@ -52,8 +52,9 @@ class Cliente:
         clientes = [(d['nome'], 
                      d['email'], 
                      d['senha'], 
-                     d['conta_id'])] 
-        cliente.add_cliente(clientes)
+                     d['conta_id'])]
+        loop = asyncio.get_running_loop()
+        await loop.run_in_executor(None, cliente.add_cliente, clientes)
         falcon.HTTP_200
 
 
@@ -64,5 +65,7 @@ class Cliente:
         """
         clientes = email
         if clientes:
-            cliente.delete_clientes([clientes])
+            loop = asyncio.get_running_loop()
+            await loop.run_in_executor(None, cliente.delete_clientes, [clientes])
+
             
