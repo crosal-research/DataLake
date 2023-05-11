@@ -2,7 +2,6 @@ pandas
 python-dotenv
 requests
 falcon
-gunicorn
 uvicorn
 openpyxl
 pendulum
