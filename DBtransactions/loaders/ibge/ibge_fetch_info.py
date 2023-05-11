@@ -23,27 +23,17 @@ TABLES = [
     {'t':'8888', 'v': 12606, 'c544': 'all', 's': "IBGE_PIM"},  # Produção Industrial por secoes e atividades
     {'t':'8888', 'v': 12607, 'c544': 'all', 's': "IBGE_PIM"},  # Produção Industrial por secoes e atividades,sa
     # Varejo                                                           
-    {'t':'8757', 'v': 7169, 'c11046': 56732, 's': "IBGE_PMC"}, # material de construcao sa
-    {'t':'8757', 'v': 7170, 'c11046': 56732, 's': "IBGE_PMC"}, # material de construcao 
     {'t':'8880', 'v': 7169, 'c11046': 56734, 's': "IBGE_PMC"}, # Comercio varejista
     {'t':'8880', 'v': 7170, 'c11046': 56734, 's': "IBGE_PMC"}, # comercio varejista sa 
     {'t':'8881', 'v': 7169, 'c11046': 56736, 's': "IBGE_PMC"}, # comercio varejista ampliado
     {'t':'8881', 'v': 7170, 'c11046': 56736, 's': "IBGE_PMC"}, # comercio varejista ambiliado sa 
-    {'t':'8882', 'v': 7169, 'c11046': 56734, 'c85': 'all', 's': "IBGE_PMC"}, # comercio varejista por atividades
-    {'t':'8882', 'v': 7170, 'c11046': 56736, 'c85': 'all', 's': "IBGE_PMC"}, # comercio varejista por atividades sa
-    {'t':'8883', 'v': 7169, 'c11046': 56734, 'c85': 'all', 's': "IBGE_PMC"}, # comercio varejista ampliado por atividades
+    {'t':'8883', 'v': 7169, 'c11046': 56736, 'c85': 'all', 's': "IBGE_PMC"}, # comercio varejista ampliado por atividades
     {'t':'8883', 'v': 7170, 'c11046': 56736, 'c85': 'all', 's': "IBGE_PMC"}, # comercio varejista ampliado por atividades sa
     {'t':'8884', 'v': 7169, 'c11046': 56738, 's': "IBGE_PMC"}, # motos, auto e peças
     {'t':'8884', 'v': 7170, 'c11046': 56738, 's': "IBGE_PMC"}, # motos, atuo e peças  sa
     # servicos
-    {'t':'8161', 'v': 11621, 'c11046': 56736, 's': "IBGE_PMS"}, # volume de serviços
-    {'t':'8161', 'v': 11622, 'c11046': 56736, 's': "IBGE_PMS"}, # volume de serviços sa
-    {'t':'8162', 'v': 11621, 'c11046': 56736, 'c12355': 'all', 's': "IBGE_PMS"}, # volume de serviços, por atividades
-    {'t':'8162', 'v': 11622, 'c11046': 56736, 'c12355': 'all', 's': "IBGE_PMS"}, # volume de serviços, por atividas sa
-    {'t':'8165', 'v': 11621, 'c11046': 56728, 's': "IBGE_PMS"}, # volume de serviços, turismos
-    {'t':'8165', 'v': 11622, 'c11046': 56728, 's': "IBGE_PMS"}, # volume de serviços turismo sa
-    {'t':'8166', 'v': 11621, 'c11046': 56726, 'c12355': 'all' ,'s': "IBGE_PMS"}, # volume de serviços, transportes
-    {'t':'8166', 'v': 11622, 'c11046': 56726, 'c12355': 'all', 's': "IBGE_PMS"}, # volume de serviços  trnsportes sa
+    {'t':'8688', 'v': 7167, 'c11046': 56726, 'c12355': 'all', 's': "IBGE_PMS"}, # volume de serviços  
+    {'t':'8688', 'v': 7168, 'c11046': 56726, 'c12355': 'all', 's': "IBGE_PMS"}, # volume de serviços  
     # contas nacionais
     {'t':'1620', 'v': 583, 'c11255': 'all','s': "IBGE_CN"}, # PIB volume setores
     {'t':'1621', 'v': 584, 'c11255': 'all','s': "IBGE_CN"}, # PIB volume setores sa
