@@ -13,16 +13,27 @@ from DBtransactions.helpers import Q
 from DBtransactions.loaders.fetcher_obs import fetch
 
 
-LDATE="1800" #limite inferior para datas na base de dados
+LDATE="1800-01-01" #limite inferior para datas na base de dados
 
 
-def query_obs(tickers:List[str], 
+def query_obs(tickers:List[str] = None, 
+              table:Optional[str]=None,
               limit:Optional[str]=LDATE) -> pd.DataFrame:
     """
     Extrai observations de um lista de séries indentificadas
     pela a lista de seus respectivos tickers, a parti de uma 
     data limite inferior
     """
+    if table:
+        string_sql_aux=f"""
+        select series_id from series_utable
+        where utable_id = {Q}
+        """
+        with connect() as conn:
+            cur = _cursor(conn)
+            q = cur.execute(string_sql_aux, (table,))
+            tickers = [srs[0] for srs in q.fetchall()]
+    
     string_sql="""
     select dat, valor, series_id from observation
     where series_id in ({seq}) and dat >= {limit}
@@ -30,7 +41,6 @@ def query_obs(tickers:List[str],
     """.format(seq=','.join([f"{Q}".upper()]*len(tickers)), limit=Q)
     ticks = (*tickers, limit)
 
-    
     with connect() as conn:
         dt = pendulum.now().format("YYYY-MM-DD HH:mm:ss")
         input = [(tck, dt) for tck in tickers]
@@ -38,7 +48,6 @@ def query_obs(tickers:List[str],
         cur = _cursor(conn)
         cur.executemany(exp, input)
         q = cur.execute(string_sql, ticks)
-        
 
     df = pd.DataFrame(data=q.fetchall(), 
                       columns=["data", "valor", "tickers"])
@@ -46,17 +55,16 @@ def query_obs(tickers:List[str],
     return df_new.loc[:, tickers]
     
 
-def add_obs(tickers:Optional[List[str]]=None, 
+def add_obs(tickers:Optional[List[str]]=None,
+            table: Optional[str]=None,
             survey:Optional[str]=None, 
             source:Optional[str]=None, 
             db:Optional[str]=None) -> None:
     """
-    Insere/substituin dados para list the series,
+    Insere/substitui dados para list the series,
     series de um survey, de uma fonta ou de toda
     a base de dados
     """
-    global mobs, tcks, llobs, lobs
-
     string_sql = f"""
     insert into observation(dat, valor, series_id)
     values ({Q}, {Q}, {Q}) 
@@ -65,7 +73,13 @@ def add_obs(tickers:Optional[List[str]]=None,
     """
     if tickers:
         string_sql_aux = ""
-        tcks = tickers
+        tcks = [tickers] if isinstance(tickers, str) else tickers
+    elif table:
+        print(table)
+        string_sql_aux = f"""
+        select series_id from series_utable
+        where utable_id = {Q}
+        """
     elif survey:
         string_sql_aux = f"""
         select series.series_id from survey
@@ -83,11 +97,14 @@ def add_obs(tickers:Optional[List[str]]=None,
         string_sql_aux = f"""
         select series_id from series
         """
+
     with connect() as conn:
         cur = _cursor(conn)
         if string_sql_aux:
             if survey:
                 c = cur.execute(string_sql_aux, (survey,))
+            elif table:
+                c = cur.execute(string_sql_aux, (table.upper(),))
             elif source:
                 c = cur.execute(string_sql_aux, (source,))
             else:

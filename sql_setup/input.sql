@@ -90,13 +90,15 @@ COMMIT;
 /*
 * Insert tables
 */
--- BEGIN TRANSACTION;
--- INSERT INTO Utable (utable_id, description, proprietario)
---     VALUES ('TBL.ATIVIDADE_BRM', 
---             'PRINCIPAIS INDICADORES MENSAIS DE ATIVIDADES BRSILEIRA', 
---             'ADMIM');
---     INSERT INTO series_utable ('utable_id', 'series_id')
---     VALUES ('TBL.ATIVIDADE_BRM', );
---     VALUES ('TBL.ATIVIDADE_BRM', );
---     VALUES ('TBL.ATIVIDADE_BRM', );
--- COMMIT;
+BEGIN TRANSACTION;
+INSERT INTO Utable (utable_id, description, proprietario)
+    VALUES ('TBL.ATIVIDADE_BRM', 
+            'PRINCIPAIS INDICADORES MENSAIS DE ATIVIDADES BRSILEIRA', 
+            'TI');
+INSERT INTO series_utable (utable_id, series_id)
+    VALUES 
+    ('TBL.ATIVIDADE_BRM', 'BCB.24364'), --IBC-BR
+    ('TBL.ATIVIDADE_BRM', 'IBGE.8881/V/7170/C11046/56736'), -- varejo ampliado
+    ('TBL.ATIVIDADE_BRM', 'IBGE.8888/V/12607/C544/129314'), -- PIM
+    ('TBL.ATIVIDADE_BRM', 'IBGE.8688/V/7168/C11046/56726/C12355/107071'); -- serviços
+COMMIT;

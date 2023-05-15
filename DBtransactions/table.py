@@ -60,10 +60,11 @@ def query_table(tickers:List[str]) -> pd.DataFrame:
     select * from uTable 
     where utable_id in ({sep})
     """.format(sep=','.join([f"{Q}".upper()]*len(tickers)))
+
     with connect() as conn:
         cur = _cursor(conn)
-        c = cur.execute(string_sql, tickers)
-            
+        c = cur.execute(string_sql, [tck.upper() for tck in tickers])
+
     return pd.DataFrame(data=c.fetchall(), 
                         columns=['nome', 'descricao', 'propriestario'])
 

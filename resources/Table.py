@@ -5,7 +5,7 @@
 
 
 # import form system
-import io, json
+import io, json, asyncio
 
 # import from packages
 import falcon
@@ -85,8 +85,8 @@ class Table:
         Deletes existing table.
         """
         if ticker:
+            loop = asyncio.get_running_loop()            
             try:
-                loop = asyncio.get_running_loop()
                 loop.run_in_executor(None, table.delete_table, [ticker])
                 falcon.HTTP_200
                 resp.text = json.dumps({"table": ticker, "deletion": 'ok'})

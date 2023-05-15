@@ -50,10 +50,9 @@ class Series:
             """
             series.add_series(**args)
 
-        await loop.run_in_executor(None, _aux_add_series)    
         try:
             falcon.HTTP_201
-            await asyncio.running_in_executor(None, _aux_add_series)
+            await loop.run_in_executor(None, _aux_add_series)
             resp.text = json.dumps({"status": True, "message": "Data upserted in the DB"})
         except:
             falcon.HTTP_405

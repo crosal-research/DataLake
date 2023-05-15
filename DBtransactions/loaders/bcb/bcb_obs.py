@@ -7,7 +7,7 @@ from datetime import datetime as dt
 # import from packages
 import requests
 import pandas as pd
-
+import pendulum
 
 #import from app
 from DBtransactions.DBtypes import Observation
@@ -36,8 +36,8 @@ def _process(resp:requests.models.Response) -> Optional[dict]:
             tck = str(int((resp.url).split("bcdata.sgs.")[1].split("/dados")[0]))
             obs = resp.json()
             return [Observation(**{'series_id': f"BCB.{tck}", 
-                     'dat': o['data'], 
-                     'valor': o['valor']}) for o in obs]
+                                   'dat': pendulum.from_format(o['data'], "DD/MM/YYYY").to_date_string(), 
+                                   'valor': o['valor']}) for o in obs]
         except:
             print(f"Could not process {resp.url}")
     else:

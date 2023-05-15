@@ -61,6 +61,7 @@ TABLES = [
 
 URL = "https://apisidra.ibge.gov.br/values/"
 
+
 def _form_params(d:dict) -> str:
     """
     from the params of the url from line in TABLES
