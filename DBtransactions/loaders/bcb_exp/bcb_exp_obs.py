@@ -66,7 +66,7 @@ def _process(resp:requests.models.Response) -> List[Dict]:
                 for d in rd['value'][0::4]]
 
 
-def fetch(tickers:List[str], limit:int=LIMIT) -> List[List[Dict]]:
+def fetch(tickers:List[str], limit:Optional[int]=LIMIT) -> List[List[Dict]]:
     """
     Feches list observations pertaining to a tickers. Length of the observations
     is given by limit

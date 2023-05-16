@@ -55,7 +55,8 @@ def _process(resp:requests.Response) -> List[Observation]:
 
 def fetch(tickers: List[str],
           ini: Optional[str]=None, 
-          end: Optional[str]=None) -> List[List[Observation]]:
+          end: Optional[str]=None, 
+          limit:Optional[int]=None) -> List[List[Observation]]:
     """
     Fetches, process and returns a list of dataframe with 
     observations fetched from IMf's api

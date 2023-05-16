@@ -73,7 +73,7 @@ def _fetch_aux(tickers:List[str], ini:int=INI,
 
 
 def fetch(tickers: List[str], ini: int=INI, 
-              end:int=END) -> List[List[Observation]]:
+              end:int=END, limit:Optional[str]=None) -> List[List[Observation]]:
     """
     List of tickers as input and return a consolidade 
     dataframe with all requests make in an async manner

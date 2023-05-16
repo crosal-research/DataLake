@@ -50,7 +50,7 @@ def _process(resp: requests.Response) -> pd.DataFrame:
 
 
 def fetch(tickers:List[str], 
-          ini:str=INI, end:str=None) -> List[pd.DataFrame]:
+          ini:str=INI, end:str=None, limit:Optional[int]=None) -> List[pd.DataFrame]:
     """
     Fetches observations for tickers from BIS api
     and return a List of DataFrames, each one with

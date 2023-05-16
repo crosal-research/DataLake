@@ -1,5 +1,5 @@
 # import from system
-from typing import List
+from typing import List, Optional
 from concurrent.futures import ThreadPoolExecutor as executor
 import re
 import json, time
@@ -44,7 +44,7 @@ def _process(resp: requests.models.Response)-> List[Observation]:
                            'series_id': ticker}) for l in ls[1:] if re.match("\d+", l["V"]) is not None]
 
 
-def fetch(tickers:List[str], limit=None) -> List[List[Observation]]:
+def fetch(tickers:List[str], limit:Optional[str]=None) -> List[List[Observation]]:
     """
     Fetch the observations for tickers list of ibge's series.
     Limit defines the last n-limit observations to be fetched, where 

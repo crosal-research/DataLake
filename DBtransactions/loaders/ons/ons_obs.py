@@ -37,7 +37,7 @@ def _process(resp:requests.Response) -> Optional[List[Observation]]:
              'valor': l[-1]}) for l in info[1:-1]]
 
 
-def fetch(tickers: List[str], limit=None) -> List[List[Observation]]:
+def fetch(tickers: List[str], limit:Optional[str]=None) -> List[List[Observation]]:
     """
     takes of list of ons tickers, and return a list of list of Observation,
     each one pertaining to a particular series

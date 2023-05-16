@@ -59,7 +59,8 @@ def add_obs(tickers:Optional[List[str]]=None,
             table: Optional[str]=None,
             survey:Optional[str]=None, 
             source:Optional[str]=None, 
-            db:Optional[str]=None) -> None:
+            db:Optional[str]=None, 
+            limit:Optional[int]=None) -> None:
     """
     Insere/substitui dados para list the series,
     series de um survey, de uma fonta ou de toda
@@ -75,7 +76,6 @@ def add_obs(tickers:Optional[List[str]]=None,
         string_sql_aux = ""
         tcks = [tickers] if isinstance(tickers, str) else tickers
     elif table:
-        print(table)
         string_sql_aux = f"""
         select series_id from series_utable
         where utable_id = {Q}
@@ -110,7 +110,7 @@ def add_obs(tickers:Optional[List[str]]=None,
             else:
                 c = cur.execute(string_sql_aux)
             tcks = [tck[0] for tck in c.fetchall()]
-        llobs = fetch(tcks)
+        llobs = fetch(tcks, limit=limit)
         for lobs in llobs:
             if len(lobs) > 0:
                 mobs = [tuple(obs.dict().values()) 
