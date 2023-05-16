@@ -12,6 +12,7 @@ from DBtransactions.loaders.ibge import ibge_obs
 from DBtransactions.loaders.bcb import bcb_obs
 from DBtransactions.loaders.imf import imf_obs
 from DBtransactions.loaders.bcb_exp import bcb_exp_obs
+from DBtransactions.loaders.ons import ons_obs
 
 
 fetchers = {"FRED":fred_obs.fetch, 
@@ -20,7 +21,9 @@ fetchers = {"FRED":fred_obs.fetch,
             "IBGE":ibge_obs.fetch,
             "BCB": bcb_obs.fetch, 
             "IMF": imf_obs.fetch,
-            "BCB_EXP": bcb_exp_obs.fetch }
+            "BCB_EXP": bcb_exp_obs.fetch, 
+            "ONS": ons_obs.fetch
+            }
 
 
 def fetch(tickers: List[str],
@@ -42,5 +45,5 @@ def fetch(tickers: List[str],
             sources[s] = [tck]
     llobs = []
     for s in sources:
-        llobs= llobs + fetchers[s](sources[s])
+            llobs= llobs + fetchers[s](sources[s])
     return llobs
