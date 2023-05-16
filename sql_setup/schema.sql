@@ -15,8 +15,9 @@ Creates table for contas
 */
 DROP TABLE IF EXISTS Conta; 
 CREATE TABLE IF NOT EXISTS Conta (
-       conta_id TEXT NOT NULL PRIMARY KEY,
-       nome TEXT NOT NULL
+       conta_id TEXT NOT NULL,
+       nome TEXT NOT NULL,
+       PRIMARY KEY (conta_id)
 );
 
 /*
@@ -76,6 +77,8 @@ CREATE TABLE IF NOT EXISTS Series (
        survey_id TEXT,
        frequency TEXT,
        last_update TEXT,
+       first_observation TEXT,
+       last_observation TEXT,
        PRIMARY KEY (series_id)
        FOREIGN KEY (survey_id) REFERENCES Survey (survey_id) ON DELETE CASCADE
 );

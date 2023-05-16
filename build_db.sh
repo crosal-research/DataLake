@@ -33,7 +33,7 @@ function load_db(){
 	echo ".read ./sql_setup/input.sql"
 	echo ".mode csv"
 	echo ".import ./DB/series.csv series"
-	echo "delete from series where series_id = 'series_id'"
+	echo ".read ./sql_setup/tables.sql"
     fi
     exit 0
 }
