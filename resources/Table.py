@@ -3,7 +3,6 @@
 # ultima modificação: 09/05/2023
 ##################################################
 
-
 # import form system
 import io, json, asyncio
 
@@ -68,7 +67,6 @@ class Table:
             q = obj.get('ticker')
             d = obj.get('description')
             tickers = obj.get(tickers)
-
             if q and d:
                 if len(tickers) > 0:
                     def _aux_add_table():
