@@ -18,7 +18,7 @@ LDATE="1800-01-01" #limite inferior para datas na base de dados
 
 def query_obs(tickers:List[str] = None, 
               table:Optional[str]=None,
-              limit:Optional[str]=LDATE) -> pd.DataFrame:
+              limit:Optional[str]=None) -> pd.DataFrame:
     """
     Extrai observations de um lista de séries indentificadas
     pela a lista de seus respectivos tickers, a parti de uma 
@@ -39,7 +39,8 @@ def query_obs(tickers:List[str] = None,
     where series_id in ({seq}) and dat >= {limit}
     order by dat asc
     """.format(seq=','.join([f"{Q}".upper()]*len(tickers)), limit=Q)
-    ticks = (*tickers, limit)
+    ticks = (*tickers, limit if limit else LDATE)
+    print(ticks)
 
     with connect() as conn:
         dt = pendulum.now().format("YYYY-MM-DD HH:mm:ss")
