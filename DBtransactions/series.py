@@ -34,8 +34,7 @@ def add_series(source:Optional[str]=None,
            on conflict(series_id) do update set
         	  description=excluded.description,
         	  survey_id=excluded.survey_id,
-        	  frequency=excluded.frequency,
-        	  last_update=excluded.last_update;
+        	  frequency=excluded.frequency;
         """
 
     def _input(linfo: List[Series]) -> List[Tuple[str]]:
