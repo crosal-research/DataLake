@@ -5,3 +5,4 @@ falcon
 uvicorn
 openpyxl
 pendulum
+xlrd
