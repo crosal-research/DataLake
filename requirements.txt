@@ -1,6 +1,8 @@
 pandas
 python-dotenv
 requests
+suds
+suds_requests
 falcon
 uvicorn
 openpyxl
