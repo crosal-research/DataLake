@@ -13,6 +13,7 @@ from DBtransactions.loaders.bcb import bcb_obs
 from DBtransactions.loaders.imf import imf_obs
 from DBtransactions.loaders.bcb_exp import bcb_exp_obs
 from DBtransactions.loaders.ons import ons_obs
+from DBtransactions.loaders.bis import bis_obs
 
 
 fetchers = {"FRED":fred_obs.fetch, 
@@ -22,7 +23,8 @@ fetchers = {"FRED":fred_obs.fetch,
             "BCB": bcb_obs.fetch, 
             "IMF": imf_obs.fetch,
             "BCB_EXP": bcb_exp_obs.fetch, 
-            "ONS": ons_obs.fetch
+            "ONS": ons_obs.fetch,
+            "BIS": bis_obs.fetch
             }
 
 

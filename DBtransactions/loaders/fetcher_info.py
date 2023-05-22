@@ -40,7 +40,7 @@ def fetch_infos(source:Optional[str]=None,
         elif source == "BLS":
             srs = dispatcher[source](bls_fetch_info.path_to_file)
         elif source == "BIS":
-            srs = dispatcher[source](bis_fetch_info.ticker_bis)
+            srs = dispatcher[source](bis_fetch_info.source)
         elif source == "IBGE":
             srs = dispatcher[source](ibge_fetch_info.TABLES)
         elif source == "BCB":
@@ -55,7 +55,7 @@ def fetch_infos(source:Optional[str]=None,
     
     elif survey:
         if "BIS" in survey:
-            srs = dispatcher["BIS"](bis_fetch_info.ticker_eer)
+            srs = dispatcher["BIS"](bis_fetch_info.surveys[survey])
         elif "IBGE" in survey:
             srs = dispatcher["IBGE"]([tbl for tbl in ibge_fetch_info.TABLES if tbl['s'] == survey])
         elif "FRED" in survey:
