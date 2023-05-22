@@ -1,8 +1,16 @@
 #import from system
-from typing import Optional, List
+from typing import Optional, List, Union
+from functools import reduce
 
 # import from app
 from DBtransactions.DBtypes import Series
+
+__all__ = ["fetch_into", "source", "surveys"]
+
+
+surveys = {'BIS_WS_EER_M': 'WS_EER_M'}
+source = list(surveys.keys())
+
 
 Regions = {"DZ":"Algeria",
            "AR":"Argentina",
@@ -75,17 +83,15 @@ Regions = {"DZ":"Algeria",
 # R: Real, EET_TYPE
 # B: Broad Basket
 
-__all__ = ["ticker_eer", "fetch_into"]
 
-ticker_eer = 'BIS_WS_EER_M'
-
-def fetch_info(survey:str) -> Optional[List[Series]]:
-    if survey == 'BIS_WS_EER_M':
-        return [Series(**{'series_id': f"BIS.WS_EER_M/E.R.B.{r}", 
-                 'description': f"Taxa de Cambio Real Efetiva, {Regions[r]}", 
-                          'survey_id': "BIS_WS_EER_M", 'frequency': "MENSAL"}) for r in Regions]
+def fetch_info(info: Union[str, list]) -> Optional[List[Series]]:
+    if isinstance(info, str):
+        if info == 'WS_EER_M':
+            return [Series(**{'series_id': f"BIS.{info}/M.R.B.{r}", 
+                              'description': f"Taxa de Cambio Real Efetiva, {Regions[r]}", 
+                              'survey_id': [k for k in surveys if surveys[k] == info][0] ,
+                              'frequency': "MENSAL"}) for r in Regions]
     else:
-        return None
-     
+        return reduce(lambda x, y: x + y, [fetch_info(s) for s in source])
         
 
