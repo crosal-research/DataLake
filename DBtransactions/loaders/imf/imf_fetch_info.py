@@ -1,5 +1,5 @@
 ##################################################
-# Construi informações para surveys do IMF
+# Constroi informações para surveys do IMF
 # 
 ##################################################
 

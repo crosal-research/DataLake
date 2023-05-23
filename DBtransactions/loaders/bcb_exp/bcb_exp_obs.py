@@ -45,14 +45,13 @@ def _process(resp:requests.models.Response) -> List[Dict]:
     Process response from BCB'api for expectations, return 
     a list with observations in the response
     """
-    global rd, url
     url = resp.url
     if "12Meses" in resp.url:
         ticker = "BCB.IPCAEXP_12M"
     else:    
         if "IPCA" in url:
             indicador = "IPCA"
-        elif "CAMBIO" in url:
+        elif "C%C3%A2mbio" in url:
             indicador = "CAMBIO"
         elif "PIB" in url:
             indicador = "PIB"

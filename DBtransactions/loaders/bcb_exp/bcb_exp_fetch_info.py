@@ -17,7 +17,7 @@ def fetch_info() -> List[Series]:
     series_list  = [[(f"bcb.ipcaexp_{ano}final".upper(), f" Expectativa Mediana de Mercado: IPCA (yoy%), final de {ano}, Brasil", "BCB_EXP_ANUAL"),
                      (f"bcb.pibexp_{ano}final".upper(), f"Expectativa Mediana de Mercado: PIB (yoy%), final de {ano}, Brasil", "BCB_EXP_ANUAL"),
                      (f"bcb.selicexp_{ano}final".upper(), f"Expectativa Mediana de Mercado: Meta Over-Selic (%), final de {ano}, Brasil", "BCB_EXP_ANUAL"),
-                     (F"bcb.cambioexp_{ano}final".upper(), f"Expectativa Mediana de Mercado: Taxa de Câmbio (R$/USD), final de {ano}, Brasil", "BCB_EXP_ANUAL")] 
+                     (f"bcb.cambioexp_{ano}final".upper(), f"Expectativa Mediana de Mercado: Taxa de Câmbio (R$/USD), final de {ano}, Brasil", "BCB_EXP_ANUAL")] 
                     for ano in anos]
 
     series = [{"series_id":item[0], 

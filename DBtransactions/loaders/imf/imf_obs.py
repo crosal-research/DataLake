@@ -11,8 +11,8 @@ import time
 
 # import form packages
 import requests
-import pandas as pd
-import numpy as np
+import pendulum
+
 
 # import from App
 from DBtransactions.DBtypes import Observation
@@ -47,7 +47,7 @@ def _process(resp:requests.Response) -> List[Observation]:
         data = resp.json()['CompactData']['DataSet']['Series']['Obs']
         ticker = (resp.url).split('CompactData/')[1]
         return [Observation(**{'series_id': "IMF." + ticker, 
-                            'dat': d['@TIME_PERIOD'], 
+                            'dat': pendulum.parse(d['@TIME_PERIOD']).to_date_string(), 
                             'valor': d['@OBS_VALUE']}) for d in data]
     else:
         print("Fail to reach IMF API")

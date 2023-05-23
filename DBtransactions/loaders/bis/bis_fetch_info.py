@@ -77,7 +77,7 @@ Regions = {"DZ":"Algeria",
            "US":"Estados Unidos da America (U.S.A.)", 
            "XM": "Zona do Euro"}
 
-#BIS Real Effective Exchange Rates Monthly
+# BIS Real Effective Exchange Rates Monthly
 # WS_EER_M: survey
 # M: frequency
 # R: Real, EET_TYPE
