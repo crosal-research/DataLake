@@ -26,7 +26,7 @@ class Series:
         resp.status = falcon.HTTP_200
         if q:
             loop = asyncio.get_running_loop()
-            df = await loop.run_in_executor(None,series.query_series,q)
+            df = await loop.run_in_executor(None, series.query_series,q)
             output = io.StringIO()
             if tp == 'json':
                 df.to_json(output)
