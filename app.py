@@ -19,7 +19,9 @@ from resources.Cliente import Cliente
 from resources.Survey import Survey
 
 # Instanciates falscon.App classe
-app = falcon.asgi.App()
+
+app = falcon.asgi.App(middleware=falcon.CORSMiddleware(
+    allow_origins='*', allow_credentials='*'))
 
 #  Instnaciates resources to the app
 conta = Conta()
