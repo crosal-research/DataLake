@@ -1,8 +1,7 @@
 ##################################################
 # Define recurso para Observation
-# ultima modificação: 31/03/2023
+# ultima modificação: 25/05/2023
 ##################################################
-
 
 # import from system
 import json, io, asyncio
@@ -27,7 +26,7 @@ class Observations:
         tp = req.get_param('type', required=False)
         resp.status = falcon.HTTP_200
         loop = asyncio.get_running_loop()
-
+        
         if tcks:
             utickers = [t.upper() for t in tcks]
         else:
@@ -43,10 +42,12 @@ class Observations:
             print(e)
         output = io.StringIO()
         if tp == 'json':
-            df.to_json(output)
+            result = [{'ticker': c,
+                       'observations': json.loads(df.loc[:, c].to_json())} for c in df.columns]
+            resp.text = json.dumps(result)
         else:
             df.to_csv(output)
-        resp.text = output.getvalue()
+            resp.text = output.getvalue()
 
 
     async def on_post(self, req, resp):
