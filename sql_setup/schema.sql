@@ -28,7 +28,8 @@ CREATE TABLE IF NOT EXISTS Cliente (
        nome TEXT NOT NULL,
        email TEXT NOT NULL PRIMARY KEY,
        senha TEXT NOT NULL,
-       conta_id TEXT DEFAULT 'G',
+       conta_id TEXT DEFAULT 'GUEST',
+       api_key TEXT NOT NULL,
        FOREIGN KEY (conta_id) REFERENCES Conta (conta_id) ON UPDATE CASCADE ON DELETE SET DEFAULT
 );
 
