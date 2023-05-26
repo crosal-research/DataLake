@@ -85,6 +85,7 @@ fonte_in =  ["MF-STN",
 
 remove = {"tickers":
           ['3',
+           '18', # Taxa média pós-fixada de depósitos a prazo (CDB/RDB) - Total
            '1175',
            '1177',
            '405', 
@@ -309,7 +310,17 @@ remove = {"tickers":
            '24393', 
            '14001', 
            '21559',
-           '27603']}
+           '27603',
+           '28183', # Saldo de crédito ampliado ao setor não financeiro - Total
+           '28184',  # 	Saldo de empréstimos e financiamentos ao setor não financeiro - total
+           '28185',  # 	Saldo de empréstimos e financiamentos do SFN ao setor não financeirol
+           '28204',    # Saldo de empréstimos e financiamentos a empresas e famílias - Total
+           '28203',    # Saldo de crédito ampliado concedido a empresas e famílias - Total
+           '28205',    # Saldo de empréstimos e financiamentos do SFN a empresas e famílias
+           '28859',    # Saldo de empréstimos e financiamentos a famílias - Total
+           '28858'    # Saldo de crédito ampliado concedido a famílias - Total
+]}
+
 
 def _cleasing(series: Optional[dict], freq:list) -> dict:
     """

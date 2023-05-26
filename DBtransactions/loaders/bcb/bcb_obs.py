@@ -31,19 +31,20 @@ def _process(resp:requests.models.Response) -> Optional[dict]:
     """
     handles the successful response to a request the bcb api
     """
+    global obs
     if resp.ok:
         try:
             tck = str(int((resp.url).split("bcdata.sgs.")[1].split("/dados")[0]))
             obs = resp.json()
             return [Observation(**{'series_id': f"BCB.{tck}", 
                                    'dat': pendulum.from_format(o['data'], "DD/MM/YYYY").to_date_string(), 
-                                   'valor': o['valor']}) for o in obs]
+                                   'valor': o['valor']}) for o in obs if o['valor']]
         except:
             print(f"Could not process {resp.url}")
     else:
         print("Failed request {resp.url}")
         return None
-        
+
 
 def fetch(tickers: List[str], limit: Optional[int]=None) -> List[Observation]:
     """
