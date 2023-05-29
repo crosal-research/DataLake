@@ -54,5 +54,4 @@ def fetch(tickers: List[str], limit: Optional[int]=None) -> List[Observation]:
     with requests.session() as session:
         with executor() as e:
             js = list(e.map(lambda url:_process(session.get(url)), list(urls)))
-
     return js
