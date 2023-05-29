@@ -14,6 +14,7 @@ from DBtransactions.loaders.imf import imf_obs
 from DBtransactions.loaders.bcb_exp import bcb_exp_obs
 from DBtransactions.loaders.ons import ons_obs
 from DBtransactions.loaders.bis import bis_obs
+from DBtransactions.loaders.bea import bea_obs
 
 
 fetchers = {"FRED":fred_obs.fetch, 
@@ -24,7 +25,8 @@ fetchers = {"FRED":fred_obs.fetch,
             "IMF": imf_obs.fetch,
             "BCB_EXP": bcb_exp_obs.fetch, 
             "ONS": ons_obs.fetch,
-            "BIS": bis_obs.fetch
+            "BIS": bis_obs.fetch,
+            "BEA": bea_obs.fetch
             }
 
 
@@ -38,7 +40,7 @@ def fetch(tickers: List[str],
     sources = {}
     for tck in tickers: # group ticker by source
         s = tck.split(".")[0]
-        # exceptions on the rule the before dot maps to directly fetchers
+        # exceptions to the rule the before dot maps to directly fetchers
         if (s.upper() == "BCB") and ("EXP" in tck.upper()): 
                 s = "BCB_EXP"
         if s in sources:

@@ -42,6 +42,8 @@ INSERT INTO Source (source_id, full_name)
        VALUES ('BIS', 'BANCO INTERNACIONAL DE COMPENSACOES');
 INSERT INTO Source (source_id, full_name)
        VALUES ('ONS', 'OPERADOR NACIONAL DO SISTEMA ELETRICO');                     
+INSERT INTO Source (source_id, full_name)
+       VALUES ('BEA', 'BUREAU OF ECONOMICS ANALYSIS');                     
 COMMIT;	      
 
 
@@ -88,6 +90,14 @@ INSERT INTO Survey (survey_id, description, source_id)
        VALUES ('BCB_EXP_ANUAL', 'SERIES DE EXPECTATIVAS DE FINAL DE ANO DISPONIBILIZADAS PELO BANCO CENTRAL DO BRASIL', 'BCB');
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('ONS_ENA', 'INFORMACOES SOBRE UTILIZAÇAO DO ENERGIA NATURAL AFLUENTE TO BRASIL', 'ONS');         
+COMMIT;
+
+BEGIN TRANSACTION;
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('BEA_GDP', 'DADOS RELACIONADOS AO PIB DOS E.U.A.', 'BEA');         
+COMMIT;
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('BEA_CONSUMER', 'DADOS RELACIONADOS A PESQUINA DE CONSUMO E REAL DOS E.U.A.', 'BEA');         
 COMMIT;
 
 
