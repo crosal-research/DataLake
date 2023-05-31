@@ -15,6 +15,7 @@ from DBtransactions.loaders.bcb_exp import bcb_exp_obs
 from DBtransactions.loaders.ons import ons_obs
 from DBtransactions.loaders.bis import bis_obs
 from DBtransactions.loaders.bea import bea_obs
+from DBtransactions.loaders.cepea import cepea_obs
 
 
 fetchers = {"FRED":fred_obs.fetch, 
@@ -26,7 +27,8 @@ fetchers = {"FRED":fred_obs.fetch,
             "BCB_EXP": bcb_exp_obs.fetch, 
             "ONS": ons_obs.fetch,
             "BIS": bis_obs.fetch,
-            "BEA": bea_obs.fetch
+            "BEA": bea_obs.fetch,
+            "CEPEA": cepea_obs.fetch
             }
 
 
@@ -49,5 +51,5 @@ def fetch(tickers: List[str],
             sources[s] = [tck]
     llobs = []
     for s in sources:
-            llobs= llobs + fetchers[s](sources[s], limit=limit)
+        llobs= llobs + fetchers[s](sources[s], limit=limit)
     return llobs

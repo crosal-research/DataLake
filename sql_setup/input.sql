@@ -43,7 +43,9 @@ INSERT INTO Source (source_id, full_name)
 INSERT INTO Source (source_id, full_name)
        VALUES ('ONS', 'OPERADOR NACIONAL DO SISTEMA ELETRICO');                     
 INSERT INTO Source (source_id, full_name)
-       VALUES ('BEA', 'BUREAU OF ECONOMICS ANALYSIS');                     
+       VALUES ('BEA', 'BUREAU OF ECONOMICS ANALYSIS');
+INSERT INTO Source (source_id, full_name)
+       VALUES ('CEPEA', 'CENTRO DE ESTUDOS AVANCADOS EM ECONOMIA APLICADA');                            
 COMMIT;	      
 
 
@@ -78,8 +80,7 @@ INSERT INTO Survey (survey_id, description, source_id)
        VALUES ('BIS_WS_EER_M', 'TAXAS DE CAMBIOS REAL EFETIVOS', 'BIS');
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BCB_ECON', 'SERIES ECONOMICAS DO BANCO CENTRAL DO BRASIL', 'BCB');                                                INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('BCB_MERCADO-ABERTO', 'SERIES FINANCEIRAS DISPONIBILIZADAS PELO BANCO CENTRAL DO BRASIL', 'BCB');                  
-INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('BCB_MERCADO-ABERTO', 'SERIES FINANCEIRAS DISPONIBILIZADAS PELO BANCO CENTRAL DO BRASIL', 'BCB');                 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BCB_CREDITO', 'SERIES DO MERCADO DE CREDITO E POLITICA MONETARIA DISPONIBILIZADAS PELO BANCO CENTRAL DO BRASIL', 'BCB');
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BCB_ESTAB', 'SERIES DE ESTABILIDADE FINANCEIRA DISPONIBILIZADAS PELO BANCO CENTRAL DO BRASIL', 'BCB');           INSERT INTO Survey (survey_id, description, source_id) 
@@ -90,14 +91,12 @@ INSERT INTO Survey (survey_id, description, source_id)
        VALUES ('BCB_EXP_ANUAL', 'SERIES DE EXPECTATIVAS DE FINAL DE ANO DISPONIBILIZADAS PELO BANCO CENTRAL DO BRASIL', 'BCB');
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('ONS_ENA', 'INFORMACOES SOBRE UTILIZAÇAO DO ENERGIA NATURAL AFLUENTE TO BRASIL', 'ONS');         
-COMMIT;
-
-BEGIN TRANSACTION;
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BEA_GDP', 'DADOS RELACIONADOS AO PIB DOS E.U.A.', 'BEA');         
-COMMIT;
 INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('BEA_CONSUMER', 'DADOS RELACIONADOS A PESQUINA DE CONSUMO E REAL DOS E.U.A.', 'BEA');         
+       VALUES ('BEA_CONSUMER', 'DADOS RELACIONADOS A PESQUINA DE CONSUMO E RENDA DOS E.U.A.', 'BEA');
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('CEPEA_PRECO', 'COTACOES DE PRECOS DE ITENS AGRICOLAS NO BRASIL', 'CEPEA');                
 COMMIT;
 
 
