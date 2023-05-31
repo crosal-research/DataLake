@@ -21,7 +21,7 @@ class Survey:
         loop = asyncio.get_running_loop()
         df = await loop.run_in_executor(None, survey.query_survey, q)
         output = io.StringIO()
-            
+
         if tp == 'json':
             jdf = [{'survey_id': df.loc[s, 'survey_id'], 
                     'description': df.loc[s, 'description'], 
@@ -35,11 +35,13 @@ class Survey:
 
     async def on_post(self, req, resp):
         """
+        Still in need to be implemented
         Insere survey na base de dados
         """
         query = await req.get_media()
         args = {k:query[k] if k in query else None for 
                 k in ('source', 'survey', 'tickers')}
+
         loop = asyncio.get_running_loop()
 
         def _aux_add_series():
@@ -47,7 +49,7 @@ class Survey:
             Helper function to run add_surveys
             within the event loop
             """
-            series.add_series(**args)
+            series.add_series(**query)
 
         try:
             falcon.HTTP_201
