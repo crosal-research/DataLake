@@ -30,7 +30,8 @@ INFO = [
     ("CEPEA.103", "Cotacao do Etanol Hidratado combustível CEPEA/ESALQ", "DIARIA", "CEPEA_PRECO", 'etanol'),
     ("CEPEA.104", "Cotacao do Etanol Anidro CEPEA/ESALQ", "DIARIA", "CEPEA_PRECO", 'etanol'),
     ("CEPEA.178", "Cotacao do Trigo CEPEA/ESALQ - Parana", "DIARIA", "CEPEA_PRECO", 'trigo'),
-    ("CEPEA.91", "Cotacao do Arroz em casca CEPEA/IRGA - RS", "DIARIA", "CEPEA_PRECO", 'arroz')]
+    ("CEPEA.54", "Cotacao do Algodao em pluma CEPEA/ESALQ a vista", "DIARIA", "CEPEA_PRECO", 'algodao-a-vista'), 
+    ("CEPEA.91", "Cotacao do Arroz em casca CEPEA/IRGA - RS", "DIARIA", "CEPEA_PRECO",'arroz')]
 
 
 def fetch_info(info: List[Tuple]):
