@@ -39,7 +39,6 @@ def process(resp:requests.models.Response, limit=None) -> pd.DataFrame:
     fetches the series related to the url used as input. Return a 
     dataframe
     """
-    global df_new
     if resp.ok:
         with tempfile.NamedTemporaryFile() as fp:
             fp.write(resp.content)
