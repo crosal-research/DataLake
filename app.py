@@ -40,7 +40,7 @@ app.add_route('/api/client/{email}', cliente )
 
 
 # conta
-app.add_route('/api/account', conta)
+app.add_route('/api/accounts', conta)
 
 # search
 app.add_route('/api/search', search)
