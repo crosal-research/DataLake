@@ -45,7 +45,9 @@ INSERT INTO Source (source_id, full_name)
 INSERT INTO Source (source_id, full_name)
        VALUES ('BEA', 'BUREAU OF ECONOMICS ANALYSIS');
 INSERT INTO Source (source_id, full_name)
-       VALUES ('CEPEA', 'CENTRO DE ESTUDOS AVANCADOS EM ECONOMIA APLICADA');                            
+       VALUES ('CEPEA', 'CENTRO DE ESTUDOS AVANCADOS EM ECONOMIA APLICADA');
+INSERT INTO Source (source_id, full_name)
+       VALUES ('CPB', 'INSTITUTO DE ESTATISTICA DA HOLANDA');                                   
 COMMIT;	      
 
 
@@ -96,7 +98,11 @@ INSERT INTO Survey (survey_id, description, source_id)
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BEA_CONSUMER', 'DADOS RELACIONADOS A PESQUINA DE CONSUMO E RENDA DOS E.U.A.', 'BEA');
 INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('CEPEA_PRECO', 'COTACOES DE PRECOS DE ITENS AGRICOLAS NO BRASIL', 'CEPEA');                
+       VALUES ('CEPEA_PRECO', 'COTACOES DE PRECOS DE ITENS AGRICOLAS NO BRASIL', 'CEPEA');
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('CPB_TRADE', 'ESTATISTICAS DE PRODUCAO MUNDIAL PRODUZIDAS PELO CPB', 'CPB');
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('CPB_PROD', 'ESTATISTICAS DE COMERCIO MUNDIAL PRODUDIZAS PELO CPB', 'CPB');                       
 COMMIT;
 
 
