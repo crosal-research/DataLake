@@ -40,12 +40,13 @@ class Observations:
             df = await loop.run_in_executor(None, _aux_query_obs)
         except Exception as e:
             print(e)
-        output = io.StringIO()
         if tp == 'json':
+            index = df.index
             result = [{'ticker': c,
-                       'observations': json.loads(df.loc[:, c].to_json())} for c in df.columns]
+                       'observations': [{'date': i, 'value': df.loc[i, c]} for i in index]} for c in df.columns]
             resp.text = json.dumps(result)
         else:
+            output = io.StringIO()
             df.to_csv(output)
             resp.text = output.getvalue()
 
