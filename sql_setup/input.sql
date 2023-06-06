@@ -77,6 +77,10 @@ INSERT INTO Survey (survey_id, description, source_id)
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BLS_CPI', 'DADOS DE INFLACAO AO CONSUMIDOR DOS E.U.A.', 'BLS');
 INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('BLS_LN', 'DADOS DE FORCA DE TRABALHO DOS E.U.A. DO CURRENT POLUTAION SURVEY (SIC)', 'BLS');
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('BLS_CE', 'DADOS DE EMPREGO, HORAS TRABALHADAS E GANHOS DO E.U.A. DO CURRENT POPULATION SURVEY', 'BLS');
+INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('IMF_PCPS', 'PRECO DE COMMODITIES PRIMARIAS', 'IMF');
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BIS_WS_EER_M', 'TAXAS DE CAMBIOS REAL EFETIVOS', 'BIS');

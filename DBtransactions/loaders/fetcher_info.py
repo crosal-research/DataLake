@@ -86,6 +86,8 @@ def fetch_infos(source:Optional[str]=None,
             srs = dispatcher["CEPEA"](cepea_fetch_info.INFO)
         elif "CPB" in survey:
             srs = dispatcher["CPB"](cpb_fetch_info.INFO)
+        elif "BLS" in survey:
+            srs = dispatcher["BLS"](survey)
         else:
             pass
         return srs
