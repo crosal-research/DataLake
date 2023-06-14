@@ -52,7 +52,7 @@ def query_obs(tickers:List[str] = None,
 
     df = pd.DataFrame(data=q.fetchall(), 
                       columns=["data", "valor", "tickers"])
-    df_new = df.pivot(index='data', columns=['tickers'], values='valor')
+    df_new = df.pivot(index='data', columns=['tickers'], values='valor').fillna(value="")
     return df_new.loc[:, tickers]
     
 
