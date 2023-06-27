@@ -9,3 +9,5 @@ openpyxl
 pendulum
 xlrd
 bs4
+pydantic
+python-lsp-server
