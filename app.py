@@ -38,7 +38,6 @@ surveys = Survey()
 app.add_route('/api/client', cliente)
 app.add_route('/api/client/{email}', cliente )
 
-
 # conta
 app.add_route('/api/accounts', conta)
 

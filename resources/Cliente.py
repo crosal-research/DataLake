@@ -35,11 +35,12 @@ class Cliente:
                 print("Problem with query")
             output = io.StringIO()
             if tp == 'json':
-                df.to_json(output)
+                jdf = [{'email': df.loc[s, 'email'], 'conta': df.loc[s, 'conta'], 
+                        'nome': df.loc[s, 'nome']  } for s in df.index]
+                resp.text = json.dumps(jdf)
             else:
                 df.to_csv(output)
-            resp.text = output.getvalue()
-
+                resp.text = output.getvalue()
 
     async def on_post(self, req, resp):
         """
