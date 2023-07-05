@@ -36,7 +36,7 @@ def query_cliente(emails: List[str]) -> pd.DataFrame:
     identificados pela chave primario email
     """
     string_sql = f"""
-    select cliente.nome, cliente.email, conta.nome from cliente
+    select cliente.nome, cliente.email, cliente.senha, conta.nome from cliente
     join conta on cliente.conta_id = conta.conta_id
     where email in ({Q});
     """
@@ -46,7 +46,8 @@ def query_cliente(emails: List[str]) -> pd.DataFrame:
         return pd.DataFrame(data= [{
             'nome': c[0],
             'email': c[1],
-            'conta': c[2]} for c in q.fetchall()])
+            'password': c[2],
+            'conta': c[3]} for c in q.fetchall()])
     
 
 def delete_clientes(emails:List[str]):

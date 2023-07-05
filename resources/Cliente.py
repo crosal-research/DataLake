@@ -32,11 +32,12 @@ class Cliente:
                 falcon.HTTP_2000
             except:
                 falcon.HTTP_405
-                print("Problem with query")
             output = io.StringIO()
             if tp == 'json':
-                jdf = [{'email': df.loc[s, 'email'], 'conta': df.loc[s, 'conta'], 
-                        'nome': df.loc[s, 'nome']  } for s in df.index]
+                jdf = [{'nome': df.loc[s, 'nome'],
+                        'email': df.loc[s, 'email'], 
+                        'password': df.loc[s, 'password'], 
+                        'conta': df.loc[s, 'conta']  } for s in df.index]
                 resp.text = json.dumps(jdf)
             else:
                 df.to_csv(output)
@@ -45,7 +46,7 @@ class Cliente:
     async def on_post(self, req, resp):
         """
         Insere um novo cliente na base de dados.
-        Requeste captura json com:
+        Request captura json com:
         {nome:nome, email:email, 
         senha: senha, conta_id: conta_id}
         """
