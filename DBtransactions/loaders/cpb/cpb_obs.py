@@ -14,15 +14,16 @@ URL = "https://www.cpb.nl/en/worldtrademonitor"
 
 def process(excel: pd.ExcelFile, ticker:str, dateFinal:str, limit) -> List[Observation]:
     sheet_name = "inpro_out" if "IPZ" in ticker else "trade_out"
+    dates = [t.strftime("%Y-%m-%d") for t in 
+                  pd.period_range(start="2000-01-01", end=dateFinal, freq="M")]
     df = excel.parse(sheet_name=sheet_name, 
                      skiprows=list(range(0,7)), 
                      nrows=31, header=None,
-                     usecols= [2] + list(range(5,284)), 
+                     usecols= [2] + list(range(5, len(dates) + 5)), 
                      index_col=[0]).dropna(axis=0)
     df.columns = [t.strftime("%Y-%m-%d") for t in 
                   pd.period_range(start="2000-01-01", end=dateFinal, freq="M")]
     df.index = [i.upper() for i in df.index]
-#    dg = df.loc[:,limit:] if limit else df
     return [Observation(**{
         'series_id': ticker,
         'dat': c,
