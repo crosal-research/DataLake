@@ -29,7 +29,6 @@ class Cliente:
         try:
             loop = asyncio.get_running_loop()
             df = await loop.run_in_executor(None,cliente.query_cliente, e)
-            print(df)
             falcon.HTTP_2000
         except:
             falcon.HTTP_405
