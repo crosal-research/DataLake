@@ -23,25 +23,26 @@ class Cliente:
         the clientes contidos na base de dados
         """
         e = req.get_param_as_list('email')
+        e = e if e else []
         tp = req.get_param('type')
 
-        if e:
-            try:
-                loop = asyncio.get_running_loop()
-                df = await loop.run_in_executor(None,cliente.query_cliente, e)
-                falcon.HTTP_2000
-            except:
-                falcon.HTTP_405
+        try:
+            loop = asyncio.get_running_loop()
+            df = await loop.run_in_executor(None,cliente.query_cliente, e)
+            print(df)
+            falcon.HTTP_2000
+        except:
+            falcon.HTTP_405
+        if tp == 'json':
+            jdf = [{'nome': df.loc[s, 'nome'],
+                    'email': df.loc[s, 'email'], 
+                    'password': df.loc[s, 'password'], 
+                    'conta': df.loc[s, 'conta']  } for s in df.index]
+            resp.text = json.dumps(jdf)
+        else:
             output = io.StringIO()
-            if tp == 'json':
-                jdf = [{'nome': df.loc[s, 'nome'],
-                        'email': df.loc[s, 'email'], 
-                        'password': df.loc[s, 'password'], 
-                        'conta': df.loc[s, 'conta']  } for s in df.index]
-                resp.text = json.dumps(jdf)
-            else:
-                df.to_csv(output)
-                resp.text = output.getvalue()
+            df.to_csv(output)
+            resp.text = output.getvalue()
 
     async def on_post(self, req, resp):
         """
