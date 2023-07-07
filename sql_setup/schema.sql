@@ -25,11 +25,11 @@ Creates table for Clients
 */
 DROP TABLE IF EXISTS Cliente; 
 CREATE TABLE IF NOT EXISTS Cliente (
-       nome TEXT NOT NULL,
+       roleType TEXT DEFAULT 'CLIENT',   -- CLIENT, ADMIN
        email TEXT NOT NULL PRIMARY KEY,
        senha TEXT NOT NULL,
        conta_id TEXT DEFAULT 'GUEST',
-       api_key TEXT NOT NULL,
+       api_key TEXT,
        FOREIGN KEY (conta_id) REFERENCES Conta (conta_id) ON UPDATE CASCADE ON DELETE SET DEFAULT
 );
 
@@ -145,11 +145,10 @@ CREATE TABLE IF NOT EXISTS Observation (
        foreign key (series_id) REFERENCES Series (series_id) ON DELETE CASCADE
 );
 
-
 -- Creates table for series search
 -- see: https://sqlite.org/spellfix1.html
--- DROP TABLE IF EXISTS Search;
--- CREATE VIRTUAL TABLE IF NOT EXISTS Search USING fts5(ticker, description);
+DROP TABLE IF EXISTS Search;
+CREATE VIRTUAL TABLE IF NOT EXISTS Search USING fts5(ticker, description);
 
 
 -- create auxiliar table for the case of using fuzzy search

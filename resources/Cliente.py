@@ -33,15 +33,16 @@ class Cliente:
         except:
             falcon.HTTP_405
         if tp == 'json':
-            jdf = [{'nome': df.loc[s, 'nome'],
+            jdf = [{'roleType': df.loc[s, 'roleType'],
                     'email': df.loc[s, 'email'], 
                     'password': df.loc[s, 'password'], 
-                    'conta': df.loc[s, 'conta']  } for s in df.index]
+                    'conta': df.loc[s, 'conta'] } for s in df.index]
             resp.text = json.dumps(jdf)
         else:
             output = io.StringIO()
             df.to_csv(output)
             resp.text = output.getvalue()
+
 
     async def on_post(self, req, resp):
         """

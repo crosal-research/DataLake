@@ -19,7 +19,7 @@ INSERT INTO Conta (conta_id, nome)
 COMMIT;
 
 --Insert Cliente
-INSERT INTO Cliente (nome, email, conta_id, senha)
+INSERT INTO Cliente (roleType, email, conta_id, senha)
        VALUES ('ADMIN', 'joao.rosal@terrainvestimentos.com.br', 'TI', '123');
 
 --Insert Sources
@@ -63,7 +63,11 @@ INSERT INTO Survey (survey_id, description, source_id)
 INSERT INTO Survey (survey_id, description, source_id)
       VALUES ('IBGE_CN', 'CONTAS NACIONAIS TRIMESTRAIS, BRASIL', 'IBGE');
 INSERT INTO Survey (survey_id, description, source_id)
-      VALUES ('IBGE_PNAD', 'Pesquisa Nacional de Amostra Domiliar Continuada, Brasil', 'IBGE');                        
+      VALUES ('IBGE_IPCA', 'Indice de Preco ao Consumidor amplo, Brasil', 'IBGE');
+INSERT INTO Survey (survey_id, description, source_id)
+      VALUES ('IBGE_IPCA15', 'Indice de Preco ao Consumidor amplo-15', 'IBGE');
+INSERT INTO Survey (survey_id, description, source_id)
+      VALUES ('IBGE_PNAD', 'Pesquisa Nacional de Amostra Domiliar Continuada, Brasil', 'IBGE');                              
 INSERT INTO Survey (survey_id, description, source_id)
       VALUES ('FRED_ECON', 'DADOS ECONÔMICOS DISPONIBILIZADOS PELO FRED', 'FRED');
 INSERT INTO Survey (survey_id, description, source_id)
@@ -108,5 +112,3 @@ INSERT INTO Survey (survey_id, description, source_id)
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('CPB_PROD', 'ESTATISTICAS DE COMERCIO MUNDIAL PRODUDIZAS PELO CPB', 'CPB');                       
 COMMIT;
-
-

@@ -18,7 +18,7 @@ def add_cliente(clientes_info:List[Tuple[str]])-> None:
     input: list(nome, email, senha, conta_id)
     """
     string_sql = f"""
-    insert into Cliente(nome, email, senha, conta_id)
+    insert into Cliente(roleType, email, senha, conta_id)
     values ({Q}, {Q}, {Q}, {Q}) on conflict (email) do update set
     nome=excluded.nome,
     senha=excluded.senha,
@@ -36,20 +36,20 @@ def query_cliente(emails: List[str]) -> pd.DataFrame:
     """
     if len(emails) > 0:
         string_sql = f"""
-        select cliente.nome, cliente.email, cliente.senha, conta.nome from cliente
+        select cliente.roleType, cliente.email, cliente.senha, conta.nome from cliente
         join conta on cliente.conta_id = conta.conta_id
         where email in ({Q});
         """
     else:
         string_sql = f"""
-        select cliente.nome, cliente.email, cliente.senha, conta.nome from cliente
+        select cliente.roleType, cliente.email, cliente.senha, conta.nome from cliente
         join conta on cliente.conta_id = conta.conta_id;
         """
     with connect() as conn:
         cur = _cursor(conn)
         q = cur.execute(string_sql, emails)
         return pd.DataFrame(data= [{
-            'nome': c[0],
+            'roleType': c[0],
             'email': c[1],
             'password': c[2],
             'conta': c[3]} for c in q.fetchall()])
