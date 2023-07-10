@@ -20,7 +20,7 @@ COMMIT;
 
 --Insert Cliente
 INSERT INTO Cliente (roleType, email, conta_id, senha)
-       VALUES ('ADMIN', 'joao.rosal@terrainvestimentos.com.br', 'TI', '123');
+       VALUES ('ADMIN', 'JOAO.ROSAL@TERRAINVESTIMENTOS.COM.BR', 'TI', '123');
 
 --Insert Sources
 BEGIN TRANSACTION;

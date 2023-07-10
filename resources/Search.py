@@ -4,7 +4,6 @@ import falcon
 # import from app
 from DBtransactions import table
 
-
 class Search:
     """
     Classe para gerir recursos relacionados 

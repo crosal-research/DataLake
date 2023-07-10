@@ -36,7 +36,6 @@ def query_search(words:str) -> None:
     string_sql = f"""select ticker, description from search 
     where search match {Q};
     """
-
     with sqlite3.connect() as conn:
         cur = _cursor(conn)
         try:
