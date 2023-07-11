@@ -24,10 +24,13 @@ def add_cliente(clientes_info:List[Tuple[str]])-> None:
     senha=excluded.senha,
     conta_id=conta_id
     """
-    with generate_conn() as conn:
-        cur = _cursor(conn)
-        cur.executemany(string_sql, clientes_info)
-
+    with connect() as conn:
+        try:
+            cur = _cursor(conn)
+            cur.executemany(string_sql, clientes_info)
+            print('here')
+        except Exception as e:
+            print(e)
 
 def query_cliente(emails: List[str]) -> pd.DataFrame:
     """

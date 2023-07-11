@@ -52,13 +52,17 @@ class Cliente:
         senha: senha, conta_id: conta_id}
         """
         obj = await req.get_media()
-        clientes = [(d['nome'], 
-                     d['email'], 
-                     d['senha'], 
-                     d['conta_id'])]
+        clientes = [(obj['roleType'], 
+                     obj['email'], 
+                     obj['password'], 
+                     obj['conta_id'])]
         loop = asyncio.get_running_loop()
-        await loop.run_in_executor(None, cliente.add_cliente, clientes)
-        falcon.HTTP_200
+        try:
+            await loop.run_in_executor(None, cliente.add_cliente, clientes)
+            falcon.HTTP_200
+        except Exception as e:
+            falcon.HTTP_500
+            print(e)
 
 
     async def on_delete(self, rep, resp, email):
