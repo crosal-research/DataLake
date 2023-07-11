@@ -8,8 +8,10 @@ import time, pickle, os
 # import from packages
 import requests
 import pandas as pd
-import suds.client
-import suds_requests
+from zeep.transports import Transport
+from zeep import Client
+# import suds.client
+# import suds_requests
 
 # import from app
 from DBtransactions.DBtypes import Series
@@ -335,16 +337,16 @@ def _cleasing(series: Optional[dict], freq:list) -> dict:
                         return series
 
 
-def _process_info(resp: suds.sudsobject) -> dict:
+def _process_info(respg) -> dict:
     """
     process resp from suds response (last observation)
     and grabs information for the series
     """
     last = resp.ultimoValor
-    return dict(fonte = str(resp.fonte),
-                gestor = str(resp.gestorProprietario),
-                freq = str(resp.periodicidadeSigla),
-                nome = str(resp.nomeCompleto),
+    return dict(fonte = str(resp.fonte._value_1),
+                gestor = str(resp.gestorProprietario._value_1),
+                freq = str(resp.periodicidadeSigla._value_1),
+                nome = str(resp.nomeCompleto._value_1),
                 number = int(resp.oid),
                 final = dt(last.ano, last.mes, last.dia))
 
@@ -354,10 +356,12 @@ def _fetch_series(tickers: List[str]) -> List[dict]:
     Fetches the meta information for ticker list and returns
     a list of dictionaries with the information
     """
+
     with requests.Session() as session:
-        c = suds.client.Client(
+        transport = Transport(session=session)
+        c = Client(
             'https://www3.bcb.gov.br/sgspub/JSP/sgsgeral/FachadaWSSGS.wsdl',
-            transport=suds_requests.RequestsTransport(session))
+            transport=transport)
         
         def _fetch(tck):
             try:
@@ -393,4 +397,3 @@ def fetch_info(fpath: str) -> List[Series]:
         "description": ls['nome'],
         "survey_id": gestores[ls['gestor']],
         'frequency': {'D': 'DIARIA', 'M': "MENSAL"}[ls['freq']]}) for ls in lsseries]
-
