@@ -22,8 +22,8 @@ class Cliente:
         """Extrai informacoes 
         the clientes contidos na base de dados
         """
-        e = req.get_param_as_list('email')
-        e = e if e else []
+        e = [e.upper() for e in req.get_param_as_list('email')]
+        e = e if e  else []
         tp = req.get_param('type')
 
         try:
@@ -33,10 +33,10 @@ class Cliente:
         except:
             falcon.HTTP_405
         if tp == 'json':
-            jdf = [{'roleType': df.loc[s, 'roleType'],
-                    'email': df.loc[s, 'email'], 
+            jdf = [{'roleType': df.loc[s, 'roleType'].upper(),
+                    'email': df.loc[s, 'email'].upper(), 
                     'password': df.loc[s, 'password'], 
-                    'conta': df.loc[s, 'conta'] } for s in df.index]
+                    'conta': df.loc[s, 'conta'].upper() } for s in df.index]
             resp.text = json.dumps(jdf)
         else:
             output = io.StringIO()
@@ -52,10 +52,10 @@ class Cliente:
         senha: senha, conta_id: conta_id}
         """
         obj = await req.get_media()
-        clientes = [(obj['roleType'], 
-                     obj['email'], 
+        clientes = [(obj['roleType'].upper(), 
+                     obj['email'].upper(), 
                      obj['password'], 
-                     obj['conta_id'])]
+                     obj['conta_id'].upper())]
         loop = asyncio.get_running_loop()
         try:
             await loop.run_in_executor(None, cliente.add_cliente, clientes)
