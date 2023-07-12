@@ -22,8 +22,11 @@ class Cliente:
         """Extrai informacoes 
         the clientes contidos na base de dados
         """
-        e = [e.upper() for e in req.get_param_as_list('email')]
-        e = e if e  else []
+        emails = req.get_param_as_list('email')
+        if emails:
+            e = [e.upper() for e in emails]
+        else:
+            e = []
         tp = req.get_param('type')
 
         try:
