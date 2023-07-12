@@ -41,7 +41,6 @@ class Survey:
         query = await req.get_media()
         args = {k:query[k] if k in query else None for 
                 k in ('source', 'survey', 'tickers')}
-
         loop = asyncio.get_running_loop()
 
         def _aux_add_series():

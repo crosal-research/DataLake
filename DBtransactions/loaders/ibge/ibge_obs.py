@@ -9,6 +9,8 @@ import requests
 import pandas as pd
 import numpy as np
 import pendulum
+import urllib3
+from urllib3.util.ssl_ import create_urllib3_context
 
 #import from app
 from DBtransactions.DBtypes import Observation
@@ -20,14 +22,14 @@ def _build_url(tck:str, limit=None) -> str:
     """
     new_tck = tck.split(".")[1]
     if not limit:
-        return f"http://api.sidra.ibge.gov.br/values/t/{new_tck}/p/all/d/2/n1/1"
-    return f"http://api.sidra.ibge.gov.br/values/t/{new_tck}/p/last {limit}/d2/n1/1"
+        return f"https://apisidra.ibge.gov.br/values/t/{new_tck}/p/all/d/2/n1/1"
+    return f"https://apisidra.ibge.gov.br/values/t/{new_tck}/p/last {limit}/d2/n1/1"
 
 
 def _process(resp: requests.models.Response)-> List[Observation]:
     """
     Handles the sucessful response to a request to the ibge api.
-    Return a Dataframe per respoonse
+    Return a Dataframe per response
     """
     tbl = (re.compile("\d+")).findall(resp.url)[0]
     ticker = "IBGE." + ((resp.url).split("t/")[1]).split("/p")[0]
@@ -51,9 +53,14 @@ def fetch(tickers:List[str], limit:Optional[str]=None) -> List[List[Observation]
     Return a list of list of Observations, each of one of them representing
     the observations pertaining to a series
     """
+    # see: https://github.com/urllib3/urllib3/issues/2653
+    ctx = create_urllib3_context()
+    ctx.load_default_certs()
+    ctx.options |= 0x4  # ssl.OP_LEGACY_SERVER_CONNECT
     urls = [_build_url(tck, limit=limit) for tck in tickers]
-    with requests.session() as session:
+    print(urls)
+    with urllib3.PoolManager(ssl_context=ctx) as http: # used in order to circunvent ssl_legacy problem
         with executor() as e:
-            ls = list(e.map(lambda url: _process(session.get(url)), urls))
+            ls = list(e.map(lambda url: _process(http.request("GET", url)), urls))
     return ls
 
