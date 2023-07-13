@@ -64,7 +64,7 @@ class Cliente:
             await loop.run_in_executor(None, cliente.add_cliente, clientes)
             falcon.HTTP_200
         except Exception as e:
-            falcon.HTTP_500
+            falcon.HTTP_400
             print(e)
 
 

@@ -20,7 +20,7 @@ def add_cliente(clientes_info:List[Tuple[str]])-> None:
     string_sql = f"""
     insert into Cliente(roleType, email, senha, conta_id)
     values ({Q}, {Q}, {Q}, {Q}) on conflict (email) do update set
-    nome=excluded.nome,
+    roleType=excluded.roleType,
     senha=excluded.senha,
     conta_id=conta_id
     """
