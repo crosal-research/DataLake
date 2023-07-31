@@ -1,8 +1,11 @@
+# import from system
+import io, json
+
 # import from packages
 import falcon
 
 # import from app
-from DBtransactions import table
+from DBtransactions import search
 
 class Search:
     """
@@ -14,11 +17,15 @@ class Search:
         q = req.get_param('words', required=False)
         tp = req.get_param('type', required=False)
         resp.status = falcon.HTTP_200
-        if q:
-            df = table.query_search(q)
+        if q:           
+            df = search.query_search(q)
+            print(df.head())
             output = io.StringIO()
             if tp == 'json':
-                df.to_json(output)
+                resp.text = json.dumps([{'rank': 1, 
+                                         'ticker': df.loc[i, 'tickers'],
+                                         'descripcao': df.loc[i, 'descricao']} 
+                                        for i in df.index])
             else:
                 df.to_csv(output)
-            resp.text = output.getvalue()
+                resp.text = output.getvalue()

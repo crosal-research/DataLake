@@ -64,4 +64,3 @@ app.add_route('/api/tables/{ticker}', tables)
 # surveys
 app.add_route('/api/surveys', surveys)
 app.add_route('/api/surveys/{survey_id}', surveys)
-

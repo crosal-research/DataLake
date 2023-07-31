@@ -64,6 +64,7 @@ CREATE TABLE IF NOT EXISTS Survey (
        survey_id TEXT NOT NULL,
        description TEXT NOT NULL,
        source_id TEXT,
+       last_update TEXT,
        PRIMARY KEY (survey_id)
        FOREIGN KEY (source_id) REFERENCES Source (source_id) ON DELETE CASCADE
 );
@@ -150,6 +151,20 @@ CREATE TABLE IF NOT EXISTS Observation (
 DROP TABLE IF EXISTS Search;
 CREATE VIRTUAL TABLE IF NOT EXISTS Search USING fts5(ticker, description);
 
+
+-- see: https://stackoverflow.com/questions/70847617/populate-virtual-sqlite-fts5-full-text-search-table-from-content-table
+-- https://kimsereylam.com/sqlite/2020/03/06/full-text-search-with-sqlite.html
+CREATE TRIGGER search_ai AFTER INSERT ON series
+    BEGIN
+        INSERT INTO search (ticker, description)
+        VALUES (new.series_id, new.description);
+    END;
+
+CREATE TRIGGER search_del AFTER DELETE ON series
+    BEGIN
+        INSERT INTO search (ticker, description)
+	VALUES ('delete', old.series_id, old.description)
+    END;
 
 -- create auxiliar table for the case of using fuzzy search
 -- DROP TABLE IF EXISTS Search_aux;
