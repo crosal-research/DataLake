@@ -21,7 +21,7 @@ class Series:
     async def on_get(self, req, resp):
         """ Retorna informacoes de series
         """
-        q = req.get_param_as_list('series', required=False)
+        q = req.get_param_as_list('tickers', required=False)
         tp = req.get_param('type', required=False)
         resp.status = falcon.HTTP_200
         if q:
@@ -29,10 +29,12 @@ class Series:
             df = await loop.run_in_executor(None, series.query_series,q)
             output = io.StringIO()
             if tp == 'json':
-                df.to_json(output)
+                resp.text = json.dumps([{'ticker': df.loc[i, 'Ticker'], 
+                              'descricao': df.loc[i, 'Descricao']}
+                                        for i in df.index ])
             else:
                 df.to_csv(output)
-            resp.text = output.getvalue()
+                resp.text = output.getvalue()
 
     async def on_post(self, req, resp):
         """

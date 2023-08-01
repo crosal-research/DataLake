@@ -98,7 +98,7 @@ def query_series(series_tickers:List[str]=[], survey:str='', source:str='') -> L
     join Source on Survey.source_id = Source.source_id
     where series_id in ({sep})
     """.format(sep=','.join([f"{Q}".upper()]*len(series_tickers)))
-
+    
     with connect() as conn:
         cur = _cursor(conn)
         q =  cur.execute(string_sql, series_tickers)
