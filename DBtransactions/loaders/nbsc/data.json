@@ -1,0 +1,57 @@
+[{
+  "valuecode": "A0103",
+  "description": "Gross Domestic Product AND COMPONENTS - Growth Rate (preceding_year)",
+  "series": ["NBSC.A010301", "NBSC.A010303", "NBSC.A010305", "NBSC.A010307", "NBSC.A010309", "NBSC.A01030B", "NBSC.A01030D", 
+	     "NBSC.A01031D", "NBSC.A01031F", "NBSC.A01031H", "NBSC.A01031J", "NBSC.A01031L", "NBSC.A01031N", "NBSC.A01031P", 
+	     "NBSC.A01031R"],
+  "freq": "quarter",
+  "div": 100,
+  "survey": "NBSC_PIBY",
+  "filter": ["CURRENT QUARTER"]}
+,
+ {
+   "valuecode": "A0104",
+   "description": "Gross Domestic Product -  Growth Rate (preceding _quarter)",
+   "series":["NBSC.A010401"] ,
+   "freq": "quarter",
+   "div":100,
+   "survey": "NBSC_PIBQ",
+   "filter": [""]
+ },
+ {
+   "valuecode": "A010301",
+   "description": "consumer price by category (2016) - last month = 100",
+   "series": ["NBSC.A01030101", "NBSC.A01030102", "NBSC.A01030103", "NBSC.A01030104", "NBSC.A01030105", "NBSC.A01030106", "NBSC.A01030107", "NBSC.A01030108", "NBSC.A01030109"],
+   "freq": "month",
+   "div": 100,
+   "survey": "NBSC_CPI",
+   "filter": [""]
+ },
+ {
+   "valuecode": "A010701",
+   "description": "Purchase Price indexed price - last month = 100",
+   "series": ["NBSC.A01030101", "NBSC.A01030102", "NBSC.A01030103", "NBSC.A01030104", "NBSC.A01030105", "NBSC.A01030106", "NBSC.A01030107", "NBSC.A01030108", "NBSC.A01030109"],
+   "freq": "month",
+   "div": 100,
+   "survey": "NBSC_PPI",
+   "filter": [""]
+ },
+ {
+   "valuecode": "A0801",
+   "description": " trade balance data, month = 100",
+   "series": ["NBSC.A080101", "NBSC.A080102", "NBSC.A080105", "NBSC.A080106", "NBSC.A080108", "NBSC.A080109", "NBSC.A08010A", "NBSC.A08010C", "NBSC.A08010D"],
+   "freq": "month",
+   "div": 100,
+   "survey": "NBSC_TRADE",
+   "filter": [""]
+ },
+ {
+   "valuecode": "A0B01",
+   "description": "PMI, month",
+   "series": ["NBSC.A0B0101", "NBSC.A0B0102", "NBSC.A0B0103", "NBSC.A0B0104", "NBSC.A0B0105", "NBSC.A0B0106", "NBSC.A0B0107", "NBSC.A0B0108", "NBSC.A0B0109", "NBSC.A0B010A", "NBSC.A0B010B", "NBSC.A0B010C", "NBSC.A0B010D", "NBSC.A0B010E"],
+   "freq": "month",
+   "div": 1,
+   "survey": "NBSC_PMI",
+   "filter": [""]
+ }
+]
