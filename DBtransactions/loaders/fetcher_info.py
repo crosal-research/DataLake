@@ -22,6 +22,7 @@ from DBtransactions.loaders.ons import ons_fetch_info
 from DBtransactions.loaders.bea import bea_fetch_info
 from DBtransactions.loaders.cepea import cepea_fetch_info
 from DBtransactions.loaders.cpb import cpb_fetch_info
+from DBtransactions.loaders.nbsc import nbsc_fetch_info
 
 dispatcher = {"FRED": fred_fetch_info.fetch_info,
               "IPEA": ipea_fetch_info.fetch_info, 
@@ -34,7 +35,8 @@ dispatcher = {"FRED": fred_fetch_info.fetch_info,
               "ONS": ons_fetch_info.fetch_info, 
               "BEA": bea_fetch_info.fetch_info,
               "CEPEA": cepea_fetch_info.fetch_info,
-              "CPB": cpb_fetch_info.fetch_info
+              "CPB": cpb_fetch_info.fetch_info,
+              "NBSC": nbsc_fetch_info.fetch_info
  }
 
 
@@ -62,10 +64,13 @@ def fetch_infos(source:Optional[str]=None,
             srs = dispatcher[source](cepea_fetch_info.INFO)
         elif source == "CPB":
             srs = dispatcher[source](cpb_fetch_info.INFO)
+        elif source == "NSBC":
+            srs = dispatcher[source](nbsc_fetch_info.DATA)
         else: # FRED
             srs = dispatcher[source](fred_fetch_info.INFO_FRED)
         return srs
     
+
     elif survey:
         if "BIS" in survey:
             srs = dispatcher["BIS"](bis_fetch_info.surveys[survey])
@@ -88,6 +93,8 @@ def fetch_infos(source:Optional[str]=None,
             srs = dispatcher["CPB"](cpb_fetch_info.INFO)
         elif "BLS" in survey:
             srs = dispatcher["BLS"](survey)
+        elif "NBSC" in survey:
+            srs = dispatcher["NBSC"](survey)
         else:
             pass
         return srs

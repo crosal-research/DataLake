@@ -29,7 +29,7 @@ INSERT INTO Source (source_id, full_name)
 INSERT INTO Source (source_id, full_name)
        VALUES ('BCB_EXP', 'EXPECTATIVAS DO BANCO CENTRAL DO BRASIL');       
 INSERT INTO Source (source_id, full_name)
-       VALUES ('IBGE', 'INSTITUTO BRASILEIRO DE GEOGRAFIA E ESTATISTICA');
+       VALUES ('IBGE', 'INSTITUTO BRASILEIRO DE GEOGRAFIA E ESTATISTICA');	
 INSERT INTO Source (source_id, full_name)
        VALUES ('FRED', 'Federal Reserve of Saint Louis');
 INSERT INTO Source (source_id, full_name)
@@ -47,7 +47,9 @@ INSERT INTO Source (source_id, full_name)
 INSERT INTO Source (source_id, full_name)
        VALUES ('CEPEA', 'CENTRO DE ESTUDOS AVANCADOS EM ECONOMIA APLICADA');
 INSERT INTO Source (source_id, full_name)
-       VALUES ('CPB', 'INSTITUTO DE ESTATISTICA DA HOLANDA');                                   
+       VALUES ('CPB', 'INSTITUTO DE ESTATISTICA DA HOLANDA');
+INSERT INTO Source (source_id, full_name) VALUES ('NBSC', 'NATIONAL
+       BUREAU OF STATISTICS OF CHINA');
 COMMIT;	      
 
 
@@ -110,5 +112,15 @@ INSERT INTO Survey (survey_id, description, source_id)
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('CPB_TRADE', 'ESTATISTICAS DE PRODUCAO MUNDIAL PRODUZIDAS PELO CPB', 'CPB');
 INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('CPB_PROD', 'ESTATISTICAS DE COMERCIO MUNDIAL PRODUDIZAS PELO CPB', 'CPB');                       
+       VALUES ('NBSC_PIBY', 'DADOS ANUALIZADOS DO PIB E SEUS COMPONENTES', 'NBSC');
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('NBSC_PIBQ', 'DADOS TRIMESTRAIS DO PIB E SEUS COMPONENTES COM AJUSTE SAZONAL', 'NBSC');                       
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('NBSC_CPI', 'INDICE DE PREÇO AO CONSUMIDOR E SEUS PRINCIPAIS COMPONENTES', 'NBSC');                       
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('NBSC_PPI', 'INDICE DE PREÇO AO PRODUTOR E SEUS PRINCIPAIS COMPONENTES', 'NBSC');                       
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('NBSC_TRADE', 'DADOS DA BALANÇA COMERCIAL, CHINA', 'NBSC');
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('NBSC_PMI', 'PMI OFICIAL DA CHINA E SEUS COMPONENTES', 'NBSC');                     
 COMMIT;

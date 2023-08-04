@@ -36,12 +36,11 @@ def add_series(source:Optional[str]=None,
         	  survey_id=excluded.survey_id,
         	  frequency=excluded.frequency;
         """
-
     def _input(linfo: List[Series]) -> List[Tuple[str]]:
         """
         Helper function to raise letters to upper case
         """
-        return [tuple(map(lambda x: x.upper() if x is not  None else None, l.dict().values()))
+        return [tuple(map(lambda x: x.upper() if x is not  None else None, l.model_dump()))
                 for l in linfo]
 
     if source is not  None:
