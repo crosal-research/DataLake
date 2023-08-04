@@ -28,6 +28,7 @@ def add_series(source:Optional[str]=None,
     Insert/Update a list of series in the
     database
     """
+    global linfo
     string_sql = f"""
         insert into series(series_id, description, survey_id, frequency, last_update)
            values({Q}, {Q}, {Q}, {Q}, {Q})
@@ -40,7 +41,7 @@ def add_series(source:Optional[str]=None,
         """
         Helper function to raise letters to upper case
         """
-        return [tuple(map(lambda x: x.upper() if x is not  None else None, l.model_dump()))
+        return [tuple(map(lambda x: x.upper() if x is not  None else None, l.model_dump().values()))
                 for l in linfo]
 
     if source is not  None:
