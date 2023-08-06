@@ -114,7 +114,7 @@ def add_obs(tickers:Optional[List[str]]=None,
         llobs = fetch(tcks, limit=limit)
         for lobs in llobs:
             if len(lobs) > 0:
-                mobs = [tuple(obs.dict().values()) 
+                mobs = [tuple(obs.model_dump().values()) 
                         for obs in lobs]
                 cur.executemany(string_sql, mobs)
                 dt = pendulum.now().format("YYYY-MM-DD HH:mm:ss")

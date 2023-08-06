@@ -17,6 +17,7 @@ from DBtransactions.loaders.bis import bis_obs
 from DBtransactions.loaders.bea import bea_obs
 from DBtransactions.loaders.cepea import cepea_obs
 from DBtransactions.loaders.cpb import cpb_obs
+from DBtransactions.loaders.nbsc import nbsc_obs
 
 
 fetchers = {"FRED":fred_obs.fetch, 
@@ -30,7 +31,8 @@ fetchers = {"FRED":fred_obs.fetch,
             "BIS": bis_obs.fetch,
             "BEA": bea_obs.fetch,
             "CEPEA": cepea_obs.fetch,
-            "CPB": cpb_obs.fetch
+            "CPB": cpb_obs.fetch,
+            "NBSC": nbsc_obs.fetch
             }
 
 
