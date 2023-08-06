@@ -48,8 +48,7 @@ INSERT INTO Source (source_id, full_name)
        VALUES ('CEPEA', 'CENTRO DE ESTUDOS AVANCADOS EM ECONOMIA APLICADA');
 INSERT INTO Source (source_id, full_name)
        VALUES ('CPB', 'INSTITUTO DE ESTATISTICA DA HOLANDA');
-INSERT INTO Source (source_id, full_name) VALUES ('NBSC', 'NATIONAL
-       BUREAU OF STATISTICS OF CHINA');
+INSERT INTO Source (source_id, full_name) VALUES ('NBSC', 'NATIONAL BUREAU OF STATISTICS OF CHINA');
 COMMIT;	      
 
 
