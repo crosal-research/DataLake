@@ -49,7 +49,7 @@ def _process(resp: dict) -> List[str]:
 
     def _normalize(info):
         if (info[:5] !=  "A0B01"):
-            return -100
+            return 0
         else:
             return 0
 

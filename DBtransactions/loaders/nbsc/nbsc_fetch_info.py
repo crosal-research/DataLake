@@ -44,11 +44,12 @@ def _process(resp: dict, data) -> List[str]:
             if all(f in r['cname'].upper() for f in survey['filter'])]
 
    
-def fetch_info(survey: str) -> List[Series]:
+def fetch_info(survey: str) -> [List[Series]]:
     """
     Fetch & parse from the China National Bureau of Statistics web data API.
     survey's name follows the name by the DB (ex: 'NBSC_PIBY')
     """
+
     # Parameters for constructing the query string
     valuecode = [d['valuecode'] for d in DATA if d['survey'] == survey][0]
     

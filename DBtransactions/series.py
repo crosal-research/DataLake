@@ -37,6 +37,7 @@ def add_series(source:Optional[str]=None,
         	  survey_id=excluded.survey_id,
         	  frequency=excluded.frequency;
         """
+    global linfo
     def _input(linfo: List[Series]) -> List[Tuple[str]]:
         """
         Helper function to raise letters to upper case

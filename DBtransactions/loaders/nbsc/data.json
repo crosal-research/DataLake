@@ -53,5 +53,23 @@
    "div": 1,
    "survey": "NBSC_PMI",
    "filter": [""]
+ },
+ {
+   "valuecode": "A0201",
+   "description": "Industry, month",
+   "series": ["NBSC.A020101", "NBSC.A020102"],
+   "freq": "month",
+   "div": 1,
+   "survey": "NBSC_IND",
+   "filter": [""]
+ },
+  {
+   "valuecode": "A0701",
+   "description": "Retail, month",
+    "series": ["NBSC.A070101", "NBSC.A070102", "NBSC.A070103", "NBSC.A070104", "NBSC.A070105", "NBSC.A070106", "NBSC.A070107", "NBSC.A070108"],
+   "freq": "month",
+   "div": 1,
+   "survey": "NBSC_RETAIL",
+   "filter": [""]
  }
 ]

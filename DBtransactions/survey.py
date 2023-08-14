@@ -18,7 +18,7 @@ from DBtransactions.helpers import Q
 
 
 # Conta
-def add_survey(contas_info:List[Tuple[str]])-> None:
+def add_survey(survey_info:List[Tuple[str]])-> None:
     """
     Insere/atualiza survey na base na base the dados.
     input: list(survey_id, description, source_id))
