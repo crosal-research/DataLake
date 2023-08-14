@@ -24,11 +24,17 @@ class Search:
         if q:
             df = search.query_search(q)
             output = io.StringIO()
-            if tp == 'json':
-                resp.text = json.dumps([{'rank': 1, 
-                                         'ticker': df.loc[i, 'tickers'],
-                                         'descricao': df.loc[i, 'descricao']} 
-                                        for i in df.index])
-            else:
-                df.to_csv(output)
-                resp.text = output.getvalue()
+            try:
+                if tp == 'json':
+                    result = [{'rank': int(df.loc[i, 'rank']), 
+                               'ticker': df.loc[i, 'tickers'],
+                               'descricao': df.loc[i, 'descricao']} 
+                              for i in df.index]
+                    resp.media = result
+                else:
+                    df.to_csv(output)
+                    resp.text = output.getvalue()
+                resp.status = falcon.HTTP_200
+            except _ as e:
+                print(e)
+                resp.status = falco.HTTP_500

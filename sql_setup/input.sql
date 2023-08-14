@@ -55,6 +55,7 @@ COMMIT;
 --Insert Surveys
 BEGIN TRANSACTION;
 
+-- IBGE 
 INSERT INTO Survey (survey_id, description, source_id)
       VALUES ('IBGE_PIM', 'PESQUISA INDUSTRIAL MENSAL, Brasil', 'IBGE');
 INSERT INTO Survey (survey_id, description, source_id)
@@ -69,16 +70,22 @@ INSERT INTO Survey (survey_id, description, source_id)
       VALUES ('IBGE_IPCA15', 'Indice de Preco ao Consumidor amplo-15', 'IBGE');
 INSERT INTO Survey (survey_id, description, source_id)
       VALUES ('IBGE_PNAD', 'Pesquisa Nacional de Amostra Domiliar Continuada, Brasil', 'IBGE');                              
+
+-- FRED ---
 INSERT INTO Survey (survey_id, description, source_id)
       VALUES ('FRED_ECON', 'DADOS ECONÔMICOS DISPONIBILIZADOS PELO FRED', 'FRED');
 INSERT INTO Survey (survey_id, description, source_id)
       VALUES ('FRED_FIN', 'DADOS FINANCEIROS DISPONIBILIZADOS PELO FRED', 'FRED');
+
+-- IPEA --
 INSERT INTO Survey (survey_id, description, source_id)
       VALUES ('IPEA', 'DADOS GENERICOS DISPONIBILIZADOS PELO IPEA', 'IPEA');
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('IPEA_ECON', 'DADOS ECONOMICOS DISPONIBILIZADOS PELO IPEA', 'IPEA');   
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('IPEA_FIN', 'DADOS FINANCEIROS DISPONIBILIZADOS PELO IPEA', 'IPEA');
+
+-- BLS --
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BLS_CPI', 'DADOS DE INFLACAO AO CONSUMIDOR DOS E.U.A.', 'BLS');
 INSERT INTO Survey (survey_id, description, source_id) 
@@ -87,8 +94,12 @@ INSERT INTO Survey (survey_id, description, source_id)
        VALUES ('BLS_CE', 'DADOS DE EMPREGO, HORAS TRABALHADAS E GANHOS DO E.U.A. DO CURRENT POPULATION SURVEY', 'BLS');
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('IMF_PCPS', 'PRECO DE COMMODITIES PRIMARIAS', 'IMF');
+
+--BIS --
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BIS_WS_EER_M', 'TAXAS DE CAMBIOS REAL EFETIVOS', 'BIS');
+
+-- BCB --
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BCB_ECON', 'SERIES ECONOMICAS DO BANCO CENTRAL DO BRASIL', 'BCB');                                                INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BCB_MERCADO-ABERTO', 'SERIES FINANCEIRAS DISPONIBILIZADAS PELO BANCO CENTRAL DO BRASIL', 'BCB');                 INSERT INTO Survey (survey_id, description, source_id) 
@@ -100,16 +111,24 @@ INSERT INTO Survey (survey_id, description, source_id)
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BCB_EXP_12M', 'SERIES DE EXPECTATIVAS 12 MESES A FRENTE DISPONIBILIZADAS PELO BANCO CENTRAL DO BRASIL', 'BCB');  INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BCB_EXP_ANUAL', 'SERIES DE EXPECTATIVAS DE FINAL DE ANO DISPONIBILIZADAS PELO BANCO CENTRAL DO BRASIL', 'BCB');
+
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('ONS_ENA', 'INFORMACOES SOBRE UTILIZAÇAO DO ENERGIA NATURAL AFLUENTE TO BRASIL', 'ONS');         
+
+-- BEA --
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BEA_GDP', 'DADOS RELACIONADOS AO PIB DOS E.U.A.', 'BEA');         
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BEA_CONSUMER', 'DADOS RELACIONADOS A PESQUINA DE CONSUMO E RENDA DOS E.U.A.', 'BEA');
+--CEPEA --
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('CEPEA_PRECO', 'COTACOES DE PRECOS DE ITENS AGRICOLAS NO BRASIL', 'CEPEA');
+
+-- CPB
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('CPB_TRADE', 'ESTATISTICAS DE PRODUCAO MUNDIAL PRODUZIDAS PELO CPB', 'CPB');
+
+--NBSC--
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('NBSC_PIBY', 'DADOS ANUALIZADOS DO PIB E SEUS COMPONENTES', 'NBSC');
 INSERT INTO Survey (survey_id, description, source_id) 
@@ -121,5 +140,9 @@ INSERT INTO Survey (survey_id, description, source_id)
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('NBSC_TRADE', 'DADOS DA BALANÇA COMERCIAL, CHINA', 'NBSC');
 INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('NBSC_PMI', 'PMI OFICIAL DA CHINA E SEUS COMPONENTES', 'NBSC');                     
+       VALUES ('NBSC_PMI', 'PMI OFICIAL DA CHINA E SEUS COMPONENTES', 'NBSC');
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('NBSC_IND', 'PRODUCAO INDUSTRIAL, CHINA', 'NBSC');
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('NBSC_RETAIL', 'VAREJO CHINA E SEUS COMPONENTES', 'NBSC');                            
 COMMIT;

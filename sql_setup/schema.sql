@@ -102,11 +102,11 @@ CREATE TABLE IF NOT EXISTS Tracker (
 View to retrived the weekly requests of each
 Series by users
 */
-DROP VIEW IF EXISTS Weekly_Traker;
-CREATE VIEW Weekly_Traker AS
-Select series_id, count(*) as series_traker from tracker
-where timeA >= datetime('now', 'localtime', '-7 days') and timeA <= datetime('now', 'localtime')
-group by series_id order by series_traker desc;
+DROP VIEW IF EXISTS Weekly_Tracker;
+CREATE VIEW Weekly_Tracker AS
+Select series_id, count(*) as wtracker from Tracker
+where timeA >= datetime('now', 'localtime', '-14 days') and timeA <= datetime('now', 'localtime')
+group by series_id order by wtracker desc;
 
 
 /* 
@@ -166,6 +166,5 @@ CREATE TRIGGER search_del AFTER DELETE ON series
 	VALUES ('delete', old.series_id, old.description)
     END;
 
--- create auxiliar table for the case of using fuzzy search
--- DROP TABLE IF EXISTS Search_aux;
--- CREATE VIRTUAL TABLE IF NOT EXISTS Search_aux USING fts5vocab(Search);
+
+
