@@ -29,9 +29,11 @@ class Series:
             df = await loop.run_in_executor(None, series.query_series,q)
             output = io.StringIO()
             if tp == 'json':
-                resp.text = json.dumps([{'ticker': df.loc[i, 'Ticker'], 
-                              'descricao': df.loc[i, 'Descricao']}
-                                        for i in df.index ])
+                resp.media = ([{'ticker': str(df.loc[i, 'Ticker']), 
+                                'descricao': str(df.loc[i, 'Descricao']), 
+                                'last_update': str(df.loc[i, 'last_update']), 
+                                'source': str(df.loc[i, 'source'])}
+                               for i in df.index ])
             else:
                 df.to_csv(output)
                 resp.text = output.getvalue()

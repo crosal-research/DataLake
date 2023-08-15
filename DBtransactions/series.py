@@ -28,7 +28,6 @@ def add_series(source:Optional[str]=None,
     Insert/Update a list of series in the
     database
     """
-    global linfo
     string_sql = f"""
         insert into series(series_id, description, survey_id, frequency, last_update)
            values({Q}, {Q}, {Q}, {Q}, {Q})
@@ -37,7 +36,6 @@ def add_series(source:Optional[str]=None,
         	  survey_id=excluded.survey_id,
         	  frequency=excluded.frequency;
         """
-    global linfo
     def _input(linfo: List[Series]) -> List[Tuple[str]]:
         """
         Helper function to raise letters to upper case
@@ -94,7 +92,7 @@ def query_series(series_tickers:List[str]=[], survey:str='', source:str='') -> L
     4) totas as series
     """
     string_sql = """
-    select Series.series_id, Series.description, Source.full_name from Series
+    select Series.series_id, Series.description, Series.last_update, Source.full_name from Series
     join Survey on Series.survey_id = Survey.survey_id
     join Source on Survey.source_id = Source.source_id
     where series_id in ({sep})
@@ -104,7 +102,7 @@ def query_series(series_tickers:List[str]=[], survey:str='', source:str='') -> L
         cur = _cursor(conn)
         q =  cur.execute(string_sql, series_tickers)
     return pd.DataFrame(data=q.fetchall(), 
-                        columns=['Ticker', "Descricao", "Fonte"])
+                        columns=['Ticker', "Descricao", "last_update", "source"])
 
 
 def delete_series(tickers=List[str]):
