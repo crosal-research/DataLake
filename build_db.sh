@@ -47,6 +47,7 @@ case $1 in
     "run")  uvicorn app:app --reload --loop asyncio
 	    ;;
     "backup") sqlite3 ./DB/database.db -csv -header 'select series_id, description,  survey_id from series' > ./DB/series.csv
+	      echo "backup completed!"
 	      ;;
     "help") echo "Type either build, load, run or backup "
 	    ;;

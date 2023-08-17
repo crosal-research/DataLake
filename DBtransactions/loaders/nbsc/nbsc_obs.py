@@ -8,6 +8,7 @@ from datetime import datetime as dt
 from typing import List, Dict
 from concurrent.futures import ThreadPoolExecutor as executor
 import re
+from functools import reduce
 
 # import from packages
 import pendulum as pd
@@ -63,6 +64,8 @@ def fetch(series: List[str], limit=None) -> List[List[Observation]]:
     """
     Fetch & parse from the China National Bureau of Statistics web data API.
     """
+    print(series)
+    global lsrs
     periods = limit if limit else f"{LLower}-{LUpper}"
     surveys = list(set([srs.split(".")[0] + "_" + srs.split("_")[1] for srs in series]))
     # Prepare the HTTP request
@@ -121,7 +124,13 @@ def fetch(series: List[str], limit=None) -> List[List[Observation]]:
         srs = e.map(_fetch, surveys)
     session.close()                                            
 
-    lxs = []
-    for sr in list(srs):
-        lxs.append([o for o in sr if (o).series_id in series])
-    return lxs
+    lsrs = list(srs)
+    lxs = {}
+    for sr in reduce(lambda x, y: x + y, lsrs, []):
+        k = sr.series_id
+        if k in series:
+            if k in lxs:
+                lxs[k].append(sr)
+            else:
+                lxs[k] = [sr]
+    return list(lxs.values())

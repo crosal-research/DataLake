@@ -73,6 +73,7 @@ def add_obs(tickers:Optional[List[str]]=None,
     on conflict (dat, series_id) do update set
     valor = excluded.valor
     """
+    global llobs
     if tickers:
         string_sql_aux = ""
         tcks = [tickers] if isinstance(tickers, str) else tickers
@@ -98,7 +99,6 @@ def add_obs(tickers:Optional[List[str]]=None,
         string_sql_aux = f"""
         select series_id from series
         """
-
     with connect() as conn:
         cur = _cursor(conn)
         if string_sql_aux:

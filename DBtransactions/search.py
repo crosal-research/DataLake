@@ -11,7 +11,6 @@ from DBtransactions.helpers import _cursor, connect
 from DBtransactions.helpers import Q
 
 
-
 # Search
 def build_search() -> None:
     """
@@ -22,6 +21,7 @@ def build_search() -> None:
     insert into search (ticker, description) 
     select series_id, description from series
     """
+    
     with connect() as conn:
         cur = _cursor(conn)
         c = cur.execute(string_slq)
