@@ -49,6 +49,7 @@ INSERT INTO Source (source_id, full_name)
 INSERT INTO Source (source_id, full_name)
        VALUES ('CPB', 'INSTITUTO DE ESTATISTICA DA HOLANDA');
 INSERT INTO Source (source_id, full_name) VALUES ('NBSC', 'NATIONAL BUREAU OF STATISTICS OF CHINA');
+INSERT INTO Source (source_id, full_name) VALUES ('CAGED', 'DADOS DO MERCADO DE TRABALHO CELETISTA, PDET');
 COMMIT;	      
 
 
@@ -145,4 +146,9 @@ INSERT INTO Survey (survey_id, description, source_id)
        VALUES ('NBSC_IND', 'PRODUCAO INDUSTRIAL, CHINA', 'NBSC');
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('NBSC_RETAIL', 'VAREJO CHINA E SEUS COMPONENTES', 'NBSC');                            
+
+--CAGED--
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('NCAGED', 'NOVO DADOS DO CAGED', 'CAGED');
 COMMIT;
+       
