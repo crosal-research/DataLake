@@ -50,6 +50,7 @@ INSERT INTO Source (source_id, full_name)
        VALUES ('CPB', 'INSTITUTO DE ESTATISTICA DA HOLANDA');
 INSERT INTO Source (source_id, full_name) VALUES ('NBSC', 'NATIONAL BUREAU OF STATISTICS OF CHINA');
 INSERT INTO Source (source_id, full_name) VALUES ('CAGED', 'DADOS DO MERCADO DE TRABALHO CELETISTA, PDET');
+INSERT INTO Source (source_id, full_name) VALUES ('NASDAQ', 'DADOS DE INDICES DE ATIVOS EXTRAIDOS DA NASDAQ');
 COMMIT;	      
 
 
@@ -151,4 +152,9 @@ INSERT INTO Survey (survey_id, description, source_id)
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('NCAGED', 'NOVO DADOS DO CAGED', 'CAGED');
 COMMIT;
-       
+
+--NASDAQ
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('NASDAQ_ML', 'INDICES DE MERCADO DE RENDA FIXA GLOBAL E AMERICANO PUBLICADOS PELO BANK ML', 'NASDAQ');
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('NASDAQ_MULTPL', 'MULTIPLES DO MERCADO DE ACOES AMERICANO', 'NASDAQ');                                   
