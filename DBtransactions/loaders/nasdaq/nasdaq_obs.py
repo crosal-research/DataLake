@@ -6,34 +6,34 @@ import json
 # import from packages
 import requests
 from dotenv import dotenv_values
+import pendulum 
+
+# import from App
+from DBtransactions.DBtypes import Observation
+
 
 config = dotenv_values("./.env")
 _key = config["NASDAQ_KEY"]
 
 
-ticker = "NASDAQ.MULTPL/SHILLER_PE_RATIO_MONTH"
-
-"https://data.nasdaq.com/api/v3/datasets/ML/EMHYY.json?api_key=YLLy-zR6Y3fdQPkUzeyE" # EM corporate bonds
-"https://data.nasdaq.com/api/v3/datasets/ML/AAAEY.json?api_key=YLLy-zR6Y3fdQPkUzeyE" # US AAA
-"https://data.nasdaq.com/api/v3/datasets/ML/AEY.json?api_key=YLLy-zR6Y3fdQPkUzeyE"   # US A
-"https://data.nasdaq.com/api/v3/datasets/ML/BEY.json?api_key=YLLy-zR6Y3fdQPkUzeyE"   # US B
-"https://data.nasdaq.com/api/v3/datasets/ML/BBBEY.json?api_key=YLLy-zR6Y3fdQPkUzeyE" # US BBB
-
-
-def _process(resp: requests.Response):
+def _process(resp: requests.Response, limit):
     if resp.ok:
         dataset = resp.json()['dataset']
         ticker = f"NASDAQ.{dataset['database_code']}/{dataset['dataset_code']}"
-        return [Observation(**{'series_id': ticker, 'dat': d[0], 'valor': d[1]}) for d in dataset['data']]
+        if limit:
+            return [Observation(**{'series_id': ticker, 'dat': d[0], 'valor': d[1]}) for d in dataset['data'] 
+                    if pendulum.parse(d[0]) >= pendulum.parse(limit)]
+        return [Observation(**{'series_id': ticker, 'dat': d[0], 'valor': d[1]}) for d in dataset['data']] 
     else:
         {'status': 'fail', 
          'series': ""}
         return None
     
 
-def fetch(tickers: List[str]) -> List[List[Dict[str, str]]]:
+def fetch(tickers: List[str], limit:Optional[str]=None) -> List[List[Dict[str, str]]]:
     """
-    fetches a list of series from their tickers
+    fetches a list of series from their tickers. limit is currenlty in the form of
+    yyyy-mm-dd
     """
     def _url(tck:str) -> str:
         """
@@ -46,5 +46,4 @@ def fetch(tickers: List[str]) -> List[List[Dict[str, str]]]:
         session.mount("http://https://data.nasdaq.com/api/v3", adapter)
         with executor() as e:
             resps = e.map(lambda tck: session.get(_url(tck), params={'api_key': _key}), tickers)
-                          
-    return [_process(r) for r in resps]
+    return [_process(r, limit) for r in resps]
