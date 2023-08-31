@@ -11,6 +11,7 @@ import pendulum
 from DBtransactions.helpers import _cursor, connect, _parser_to_input
 from DBtransactions.helpers import Q
 from DBtransactions.loaders.fetcher_obs import fetch
+from DBtransactions.DBtypes import Observation
 
 
 LDATE="1800-01-01" #limite inferior para datas na base de dados
@@ -64,7 +65,7 @@ def add_obs(tickers:Optional[List[str]]=None,
             limit:Optional[int]=None) -> None:
     """
     Insere/substitui dados para list the series,
-    series de um survey, de uma fonta ou de toda
+    series de um survey, de uma fonte ou de toda
     a base de dados
     """
     string_sql = f"""
@@ -73,7 +74,6 @@ def add_obs(tickers:Optional[List[str]]=None,
     on conflict (dat, series_id) do update set
     valor = excluded.valor
     """
-    global llobs
     if tickers:
         string_sql_aux = ""
         tcks = [tickers] if isinstance(tickers, str) else tickers
@@ -112,6 +112,7 @@ def add_obs(tickers:Optional[List[str]]=None,
                 c = cur.execute(string_sql_aux)
             tcks = [tck[0] for tck in c.fetchall()]
         llobs = fetch(tcks, limit=limit)
+
         for lobs in llobs:
             if len(lobs) > 0:
                 mobs = [tuple(obs.model_dump().values()) 
