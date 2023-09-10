@@ -64,8 +64,6 @@ def fetch(series: List[str], limit=None) -> List[List[Observation]]:
     """
     Fetch & parse from the China National Bureau of Statistics web data API.
     """
-    print(series)
-    global lsrs
     periods = limit if limit else f"{LLower}-{LUpper}"
     surveys = list(set([srs.split(".")[0] + "_" + srs.split("_")[1] for srs in series]))
     # Prepare the HTTP request
