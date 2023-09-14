@@ -30,12 +30,14 @@ INFO_FRED: List[Tuple[str]] = [
     ('FRED.VXEWZCLS', 'VOLATILIDADE IMPLICITA DO ETF EWZ DE ACÕES BRASILEIRAS', 'FRED_FIN', 'DIARIA'),
     ('FRED.UMCSENT', 'SENTIMENTO DO CONSUMIDOR DA UNIVERSIDADE DE MICHIGAN, E.U.A.', 'FRED_ECON', 'MENSAL'),
     ('FRED.MICH', ' EXPECTATIVA DE INFLACAO DA UNIVERSIDADE DE MICHIGAN, E.U.A.', 'FRED_ECON', 'MENSAL'), 
+    ('FRED.GFDEGDQ188S', 'RELACAO DIVIDA PUBLICA FEDERAL SOBRE PIB, E.U.A.', 'FRED_ECON', 'TRIMESTRAL'), 
     ('FRED.DCOILBRENTEU', 'PREÇO DO BARRIL DO PETROLEO EXTRAIDO NO MAR NO NORTE (BRENT)', 'FRED_FIN', 'DIARIA')]
 
 
 def fetch_info(info) -> List[Series]:
-    return [Series(** {'series_id': d[0], 
-                       'description': d[1], 
-                       'survey_id': d[2], 
-                       'frequency': d[3]}) for d in info]
+    return [Series(**{'series_id': d[0], 
+                      'description': d[1], 
+                      'survey_id': d[2],
+                      'last_update': None,
+                      'frequency': d[3]}) for d in info]
 
