@@ -19,6 +19,8 @@ from DBtransactions.loaders.cepea import cepea_obs
 from DBtransactions.loaders.cpb import cpb_obs
 from DBtransactions.loaders.nbsc import nbsc_obs
 from DBtransactions.loaders.caged import caged_obs
+from DBtransactions.loaders.nasdaq import nasdaq_obs
+from DBtransactions.loaders.cni import cni_obs
 
 
 fetchers = {"FRED":fred_obs.fetch, 
@@ -34,8 +36,9 @@ fetchers = {"FRED":fred_obs.fetch,
             "CEPEA": cepea_obs.fetch,
             "CPB": cpb_obs.fetch,
             "NBSC": nbsc_obs.fetch,
-            "NBSC": caged_obs.fetch,
-            "CAGED": caged_obs.fetch
+            "CAGED": caged_obs.fetch, 
+            "NASDAQ": nasdaq_obs.fetch,
+            "CNI": cni_obs.fetch
 }
 
 
