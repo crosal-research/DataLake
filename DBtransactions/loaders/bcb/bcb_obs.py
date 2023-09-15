@@ -27,11 +27,11 @@ def build_url(fulltck: str, limit=None) -> str:
     return f"http://api.bcb.gov.br/dados/serie/bcdata.sgs.{tck_new}/dados/ultimos/{limit}?formato=json"
 
 
+
 def _process(resp:requests.models.Response) -> Optional[dict]:
     """
     handles the successful response to a request the bcb api
     """
-    global obs
     if resp.ok:
         try:
             tck = str(int((resp.url).split("bcdata.sgs.")[1].split("/dados")[0]))
@@ -41,8 +41,9 @@ def _process(resp:requests.models.Response) -> Optional[dict]:
                                    'valor': o['valor']}) for o in obs if o['valor']]
         except:
             print(f"Could not process {resp.url}")
+            return None
     else:
-        print("Failed request {resp.url}")
+        print(f"Failed request {resp.url}")
         return None
 
 
@@ -51,7 +52,12 @@ def fetch(tickers: List[str], limit: Optional[int]=None) -> List[Observation]:
     Fetch the observations from the bcb's api. 
     """
     urls = (build_url(tck, limit=limit) for tck in tickers)
+
+    def _pos_process(obs):
+        if obs is not None:
+            return obs
+
     with requests.session() as session:
         with executor() as e:
-            js = list(e.map(lambda url:_process(session.get(url)), list(urls)))
-    return js
+            js = e.map(lambda url:_process(session.get(url)), list(urls))
+    return list(filter(_pos_process, js))
