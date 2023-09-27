@@ -1,7 +1,7 @@
 # import from system
 from io import BytesIO
 import os, json
-from typing import List
+from typing import List, Optional
 from concurrent.futures import ThreadPoolExecutor as executor
 from functools import reduce
 
@@ -32,9 +32,9 @@ with open(os.getcwd() + "/DBtransactions/loaders/cni/data.json", 'r') as f:
 
 
 
-def _process(resp:requests.Response):
+def _process(resp:requests.Response) -> Optional[pd.DataFrame]:
     """
-    Prosses response
+    Processes a response into relevant data
     """
     f = BytesIO()
     f.write(resp.content)

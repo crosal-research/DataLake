@@ -26,24 +26,30 @@ from DBtransactions.loaders.nbsc import nbsc_fetch_info
 from DBtransactions.loaders.caged import caged_fetch_info
 from DBtransactions.loaders.nasdaq import nasdaq_fetch_info
 from DBtransactions.loaders.cni import cni_fetch_info
+from DBtransactions.loaders.anfavea import anfavea_fetch_info
+from DBtransactions.loaders.stn import stn_fetch_info
 
-dispatcher = {"FRED": fred_fetch_info.fetch_info,
-              "IPEA": ipea_fetch_info.fetch_info, 
-              "BLS": bls_fetch_info.fetch_info,
-              "BIS": bis_fetch_info.fetch_info,
-              "IBGE": ibge_fetch_info.fetch_info, 
-              "BCB": bcb_fetch_info.fetch_info,
-              "IMF": imf_fetch_info.fetch_info,
-              "BCB_EXP": bcb_exp_fetch_info.fetch_info, 
-              "ONS": ons_fetch_info.fetch_info, 
-              "BEA": bea_fetch_info.fetch_info,
-              "CEPEA": cepea_fetch_info.fetch_info,
-              "CPB": cpb_fetch_info.fetch_info,
-              "NBSC": nbsc_fetch_info.fetch_info,
-              "CAGED": caged_fetch_info.fetch_info,
-              "NASDAQ": nasdaq_fetch_info.fetch_info,
-              "CNI": cni_fetch_info.fetch_info
+dispatcher = {
+    "FRED": fred_fetch_info.fetch_info,
+    "IPEA": ipea_fetch_info.fetch_info, 
+    "BLS": bls_fetch_info.fetch_info,
+    "BIS": bis_fetch_info.fetch_info,
+    "IBGE": ibge_fetch_info.fetch_info, 
+    "BCB": bcb_fetch_info.fetch_info,
+    "IMF": imf_fetch_info.fetch_info,
+    "BCB_EXP": bcb_exp_fetch_info.fetch_info, 
+    "ONS": ons_fetch_info.fetch_info, 
+    "BEA": bea_fetch_info.fetch_info,
+    "CEPEA": cepea_fetch_info.fetch_info,
+    "CPB": cpb_fetch_info.fetch_info,
+    "NBSC": nbsc_fetch_info.fetch_info,
+    "CAGED": caged_fetch_info.fetch_info,
+    "NASDAQ": nasdaq_fetch_info.fetch_info,
+    "CNI": cni_fetch_info.fetch_info,
+    "ANFAVEA": anfavea_fetch_info.fetch_info,
+    "STN": stn_fetch_info.fetch_info
  }
+
 
 def fetch_infos(source:Optional[str]=None,
                 survey:Optional[str]=None,
@@ -77,8 +83,12 @@ def fetch_infos(source:Optional[str]=None,
             srs = dispatcher[source](caged_fetch_info.TICKERS)
         elif source == "CNI":
             srs = dispatcher[source](cni_fetch_info.DATA)
+        elif source == "ANFAVEA":
+            srs = dispatcher[source](anfavea_fetch_info.DATA)
+        elif source == "STN":
+            srs = dispatcher[source](stn_fetch_info.DATA)
         else: # FRED
-            srs = dispatcher[source](fred_fetch_info.DATA)
+            srs = dispatcher[source](fred_fetch_info.INFO_FRED)
         return srs
     
     elif survey:
@@ -114,6 +124,11 @@ def fetch_infos(source:Optional[str]=None,
                 srs = dispatcher["NASDAQ"](nasdaq_fetch_info.TICKERS_MULTPL)
         elif "CNI" in survey:
             srs = dispatcher["CNI"](cni_fetch_info.DATA)
+        elif "ANFAVEA" in survey:
+            srs = dispatcher["ANFAVEA"](anfavea_fetch_info.DATA)
+        elif "STN" in survey:
+            srs = dispatcher["STN"](stn_fetch_info.DATA)
+
         else:
             pass
         return srs

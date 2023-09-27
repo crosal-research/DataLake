@@ -1,0 +1,265 @@
+[
+  {
+    "series_id": "STN.1", "description": "Receita Total. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL", "survey_id": "STN_RES"
+    , "last_update": ""
+  },
+  {
+    "series_id": "STN.11", "description": "Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  },
+  {
+    "series_id": "STN.1101", "description": "Imposto de Importacao, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  },
+  { 
+    "series_id": "STN.1102", "description": "IPI, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  },
+  { 
+    "series_id": "STN.1103", "description": "Imposto de Renda, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  },
+  { 
+    "series_id": "STN.1104", "description": "IOF, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  },
+  {
+    "series_id": "STN.1105", "description": "Cofins, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes",  "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""
+  },
+  { 
+    "series_id": "STN.1106", "description": "PIS/PASEP, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""
+  },
+  {
+    "series_id": "STN.1107", "description": "CSLL, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes",  "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""
+  },
+  { 
+    "series_id": "STN.1108", "description": "CPMF, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""
+  },
+  { 
+    "series_id": "STN.1109", "description": "CIDE Combustíveis, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+  { 
+    "series_id": "STN.1110", "description": "Outras receitas Admninstradas pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""
+  },
+  { 
+    "series_id": "STN.12", "description": "Incentivos Fiscais. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+  { 
+    "series_id": "STN.13", "description": "Arrecadação Líquida do RGPS. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""
+  },
+  { 
+    "series_id": "STN.14", "description": "Receita não administradas pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""
+  },
+  { 
+    "series_id": "STN.141", "description": "Concessões e Permissões, Receitas não administratas pela RFB. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""
+  },
+  {
+    "series_id": "STN.142", "description": "Dividendos e Participações, Receitas não administratas pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  { "series_id": "STN.143", "description": "Contr. Plano de Seguridade Social do Servidor, Receitas não administratas pela RFB. Resultado do Governo Central, R$ Milhoes",  "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""
+  },
+  {
+    "series_id": "STN.144", "description": "Receitas de Exploração de Recursos Naturais, não administratas pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""
+  },
+  {
+    "series_id": "STN.145", "description": "Receitas Próprias (fontes 50, 81 e 82), não administratas pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""
+  },
+  {
+    "series_id": "STN.146", "description": "Receita de Contribuição do Salário Educação, não administratas pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""
+  },
+  {
+    "series_id": "STN.147", "description": "Complemento para o FGTS (LC nº 110/01), não administratas pela RFB. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""
+  },
+  {
+    "series_id": "STN.148", "description": "Demais Receitas, não administratas pela RFB. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.2", "description": "Transferencias por reparticão de receita total. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.21", "description": "M/FPE/IPE-EE, Trensferecias do TN, RTN. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+  {
+    "series_id": "STN.22", "description": "Fundos Constitucionais, Transferencias, RTN. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+  {
+    "series_id": "STN.221", "description": "Repasse Total do Fundos Constitucionais, Transferencias RTN. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+  {
+    "series_id": "STN.222", "description": "Superávit dos Fundos Constitucionais, Transferencias, RTN. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+  {
+    "series_id": "STN.23", "description": "Transferência de Contribuição do Salário Educação. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+  {
+    "series_id": "STN.24", "description": "Transferencias de Exploração de Recursos Naturais. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  , 
+  {
+    "series_id": "STN.25", "description": "Cide - Comsustiveis. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""},
+  {
+    "series_id": "STN.26", "description": "Demais transferencias por repartição de receitas. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+  {
+    "series_id": "STN.3", "description": "Receita Líquida. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.4", "description": "DESPESA TOTAL. Resultado do Governo Central, R$ Milhoes"
+    ,"frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""},
+  {
+    "series_id": "STN.41", "description": "Benefícios Previdenciários. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES" , "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.42", "description": "Pessoal e Encargos Sociai. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES" , "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.43", "description": "Outras Despesas Obrigatória. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES" , "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.4301", "description": "Abono e Seguro Desemprego, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES" , "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.4302", "description": "Anistiado, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES" , "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.4303", "description": "Apoio Fin. EE/M, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES" , "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.4304", "description": "Benefícios de Legislação Especial e Indenizações, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""},
+  {
+    "series_id": "STN.4305", "description": "Benefícios de Prestação Continuada da LOAS/RM, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.4306", "description": "Complemento para o FGTS (LC nº 110/01, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+  {
+    "series_id": "STN.4307", "description": "Créditos Extraordinários (exceto PAC), Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.4308", "description": "Compensação ao RGPS pelas Desonerações da Folha , Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""},
+  {
+    "series_id": "STN.4309", "description": "Fabricação de Cédulas e Moeda, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL", "survey_id": "STN_RES", "last_update": ""}
+  ,
+  {
+    "series_id": "STN.4310", "description": "FUNDEB (Complem. União, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.4311", "description": "Fundo Constitucional DF (Custeio e Capital), Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  },
+  {
+    "series_id": "STN.4312", "description": "Legislativo/Judiciário/MPU/DPU (Custeio e Capital) , Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""}
+  ,
+  {
+    "series_id": "STN.4313", "description": "Lei Kandir (LC nº 87/96 e 102/00) e FE, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+  {
+    "series_id": "STN.4314", "description": "Sentenças Judiciais e Precatórios (Custeio e Capital), Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.4315", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+  {
+    "series_id": "STN.4316", "description": "Transferências AN, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.4317", "description": "Transferências Multas ANEE, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+  {
+    "series_id": "STN.4318", "description": "Impacto Primário do FIE, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+  {
+    "series_id": "STN.4319", "description": "Financiamento de Campanha Eleitoral, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.4320", "description": "Demais Despesas Obrigatárias, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.44", "description": "Despesas do Poder Executivo Sujeitas à Programação Financeira. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""},
+  {
+    "series_id": "STN.441", "description": "Obrigatórias com Controle de Fluxo. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.442", "description": "Despesas Discricionárias do Governo Central, R$ Milhoes. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL", "survey_id": "STN_RES", "last_update": "" 
+  }
+  ,
+  {
+    "series_id": "STN.5", "description": "Resultado do Governo Central, R$ Milhoes, Acima da linha. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL", "survey_id": "STN_RES"
+    , "last_update": ""},
+  {
+    "series_id": "STN.6", "description": "Ajustes metodologicos, Governo Central, R$ Milhoes. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+  {
+    "series_id": "STN.61", "description": "Ajuste Metodologico Itaipu. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+  {
+    "series_id": "STN.62", "description": "Ajuste Metodologico Caixa - Competência. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL" ,"survey_id": "STN_RES"
+    , "last_update": ""},
+  {
+    "series_id": "STN.7", "description": "Discrepancia Estatistica. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}, 
+  {
+    "series_id": "STN.8", "description": "Resultado Primario do Governo Central, R$ Milhoes, Abaixo da Linha."
+    ,"frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+  {
+    "series_id": "STN.9", "description": "Juros Nonimais pagas pelo o Governo Central, R$ Milhoes."
+    , "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+  {
+    "series_id": "STN.10", "description": "Resultado Nominal do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES"    , "last_update": ""}
+]
