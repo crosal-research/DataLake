@@ -72,10 +72,9 @@ INSERT INTO Survey (survey_id, description, source_id)
 INSERT INTO Survey (survey_id, description, source_id)
       VALUES ('IBGE_IPCA', 'Indice de Preco ao Consumidor amplo, Brasil', 'IBGE');
 INSERT INTO Survey (survey_id, description, source_id)
-      VALUES ('IBGE_IPCA15', 'Indice de Preco ao Consumidor amplo-15', 'IBGE');
+      VALUES ('IBGE_IPCA15', 'Indice de Preco ao Consumidor amplo-15, Brasil', 'IBGE');
 INSERT INTO Survey (survey_id, description, source_id)
       VALUES ('IBGE_PNAD', 'Pesquisa Nacional de Amostra Domiliar Continuada, Brasil', 'IBGE');                              
-
 -- FRED ---
 INSERT INTO Survey (survey_id, description, source_id)
       VALUES ('FRED_ECON', 'DADOS ECONÔMICOS DISPONIBILIZADOS PELO FRED', 'FRED');

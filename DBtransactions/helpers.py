@@ -22,8 +22,6 @@ DB = f"{config['DB_sqlite']}"
 if config['ENV'] == "DEV":
     import sqlite3 as engine
 
-
-
 # character for interpolation to avoid sql injection attack
 Q = '?' if config['ENV'] == "DEV" else "%s"
 
@@ -38,7 +36,6 @@ def _parser_to_input(df:pd.DataFrame) -> List[Tuple]:
     return [(i.strftime('%Y-%m-%d'), 
              df.loc[i].values[0], 
              ticker) for i in df.index ]
-
 
 
 def connect():
