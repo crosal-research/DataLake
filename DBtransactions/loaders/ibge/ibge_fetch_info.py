@@ -8,7 +8,8 @@ from typing import List, Dict, Tuple
 from functools import reduce
 
 # import from packages
-import requests
+import requests, urllib3
+from urllib3.util.ssl_ import create_urllib3_context
 
 # import from app
 from DBtransactions.DBtypes import Series
@@ -57,6 +58,11 @@ TABLES = [
     {'t':'6439', 'v': 4114                 ,'s': "IBGE_PNAD"},   # força de trabalho sub-utilizada por horas trabalhadas
     {'t':'6440', 'v': 4116                 ,'s': "IBGE_PNAD"},   # força de trabalho desocupda e potencial
     {'t':'6441', 'v': 4118                 ,'s': "IBGE_PNAD"},   # força de trabalho desocupda e potencial (%)
+    # ipca
+    {'t':'7060', 'v': 63, 'c315': 'all'    ,'s': "IBGE_IPCA"},   # Indice nacional de precos amplo, variacao (%): 
+    {'t':'7060', 'v': 66, 'c315': 'all'    ,'s': "IBGE_IPCA"},   # Indice nacional de precos amplo, peso (%):
+    {'t':'7062', 'v': 355, 'c315': 'all'    ,'s': "IBGE_IPCA15"},# Indice nacional de precos amplo 15, variacao (%): 
+    {'t':'7062', 'v': 357, 'c315': 'all'    ,'s': "IBGE_IPCA15"} # Indice nacional de precos amplo 15, pesos (%):
 ]     
 
 URL = "https://apisidra.ibge.gov.br/values/"
@@ -77,13 +83,14 @@ def _build_url(input:dict) -> str:
     return URL + params + "/d/2/n1/1"
 
 
-def _aux_fetch_info(tbl: dict, session: requests.sessions.Session) -> List[Series]:
+# def _aux_fetch_info(tbl: dict, session: requests.sessions.Session) -> List[Series]:
+def _aux_fetch_info(tbl: dict, pool: urllib3.PoolManager) -> List[Series]:
     """
     Fetch info from a IBGE's table and build tickers, info, etc 
     into a series
     """
     url = _build_url(tbl)
-    resp = requests.get(url)
+    resp = pool.request("GET", url, timeout=4.0, retries=10)
     ls = resp.json()
     tck = ((resp.url).split("t/")[1]).split("/d")[0]
     survey = tbl['s'] 
@@ -111,7 +118,8 @@ def _aux_fetch_info(tbl: dict, session: requests.sessions.Session) -> List[Serie
         cn = f"{l['D2N']}, {l['D1N']}, Brasil" if ch == 'DC2' else f"{l['D2N']},{l['D3N']} {l['D1N']}, Brasil"
         srs.append(Series(**{'series_id': f"IBGE.{tck.replace('all', l[ch])}" if 'all' in tck else f"IBGE.{tck}",
                              'description': cn, 
-                             'survey_id': survey, 
+                             'survey_id': survey,
+                             'last_update': None,
                              'frequency': 'TRIMESTRAL' if survey == "IBGE_CN" else "MENSAL"}))
     return srs
 
@@ -121,7 +129,14 @@ def fetch_info(tbls: List[dict]) -> List[Tuple[Series]]:
     Fetch info from a IBGE's table and build tickers, info, etc 
     into a series
     """
-    with requests.session() as session:
+    # session = requests.session()
+    # with requests.session() as session:
+    # https = urllib3.HTTPSConnectionPool("apisidra.ibge.gov.br", maxsize=100)
+
+    ctx = create_urllib3_context()
+    ctx.load_default_certs()
+    ctx.options |= 0x4  # ssl.OP_LEGACY_SERVER_CONNECT
+    with urllib3.PoolManager(ssl_context=ctx) as https:
         with executor() as e:
-            srs = list(e.map(lambda t: _aux_fetch_info(t, session), tbls))
+            srs = list(e.map(lambda t: _aux_fetch_info(t, https), tbls))
     return reduce(lambda x, y: x + y, srs)
