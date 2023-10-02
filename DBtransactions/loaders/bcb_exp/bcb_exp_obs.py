@@ -1,8 +1,9 @@
-############################################################
+##################################################################################
 # Fetch observations for median expectations from
 # BCB's Api
-# Last modification: 4/05/2923
-############################################################
+# Last modification: 2/10/2923
+# see: https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/documentacao
+###################################################################################
 
 # import from system
 import re
@@ -23,7 +24,8 @@ LIMIT:int = 5000
 INDICADOR_MAP:dict = {"SELICEXP": "Selic", 
                       "PIBEXP": "PIB Total", 
                       "CAMBIOEXP": "Câmbio",
-                      "IPCAEXP": "IPCA"} # relates API's name with BC's API.
+                      "IPCAEXP": "IPCA", 
+                      "PRIMARIOEXP": "Resultado primário"} # relates API's name with BC's API.
 
 
 def _build_url(ticker, limit:int= LIMIT) -> str:
@@ -55,8 +57,12 @@ def _process(resp:requests.models.Response) -> List[Dict]:
             indicador = "CAMBIO"
         elif "PIB" in url:
             indicador = "PIB"
-        else:
+        elif "Selic" in url:
             indicador = "SELIC"
+        elif "Resultado" in url:
+            indicador = "PRIMARIO"
+        else:
+            pass
         year = re.findall("\d+", url.split("DataReferencia")[1])[-1]
         ticker = f"BCB.{indicador}EXP_{year}FINAL"
 
