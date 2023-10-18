@@ -15,7 +15,7 @@ from urllib3.util.ssl_ import create_urllib3_context
 #import from app
 from DBtransactions.DBtypes import Observation
 
-def _build_url(tck:str, limit=None) -> str:
+def _build_url(tck:str, limit:Optional[str]=None) -> str:
     """
     builids the write url string to fetch observations, according to
     ibge's ipea. 
@@ -23,7 +23,7 @@ def _build_url(tck:str, limit=None) -> str:
     new_tck = tck.split(".")[1]
     if not limit:
         return f"https://apisidra.ibge.gov.br/values/t/{new_tck}/p/all/d/2/n1/1"
-    return f"https://apisidra.ibge.gov.br/values/t/{new_tck}/p/last {limit}/d2/n1/1"
+    return f"https://apisidra.ibge.gov.br/values/t/{new_tck}/p/last {limit}/d/2/n1/1"
 
 
 def _process(resp: requests.models.Response)-> List[Observation]:
@@ -58,9 +58,9 @@ def fetch(tickers:List[str], limit:Optional[str]=None) -> List[List[Observation]
     ctx.load_default_certs()
     ctx.options |= 0x4  # ssl.OP_LEGACY_SERVER_CONNECT
     urls = [_build_url(tck, limit=limit) for tck in tickers]
-    print(urls)
-    with urllib3.PoolManager(ssl_context=ctx) as http: # used in order to circunvent ssl_legacy problem
+    with urllib3.PoolManager(ssl_context=ctx) as https: # used in order to circunvent ssl_legacy problem
+    # with urllib3.HTTPSConnectionPool(host="apisidra.ibge.gov.br", maxsize=10, ssl_context=ctx) as https: # used in order to circunvent ssl_legacy problem        
         with executor() as e:
-            ls = list(e.map(lambda url: _process(http.request("GET", url)), urls))
+            ls = list(e.map(lambda url: _process(https.request("GET", url)), urls))
     return ls
 
