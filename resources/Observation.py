@@ -53,7 +53,7 @@ class Observations:
 
     async def on_post(self, req, resp):
         obj =  await req.get_media()
-        if set(obj.keys()).issubset(set(['db', 'source', 'survey', 'tickers', 'table'])):
+        if set(obj.keys()).issubset(set(['db', 'source', 'survey', 'tickers', 'table', 'limit'])):
             loop = asyncio.get_running_loop()
             
             def _aux_add_obs():
