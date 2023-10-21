@@ -54,6 +54,8 @@ INSERT INTO Source (source_id, full_name) VALUES ('NASDAQ', 'DADOS DE INDICES DE
 INSERT INTO Source (source_id, full_name) VALUES ('CNI', 'CONFEDERACAO NACIONAL DA INDUSTRIA');
 INSERT INTO Source (source_id, full_name) VALUES ('ANFAVEA', 'ASSOCIACAO NACIONAL DOS PRODUTORES DE VEICULOS AUTOMOTORES');
 INSERT INTO Source (source_id, full_name) VALUES ('STN', 'TESOURO NACIONAL, BRASIL');
+INSERT INTO Source (source_id, full_name) VALUES ('APP', 'APP INFO2B');
+
 COMMIT;	      
 
 
@@ -174,6 +176,10 @@ INSERT INTO Survey (survey_id, description, source_id)
        VALUES ('STN_RES', 'RESULTANDO MENSAL DO TESOURO NACIONAL, BRASIL', 'STN');    
 
 
-
+--APP INFO2B
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('CORE_IPCA', 'NUCLOES DO IPCA CALCULADOS PELO O APLICATIVO', 'APP');    
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('CORE_IPCA15', 'NUCLOES DO IPCA15 CALCULADOS PELO O APLICATIVO', 'APP');    
 COMMIT;
        
