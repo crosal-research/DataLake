@@ -39,11 +39,11 @@ def _process(resp: requests.models.Response)-> List[Observation]:
     if dt == 'M':
         return [Observation(**{'dat': pendulum.from_format(l[c], "YYYYMM").to_date_string(), 
                                'valor': l["V"], 
-                               'series_id': ticker}) for l in ls[1:] if re.match("\d+", l["V"]) is not None ]
+                               'series_id': ticker}) for l in ls[1:] if re.match("-?\d+", l["V"]) is not None ]
 
     return [Observation(**{'dat': pendulum.from_format(l[c][:4] + str(l[c][4:6][1]), "YYYYQ").to_date_string(), 
                            'valor': l["V"], 
-                           'series_id': ticker}) for l in ls[1:] if re.match("\d+", l["V"]) is not None]
+                           'series_id': ticker}) for l in ls[1:] if re.match("-?\d+", l["V"]) is not None]
 
 
 def fetch(tickers:List[str], limit:Optional[str]=None) -> List[List[Observation]]:
