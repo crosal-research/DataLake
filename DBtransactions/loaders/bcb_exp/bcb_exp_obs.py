@@ -21,14 +21,14 @@ from DBtransactions.DBtypes import Observation
 
 URL:str = "https://olinda.bcb.gov.br/olinda/servico/Expectativas/versao/v1/odata/"
 LIMIT:int = 5000
-INDICADOR_MAP:dict = {"SELICEXP": "Selic", 
-                      "PIBEXP": "PIB Total", 
-                      "CAMBIOEXP": "Câmbio",
-                      "IPCAEXP": "IPCA", 
-                      "PRIMARIOEXP": "Resultado primário"} # relates API's name with BC's API.
+INDICADOR_MAP: Dict[str, str] = {"SELICEXP": "Selic", 
+                                 "PIBEXP": "PIB Total", 
+                                 "CAMBIOEXP": "Câmbio",
+                                 "IPCAEXP": "IPCA", 
+                                 "PRIMARIOEXP": "Resultado primário"} # relates API's name with BC's API.
 
 
-def _build_url(ticker, limit:int= LIMIT) -> str:
+def _build_url(ticker, limit:int=LIMIT) -> str:
     """
     Builds the relevant url for a particular ticker
     """
@@ -71,12 +71,12 @@ def _process(resp:requests.models.Response) -> List[Dict]:
                 for d in rd['value'][0::4]]
 
 
-def fetch(tickers:List[str], limit:Optional[int]=LIMIT) -> List[List[Dict]]:
+def fetch(tickers:List[str], limit:int=LIMIT) -> List[List[Dict]]:
     """
     Feches list observations pertaining to a tickers. Length of the observations
     is given by limit
     """
-    urls = [_build_url(tck) for tck in tickers]
+    urls = [_build_url(tck, 5000 if not limit else limit) for tck in tickers]
     with requests.session() as session:
         with executor() as e:
             ls = list(e.map(lambda url:_process(session.get(url)), list(urls)))
