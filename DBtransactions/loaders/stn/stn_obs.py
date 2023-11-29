@@ -22,7 +22,7 @@ from DBtransactions.DBtypes import Observation
 
 
 def fetch(tickers:List[str], limit=None):
-    global dfinal
+    global dfinal, df, dg
     headers = {'User-Agent':
            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'}
 
@@ -42,7 +42,7 @@ def fetch(tickers:List[str], limit=None):
         df = pd.read_excel(excel, sheet_name="1.1", 
                            index_col=[0], 
                            header=[0], 
-                           skiprows=[0, 1, 2, 3] + list(range(73, 81))).T
+                           skiprows=[0, 1, 2, 3] + list(range(74, 100))).T
     df.columns = ["STN." + c.split(" ")[0].replace(".", "") for c in df.columns]
     dfinal = df if not limit else df.tail(limit)
     d = {}
@@ -50,7 +50,7 @@ def fetch(tickers:List[str], limit=None):
         for i in dfinal.index:
             if c not in d:
                 d[c] = []
-            d[c].append(Observation(**{'series_id': c, 'dat': i.strftime("%Y-%m-%d"), 'valor': dfinal.loc[i, c]}))
+            v = dfinal.loc[i,c]
+            if not np.isnan(v):
+                d[c].append(Observation(**{'series_id': c, 'dat': i.strftime("%Y-%m-%d"), 'valor': dfinal.loc[i, c]}))
     return list(d.values())
-
-
