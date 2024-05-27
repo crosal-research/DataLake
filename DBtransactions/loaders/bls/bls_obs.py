@@ -66,6 +66,7 @@ def _fetch_aux(tickers:List[str], ini:int=INI,
     resp = requests.post(URL, 
                          data=data, 
                          headers=headers)
+    
     if resp.ok:
         return _process(resp)
     else:

@@ -51,7 +51,6 @@ def process(resp:requests.models.Response) -> List[Observation]:
     a dataframe, filter the relevant tickers and return the final
     dataframe
     """
-    global r
     r = resp.json()
     freq = [d['ParameterValue'] for d in r["BEAAPI"]["Request"]["RequestParam"] 
             if d['ParameterName'] == "FREQUENCY"][0]
@@ -73,13 +72,15 @@ def process(resp:requests.models.Response) -> List[Observation]:
 
 def fetch(tickers: List[str], limit:Optional[int]=None) -> List[List[Observation]]:
     """
-    
+    Leaving limit set to None for now whilst the bug related to it is not
+    fixed
+    date: 22/05/2024
     """
+    limit=None
     urls = [build_url(t, _bea_key, limit) for t in grab_tables(tickers)]
     with requests.Session() as session:
         with executor() as e:
             srs = list(e.map(lambda u: process(session.get(u)), urls))
-    
     ds = {}
 
     for l in [d for d in reduce(lambda x, y: x + y, srs) if d.series_id in tickers]:

@@ -46,6 +46,7 @@ def _process(resp: requests.Response) -> List[Observation]:
                            'valor': float(c.get('OBS_VALUE'))}) 
             for c in child ]
 
+
 def fetch(tickers:List[str], 
           ini:str=INI, end:str=None, limit:Optional[int]=None) -> List[List[Observation]]:
     """
