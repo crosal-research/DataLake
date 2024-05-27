@@ -23,4 +23,3 @@ class Observation(BaseModel):
     dat: str
     valor: float
     series_id: str
-    
