@@ -24,7 +24,7 @@ def build_search() -> None:
     
     with connect() as conn:
         cur = _cursor(conn)
-        c = cur.execute(string_slq)
+        c = cur.execute(string_sql)
 
 
 def query_search(words:str) -> None:

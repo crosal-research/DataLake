@@ -49,8 +49,7 @@ def query_obs(tickers:List[str] = None,
         cur = _cursor(conn)
         cur.executemany(exp, input)
         q = cur.execute(string_sql, ticks)
-        
-
+    
     df = pd.DataFrame(data=q.fetchall(), 
                       columns=["data", "valor", "tickers"])
     df_new = df.pivot(index='data', columns=['tickers'], values='valor').fillna(value="")
@@ -62,7 +61,7 @@ def add_obs(tickers:Optional[List[str]]=None,
             survey:Optional[str]=None, 
             source:Optional[str]=None, 
             db:Optional[str]=None, 
-            limit:Optional[int]=None) -> None:
+            limit:Optional[int] | Optional[str]=None) -> None:
     """
     Insere/substitui dados para list the series,
     series de um survey, de uma fonte ou de toda
@@ -111,7 +110,11 @@ def add_obs(tickers:Optional[List[str]]=None,
             else:
                 c = cur.execute(string_sql_aux)
             tcks = [tck[0] for tck in c.fetchall()]
-        llobs = fetch(tcks, limit=limit)
+
+        try:
+            llobs = fetch(tcks, limit=limit)
+        except:
+            print("couldn't reach the original server!")
 
         for lobs in llobs:
             if len(lobs) > 0:
