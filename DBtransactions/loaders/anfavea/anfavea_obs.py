@@ -20,7 +20,7 @@ with open(os.getcwd() + "/DBtransactions/loaders/anfavea/data.json", 'r') as f:
         DATA.append(dict((k, (lambda i: None if (i=="") else i)(d[k])) for k in d))
 
 
-def fetch(tickers:List[str], limit=None) -> List[List[Observation]]:
+def fetch(tickers:List[str], limit=Optional[int]) -> List[List[Observation]]:
     headers = {'User-Agent':
            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'}
     url = "https://anfavea.com.br/docs/SeriesTemporais_Autoveiculos.xlsm"
@@ -34,6 +34,9 @@ def fetch(tickers:List[str], limit=None) -> List[List[Observation]]:
     series_ids = [d['series_id'] for d in DATA]
     df.columns = ['data'] + series_ids
     df.set_index('data', inplace=True)
+    df = df[df.apply(lambda x: x.sum() != 0, axis=1).values]
+    if limit:
+        df = df.tail(limit)
 
     d = {}
     for c in tickers:
