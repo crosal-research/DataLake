@@ -5,7 +5,7 @@
 ##################################################
 
 # import app packages
-import falcon
+import falcon # don't thing I need it
 import falcon.asgi
 
 # import from app
@@ -19,11 +19,10 @@ from resources.Cliente import Cliente
 from resources.Survey import Survey
 
 # Instanciates falscon.App classe
-
 app = falcon.asgi.App(middleware=falcon.CORSMiddleware(
     allow_origins='*', allow_credentials='*'))
 
-#  Instnaciates resources to the app
+#  Instanciates resources to the app
 conta = Conta()
 cliente = Cliente()
 search = Search()
@@ -48,19 +47,19 @@ app.add_route('/api/search', search)
 # observation
 app.add_route('/api/observations', observations)
 
-# users
-app.add_route('/api/users', cliente)
-app.add_route('/api/users/{email}', cliente)
+# users - don't think I need it.
+# app.add_route('/api/users', cliente)
+# app.add_route('/api/users/{email}', cliente) # for deleting users
 
 
-# series
+# series 
 app.add_route('/api/series', series)
-app.add_route('/api/series/{ticker}', series)
+app.add_route('/api/series/{ticker}', series) # for  deleting
 
 # tables
 app.add_route('/api/tables', tables)
-app.add_route('/api/tables/{ticker}', tables)
+app.add_route('/api/tables/{ticker}', tables) # for deleting tables
 
 # surveys
 app.add_route('/api/surveys', surveys)
-app.add_route('/api/surveys/{survey_id}', surveys)
+app.add_route('/api/surveys/{survey_id}', surveys) # for deleting surveys
