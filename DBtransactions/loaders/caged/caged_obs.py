@@ -51,7 +51,6 @@ def fetch(tickers: List[str], limit=None) -> List[List[Dict]]:
     """
     Takes tickers and return list of lists of observations
     """
-    global d
     url = _fetch_link()
     excel = pd.ExcelFile(url)
 
@@ -75,7 +74,7 @@ def fetch(tickers: List[str], limit=None) -> List[List[Dict]]:
                 dfs)
     df.columns = [f"CAGED.{t}".upper() for t in ('est', 'adm', 'deslig', 'saldo', 'est_adjs' , 'adm_adjs', 'deslig_adjs', 'saldo_adjs')]
     df = _re_index(df.copy())
-    df = df.head(limit)
+    # df = df.tail(limit)
     d = {}
     for c in tickers:
         for i in df.index:
