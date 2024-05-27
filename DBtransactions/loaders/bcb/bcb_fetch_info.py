@@ -1,6 +1,6 @@
 # imports from python's system
 from concurrent.futures import ThreadPoolExecutor as executor
-from typing import Optional, List
+from typing import Optional, List, Union
 from datetime import datetime as dt
 import time, pickle, os
 
@@ -10,8 +10,8 @@ import requests
 import pandas as pd
 from zeep.transports import Transport
 from zeep import Client
-# import suds.client
-# import suds_requests
+from zeep import Client
+
 
 # import from app
 from DBtransactions.DBtypes import Series
@@ -28,14 +28,18 @@ gestores = {"DSTAT/DIFIN/SUFIP": "BCB_FISCAL",
            "DEMAB/DIGER/SUEST": "BCB_CREDITO",
             "DEMAB/DICEL": "BCB_CREDITO", 
            "DEMAB/DIGER": "BCB_CREDITO", 
-           "DEPEC/GERIR/DIREG/COSUD/NUCMG": "BCB_CREDITO", 
+           "DEPEC/GERIR/DIREG/COSUD/NUCMG": "BCB_CREDITO",
+            'DESIG/GERIM/DIMOT/COMOT': "BCB_ECON",
+            'DEPEC/GEATI/COMTE': "BCB_ECON",
+            'DEPEC/GECEF/COMON': "BCB_ECON",
            "DESIG/GERIM/DIRIM/COLIQ-01": "BCB_ESTAB", 
            "DESIG/GERIM/DIRIM/CORIM": "BCB_ESTAB", 
-           "DESIG/GESEG/DIMAC/COMOC": "BCB_ESTAB", 
+           "DESIG/GESEG/DIMAC/COMOC": "BCB_ESTAB",
+           "DESIG/GERIM/DIMOT/COMOT": "BCB_ECON",
            "DESIG/GESEG/DISEF/COMOR": "BCB_ESTAB", 
            "DESIG/GERIM/DIRIM/CORAC": "BCB_ESTAB", 
            "DESIG/GERIS/DIRIM/COPAR": "BCB_ESTAB", 
-           "DESIG/GERIS/DIRIS/COPAR": "BCB_ESTAB", 
+           "DESIG/GERIS/DIRIS/COPAR": "BCB_ESTAB",
            "DSTAT/DIBAP/SUBAP": "BCB_SE", 
            "DEPIN/GEROP/DICAM": "BCB_SE", 
            "DSTAT/DIBAP/SUDEX": "BCB_SE", 
@@ -324,25 +328,26 @@ remove = {"tickers":
 ]}
 
 
-def _cleasing(series: Optional[dict], freq:list) -> dict:
+def _cleasing(series: Optional[dict], freq:list, final_year) -> dict:
     """
-    Keep series to be added in the db based on not been in series
+    Keeps series to be added in the db based on not been in series
     and have freq = []
     """
     if series is not None:
         if series["freq"] in freq:
-            if series["final"].year == 2023:
+            if series["final"].year >= final_year:
                 if series["fonte"] in fonte_in:
                     if str(series["number"]) not in remove['tickers']:
                         return series
 
 
-def _process_info(respg) -> dict:
+def _process_info(resp: requests.Response) -> dict:
     """
     process resp from suds response (last observation)
     and grabs information for the series
     """
     last = resp.ultimoValor
+    
     return dict(fonte = str(resp.fonte._value_1),
                 gestor = str(resp.gestorProprietario._value_1),
                 freq = str(resp.periodicidadeSigla._value_1),
@@ -356,7 +361,6 @@ def _fetch_series(tickers: List[str]) -> List[dict]:
     Fetches the meta information for ticker list and returns
     a list of dictionaries with the information
     """
-
     with requests.Session() as session:
         transport = Transport(session=session)
         c = Client(
@@ -370,7 +374,7 @@ def _fetch_series(tickers: List[str]) -> List[dict]:
                     return _process_info(resp)
             except:
                 tcks_off.append(tck)
-
+                
         with executor() as e:
             ls = list(e.map(_fetch, tickers))
         return ls
@@ -384,16 +388,39 @@ def fetch_final_series(pfile: str) -> None:
     """
     tickers = pd.read_excel(pfile + "/codigos.xlsx", header=[0]).values.flatten()
     ls = _fetch_series(list(set(tickers)))
-    net_series = [s for s in ls if _cleasing(s, ["D", "M"]) is not None]
+    net_series = [s for s in ls if _cleasing(s, ["D", "M", "A"], 2024) is not None]
     with open(pfile + "/series_bcb", "wb") as f:
         pickle.dump(net_series, f)
 
 
-def fetch_info(fpath: str) -> List[Series]:
-    with open(fpath + "/series_bcb", "rb") as fp:
+def fetch_info(survey: Optional[str]=None, tickers: Optional[List[str]]=None) -> List[Series]:
+    with open(pfile + "/series_bcb", "rb") as fp:
         lsseries = pickle.load(fp)
-    return [Series(**{
-        "series_id": f"BCB.{ls['number']}",
-        "description": ls['nome'],
-        "survey_id": gestores[ls['gestor']],
-        'frequency': {'D': 'DIARIA', 'M': "MENSAL"}[ls['freq']]}) for ls in lsseries]
+    if survey is not None:
+        lxs = []
+        for ls in lsseries:
+            try:
+                if gestores[ls['gestor']]:
+                    lxs.append(Series(**{
+                        "series_id": f"BCB.{ls['number']}",
+                        "description": ls['nome'],
+                        "survey_id": gestores[ls['gestor']],
+                        'frequency': {'D': 'DIARIA', 'M': "MENSAL", 'A': 'ANUAL'}[ls['freq']], 
+                        'last_update': None})) #for ls in lsseries if gestores[ls['gestor']] == survey]
+            except KeyError as e:
+                pass
+    elif tickers is not None:
+        lxs = [Series(**{
+            "series_id": f"BCB.{ls['number']}",
+            "description": ls['nome'],
+            "survey_id": gestores[ls['gestor']],
+            'frequency': {'D': 'DIARIA', 'M': "MENSAL", 'A': 'ANUAL'}[ls['freq']], 
+            'last_update': None}) for ls in lsseries if f"BCB.{ls['number']}" in tickers]
+    else:
+        lxs = [Series(**{
+            "series_id": f"BCB.{ls['number']}",
+            "description": ls['nome'],
+            "survey_id": gestores[ls['gestor']],
+            'frequency': {'D': 'DIARIA', 'M': "MENSAL", 'A': 'ANUAL'}[ls['freq']], 
+            'last_update': None}) for ls in lsseries]
+    return lxs
