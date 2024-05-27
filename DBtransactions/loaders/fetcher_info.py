@@ -108,6 +108,8 @@ def fetch_infos(source:Optional[str]=None,
         elif "BCB" in survey:
             if "EXP" in survey:
                 srs = [s for s in dispatcher["BCB_EXP"]() if s.survey_id == survey]
+            else:
+                srs = [s for s in dispatcher["BCB"](bcb_fetch_info.pfile)] # need to refine to survey. Not its upload all source
         elif "ONS" in survey:
             srs = dispatcher["ONS"]()
         elif "BEA" in survey:
@@ -140,9 +142,9 @@ def fetch_infos(source:Optional[str]=None,
         return srs
     else:
         sources = set([tck.split(".")[0] for tck in tickers])
-        dfs = []
+        srs = []
         for s in sources: # precisa fazer asincrono
             aux = [tck for tck in tickers 
                    if tck.split(".")[0] == s]
-            dfs = dfs + dispatcher[s](aux)
+            srs = srs + dispatcher[s](aux)
     return srs
