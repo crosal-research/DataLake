@@ -1,3 +1,6 @@
 *.*~
 .env
 DB/database.*
+*.py[c]
+__pycache__/
+/DBtransactions/loaders/nucleos_ipca/data.csv
