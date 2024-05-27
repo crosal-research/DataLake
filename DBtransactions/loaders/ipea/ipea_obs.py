@@ -30,7 +30,8 @@ def process(resp:str, limit:Optional[int]=None) -> Optional[List[Observation]]:
     """
     url = resp.url
     ticker = "IPEA." + (resp.url).split("('")[1].split("')")[0]
-    dd = resp.json()['value'][limit:] if limit is not None else resp.json()['value']
+#    dd = resp.json()['value'][limit:] if limit is not None else resp.json()['value']
+    dd = resp.json()['value']
     if resp.ok:
         return [Observation(**{"dat": d['VALDATA'].split("T")[0], 
                                "valor": float(d["VALVALOR"]), 
