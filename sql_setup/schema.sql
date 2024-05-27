@@ -110,7 +110,7 @@ group by series_id order by wtracker desc;
 
 
 /* 
-Creates tabel for User tables
+Creates tabble for User tables
 Due to a many-to-may relationship
 demands a relationship intermediary table
 */
@@ -154,17 +154,16 @@ CREATE VIRTUAL TABLE IF NOT EXISTS Search USING fts5(ticker, description);
 
 -- see: https://stackoverflow.com/questions/70847617/populate-virtual-sqlite-fts5-full-text-search-table-from-content-table
 -- https://kimsereylam.com/sqlite/2020/03/06/full-text-search-with-sqlite.html
+
 CREATE TRIGGER search_ai AFTER INSERT ON series
     BEGIN
         INSERT INTO search (ticker, description)
         VALUES (new.series_id, new.description);
     END;
 
+
 CREATE TRIGGER search_del AFTER DELETE ON series
     BEGIN
         INSERT INTO search (ticker, description)
 	VALUES ('delete', old.series_id, old.description)
     END;
-
-
-
