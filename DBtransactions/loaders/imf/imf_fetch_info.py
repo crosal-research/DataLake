@@ -51,7 +51,6 @@ def _process(resp:requests.Response)-> Optional[List[Series]]:
         return info
     return None
 
-
 def fetch_info(surveys:List[str]) -> List[Series]:
     """
     Fetches the series' information belonging to the IMF's api.
