@@ -42,7 +42,7 @@ def fetch(tickers:List[str], limit=None):
         df = pd.read_excel(excel, sheet_name="1.1", 
                            index_col=[0], 
                            header=[0], 
-                           skiprows=[0, 1, 2, 3] + list(range(74, 100))).T
+                           skiprows=[0, 1, 2, 3] + list(range(75, 100))).T
     df.columns = ["STN." + c.split(" ")[0].replace(".", "") for c in df.columns]
     dfinal = df if not limit else df.tail(limit)
     d = {}

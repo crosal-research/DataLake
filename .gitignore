@@ -6,3 +6,5 @@ DB/database.*
 __pycache__/
 *.*__pycach__/
 /DBtransactions/loaders/nucleos_ipca/data.csv
+1
+1
