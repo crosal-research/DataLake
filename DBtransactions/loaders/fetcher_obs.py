@@ -65,6 +65,7 @@ def fetch(tickers: List[str],
         else: 
             sources[s] = [tck]
     llobs = []
+
     for s in sources:
         llobs= llobs + fetchers[s](sources[s], limit=limit)
     return llobs
