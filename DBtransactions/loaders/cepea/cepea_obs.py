@@ -48,7 +48,10 @@ def process(resp:requests.models.Response, limit=None) -> pd.DataFrame:
         values = [c for c in sheet.col_values(1) if isinstance(c, float)]
         ticker = "CEPEA." + re.search("\d{1,3}", resp.url)[0]
         df = pd.DataFrame(data=values, index=ind, columns=[ticker])
-        df_new = df.applymap(lambda v: float(v)) if limit is None else df.applymap(lambda v: float(v)).tail(limit)
+        try: 
+            df_new = df.applymap(lambda v: float(v)) # if limit is None else df.applymap(lambda v: float(v)).tail(limit)
+        except:
+            print('fail to convert')
         return [Observation(**{"series_id":df_new.columns[0], 
                                'dat': i.strftime("%Y-%m-%d"), 
                                'valor': df_new.loc[i, ticker]}) for i in df_new.index ]
@@ -70,6 +73,7 @@ def fetch(tickers: list, limit: Optional[int]=None) -> None:
         with executor() as e:
             srs = list(e.map(lambda url:process(session.get(url, headers=headers), limit=limit), 
                              list(urls)))
+    
     return srs
 
 
