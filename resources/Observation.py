@@ -64,9 +64,10 @@ class Observations:
                 observation.add_obs(**obj)
 
             df = await loop.run_in_executor(None, _aux_add_obs)
-            resp.status = falcon.HTTP_201
             obj['upsert'] = 'ok'
-            resp.text = json.dumps(obj)
+            resp.media = obj
+            resp.status = falcon.HTTP_201
+            
         else:
             resp.status = falcon.HTTP_405
             resp.text = json.dumps({'message': 'request ill formed'})    
