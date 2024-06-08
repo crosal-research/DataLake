@@ -94,17 +94,18 @@ def query_series(series_tickers:List[str]=[], survey:str='', source:str='') -> L
     join Source on Survey.source_id = Source.source_id
     where series_id in ({sep})
     """.format(sep=','.join([f"{Q}".upper()]*len(series_tickers)))
-    
+
     with connect() as conn:
         cur = _cursor(conn)
         q =  cur.execute(string_sql, series_tickers)
-    return pd.DataFrame(data=q.fetchall(), 
-                        columns=['Ticker', "Descricao", "last_update", "source"])
+    df = pd.DataFrame(data=q.fetchall(), 
+                      columns=['Ticker', "Descricao", "last_update", "source"])
+    return df.set_index(['Ticker'])
 
 
 def delete_series(tickers=List[str]):
     """
-    remove da base de dados um list de séries determinadas
+    remove da base de dados uma lista de séries determinadas
     por uma lista do seus respectivos tickers
     """
     string_sql="""
