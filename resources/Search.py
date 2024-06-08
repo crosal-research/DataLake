@@ -15,7 +15,7 @@ class Search:
     async def on_get(self, req, resp):
         """
         retrieves series related to a search string
-        issued by user. Word is the string and type 
+        issued by user. Words is the string and type 
         is the return's format: either csv or json
         """
         q = req.get_param('words', required=False)
@@ -23,7 +23,6 @@ class Search:
         resp.status = falcon.HTTP_200
         if q:
             df = search.query_search(q)
-            output = io.StringIO()
             try:
                 if tp == 'json':
                     result = [{'rank': int(df.loc[i, 'rank']), 
@@ -32,6 +31,7 @@ class Search:
                               for i in df.index]
                     resp.media = result
                 else:
+                    output = io.StringIO()
                     df.to_csv(output)
                     resp.text = output.getvalue()
                 resp.status = falcon.HTTP_200
