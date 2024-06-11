@@ -54,7 +54,10 @@ INSERT INTO Source (source_id, full_name) VALUES ('NASDAQ', 'DADOS DE INDICES DE
 INSERT INTO Source (source_id, full_name) VALUES ('CNI', 'CONFEDERACAO NACIONAL DA INDUSTRIA');
 INSERT INTO Source (source_id, full_name) VALUES ('ANFAVEA', 'ASSOCIACAO NACIONAL DOS PRODUTORES DE VEICULOS AUTOMOTORES');
 INSERT INTO Source (source_id, full_name) VALUES ('STN', 'TESOURO NACIONAL, BRASIL');
-INSERT INTO Source (source_id, full_name) VALUES ('APP', 'APP INFO2B');
+INSERT INTO Source (source_id, full_name) VALUES ('ECB', 'BANCO CENTRAL EUROPEU');
+
+
+-- INSERT INTO Source (source_id, full_name) VALUES ('APP', 'APP INFO2B');
 
 COMMIT;	      
 
@@ -173,13 +176,19 @@ INSERT INTO Survey (survey_id, description, source_id)
 
 --TESOURO NACIONAL
 INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('STN_RES', 'RESULTANDO MENSAL DO TESOURO NACIONAL, BRASIL', 'STN');    
+       VALUES ('STN_RES', 'RESULTADO MENSAL DO TESOURO NACIONAL, BRASIL', 'STN');    
+
+
+-- BANCO CENTRAL EUROPEU
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('ECB_EXR', 'TAXAS DE CAMBIO EXTRAIDAS DO BANCO CENTRAL EUROPEU', 'ECB');    
+
 
 
 --APP INFO2B
-INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('CORE_IPCA', 'NUCLOES DO IPCA CALCULADOS PELO O APLICATIVO', 'APP');    
-INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('CORE_IPCA15', 'NUCLOES DO IPCA15 CALCULADOS PELO O APLICATIVO', 'APP');    
-COMMIT;
+-- INSERT INTO Survey (survey_id, description, source_id) 
+--        VALUES ('CORE_IPCA', 'NUCLEOS DO IPCA CALCULADOS PELO O APLICATIVO', 'APP');    
+-- INSERT INTO Survey (survey_id, description, source_id) 
+--        VALUES ('CORE_IPCA15', 'NUCLEOS DO IPCA15 CALCULADOS PELO O APLICATIVO', 'APP');    
+-- COMMIT;
        
