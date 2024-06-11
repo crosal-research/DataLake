@@ -151,6 +151,8 @@ CREATE TABLE IF NOT EXISTS Observation (
 DROP TABLE IF EXISTS Search;
 CREATE VIRTUAL TABLE IF NOT EXISTS Search USING fts5(ticker, description);
 
+-- Used in case of batch insertiong into search table
+--INSERT INTO search (ticker, description) SELECT series_id, description FROM series;
 
 -- see: https://stackoverflow.com/questions/70847617/populate-virtual-sqlite-fts5-full-text-search-table-from-content-table
 -- https://kimsereylam.com/sqlite/2020/03/06/full-text-search-with-sqlite.html
