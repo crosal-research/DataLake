@@ -23,6 +23,7 @@ from DBtransactions.loaders.nasdaq import nasdaq_obs
 from DBtransactions.loaders.cni import cni_obs
 from DBtransactions.loaders.anfavea import anfavea_obs
 from DBtransactions.loaders.stn import stn_obs
+from DBtransactions.loaders.ecb import ecb_obs
 
 
 fetchers = {
@@ -43,8 +44,9 @@ fetchers = {
     "NASDAQ": nasdaq_obs.fetch,
     "CNI": cni_obs.fetch,
     "ANFAVEA": anfavea_obs.fetch,
-    "STN": stn_obs.fetch
-}
+    "STN": stn_obs.fetch,
+    "ECB": ecb_obs.fetch
+    }
 
 
 def fetch(tickers: List[str],
@@ -64,8 +66,8 @@ def fetch(tickers: List[str],
             sources[s].append(tck)
         else: 
             sources[s] = [tck]
-    llobs = []
 
+    llobs = []
     for s in sources:
         llobs= llobs + fetchers[s](sources[s], limit=limit)
     return llobs

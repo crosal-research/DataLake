@@ -28,7 +28,8 @@ from DBtransactions.loaders.nasdaq import nasdaq_fetch_info
 from DBtransactions.loaders.cni import cni_fetch_info
 from DBtransactions.loaders.anfavea import anfavea_fetch_info
 from DBtransactions.loaders.stn import stn_fetch_info
-from DBtransactions.loaders.nucleos_ipca import nucleos_ipca_fetch_info
+from DBtransactions.loaders.ecb import ecb_fetch_info
+#from DBtransactions.loaders.nucleos_ipca import nucleos_ipca_fetch_info
 
 dispatcher = {
     "FRED": fred_fetch_info.fetch_info,
@@ -49,7 +50,8 @@ dispatcher = {
     "CNI": cni_fetch_info.fetch_info,
     "ANFAVEA": anfavea_fetch_info.fetch_info,
     "STN": stn_fetch_info.fetch_info,
-    "NUCLEOS_IPCA": nucleos_ipca_fetch_info.fetch_info,
+#    "NUCLEOS_IPCA": nucleos_ipca_fetch_info.fetch_info,
+    "ECB": ecb_fetch_info.fetch_info
  }
 
 
@@ -89,9 +91,10 @@ def fetch_infos(source:Optional[str]=None,
             srs = dispatcher[source](anfavea_fetch_info.DATA)
         elif source == "STN":
             srs = dispatcher[source](stn_fetch_info.DATA)
-        elif source == "NUCLEOS_IPCA":
-            srs = dispatcher[source](nucleos_ipca_fetch_info.SERIES
-)
+        elif source == "ECB":
+            srs = dispatcher[source](ecb_fetch_info.DATA)
+        # elif source == "NUCLEOS_IPCA":
+        #     srs = dispatcher[source](nucleos_ipca_fetch_info.SERIES)
         else: # FRED
             srs = dispatcher[source](fred_fetch_info.INFO_FRED)
         return srs
@@ -135,8 +138,10 @@ def fetch_infos(source:Optional[str]=None,
             srs = dispatcher["ANFAVEA"](anfavea_fetch_info.DATA)
         elif "STN" in survey:
             srs = dispatcher["STN"](stn_fetch_info.DATA)
-        elif "IPCA" in survey:
-            srs = dispatcher["NUCLEOS_IPCA"](s for s in nucleos_ipca_fetch_info.SERIES if s['survey_id'] == survey)
+        elif "ECB" in survey:
+            srs = dispatcher["ECB"](ecb_fetch_info.DATA)
+        # elif "IPCA" in survey:
+        #     srs = dispatcher["NUCLEOS_IPCA"](s for s in nucleos_ipca_fetch_info.SERIES if s['survey_id'] == survey)
         else:
             pass
         return srs
