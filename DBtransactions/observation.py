@@ -110,7 +110,6 @@ def add_obs(tickers:Optional[List[str]]=None,
             else:
                 c = cur.execute(string_sql_aux)
             tcks = [tck[0] for tck in c.fetchall()]
-
         try:
             llobs = fetch(tcks, limit=limit)
         except:
