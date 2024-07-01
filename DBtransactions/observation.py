@@ -41,9 +41,9 @@ def query_obs(tickers:List[str] = None,
     order by dat asc
     """.format(seq=','.join([f"{Q}".upper()]*len(tickers)), limit=Q)
     ticks = (*tickers, limit if limit else LDATE)
-
+    
     with connect() as conn:
-        dt = pendulum.now().format("YYYY-MM-DD HH:mm:ss")
+        dt = pendulum.now().format("YYYY-MM-DD HH:mm:ss") 
         input = [(tck, dt) for tck in tickers]
         exp = f"insert into tracker(series_id, timeA) values({Q}, {Q})"
         cur = _cursor(conn)
@@ -125,11 +125,14 @@ def add_obs(tickers:Optional[List[str]]=None,
                 with cte_mm as
                 (select min(dat) as min, max(dat) as max from observation where series_id = {Q})
                 update series
-                set last_update={Q}, first_observation = min, last_observation = max
+                set last_update={Q}, first_observation = cte_mm.min, last_observation = cte_mm.max 
                 from cte_mm
                 where series_id = {Q};
                 """
                 try:
-                    cur.execute(exp, (mobs[0][2], dt, mobs[0][2]))
+                    cur.execute(exp, (mobs[0][2], dt, mobs[0][2])) 
                 except Exception as e:
                     print(e)
+
+
+                     
