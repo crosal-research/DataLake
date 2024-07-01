@@ -29,6 +29,7 @@ from DBtransactions.loaders.cni import cni_fetch_info
 from DBtransactions.loaders.anfavea import anfavea_fetch_info
 from DBtransactions.loaders.stn import stn_fetch_info
 from DBtransactions.loaders.ecb import ecb_fetch_info
+from DBtransactions.loaders.anbima import anbima_fetch_info
 #from DBtransactions.loaders.nucleos_ipca import nucleos_ipca_fetch_info
 
 dispatcher = {
@@ -51,7 +52,8 @@ dispatcher = {
     "ANFAVEA": anfavea_fetch_info.fetch_info,
     "STN": stn_fetch_info.fetch_info,
 #    "NUCLEOS_IPCA": nucleos_ipca_fetch_info.fetch_info,
-    "ECB": ecb_fetch_info.fetch_info
+    "ECB": ecb_fetch_info.fetch_info,
+    "ANBIMA": anbima_fetch_info.fetch_info
  }
 
 
@@ -93,6 +95,9 @@ def fetch_infos(source:Optional[str]=None,
             srs = dispatcher[source](stn_fetch_info.DATA)
         elif source == "ECB":
             srs = dispatcher[source](ecb_fetch_info.DATA)
+        elif source == "ANBIMA":
+            srs = dispatcher[source]()
+
         # elif source == "NUCLEOS_IPCA":
         #     srs = dispatcher[source](nucleos_ipca_fetch_info.SERIES)
         else: # FRED
@@ -140,6 +145,8 @@ def fetch_infos(source:Optional[str]=None,
             srs = dispatcher["STN"](stn_fetch_info.DATA)
         elif "ECB" in survey:
             srs = dispatcher["ECB"](ecb_fetch_info.DATA)
+        elif "ANBIMA" in survey:
+            srs = dispatcher["ANBIMA"]()
         # elif "IPCA" in survey:
         #     srs = dispatcher["NUCLEOS_IPCA"](s for s in nucleos_ipca_fetch_info.SERIES if s['survey_id'] == survey)
         else:
