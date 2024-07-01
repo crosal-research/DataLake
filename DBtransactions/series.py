@@ -49,8 +49,10 @@ def add_series(source:Optional[str]=None,
 
     with connect() as conn:
         cur = _cursor(conn)
-        cur.executemany(string_sql, _input(linfo))
-
+        try:
+            cur.executemany(string_sql, _input(linfo))
+        except:
+            print("Failed to insert series")
 
 def query_tickers(survey:Optional[str]=None,
                   source:Optional[str]= None):
