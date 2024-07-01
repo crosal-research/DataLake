@@ -35,9 +35,8 @@ class Series:
                                for i in df.index])
             else:
                 output = io.StringIO()
-                df.loc[q].to_csv(output)
+                df.loc[q].to_csv(output, sep=";")
                 resp.text = output.getvalue()
-                
 
     async def on_post(self, req, resp):
         """

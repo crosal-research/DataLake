@@ -25,14 +25,14 @@ class Search:
             df = search.query_search(q)
             try:
                 if tp == 'json':
-                    result = [{'rank': int(df.loc[i, 'rank']), 
+                    result = [{'popularidade': int(df.loc[i, 'popularidade']), 
                                'ticker': df.loc[i, 'tickers'],
                                'descricao': df.loc[i, 'descricao']} 
                               for i in df.index]
                     resp.media = result
                 else:
                     output = io.StringIO()
-                    df.to_csv(output)
+                    df.to_csv(output, sep=";")
                     resp.text = output.getvalue()
                 resp.status = falcon.HTTP_200
             except _ as e:
