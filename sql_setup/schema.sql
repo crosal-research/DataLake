@@ -98,6 +98,7 @@ CREATE TABLE IF NOT EXISTS Tracker (
        FOREIGN KEY (series_id) REFERENCES Series (series_id) ON DELETE CASCADE
 );
 
+
 /*
 View to retrived the weekly requests of each
 Series by users
@@ -107,6 +108,17 @@ CREATE VIEW Weekly_Tracker AS
 Select series_id, count(*) as wtracker from Tracker
 where timeA >= datetime('now', 'localtime', '-14 days') and timeA <= datetime('now', 'localtime')
 group by series_id order by wtracker desc;
+
+
+/*
+View to retrived the monthly requests of each
+Series by users
+*/
+DROP VIEW IF EXISTS Monthly_Tracker;
+CREATE VIEW Monthly_Tracker AS
+Select series_id, count(*) as mtracker from Tracker
+where timeA >= datetime('now', 'localtime', '-30 days') and timeA <= datetime('now', 'localtime')
+group by series_id order by mtracker desc;
 
 
 /* 
@@ -146,16 +158,19 @@ CREATE TABLE IF NOT EXISTS Observation (
        foreign key (series_id) REFERENCES Series (series_id) ON DELETE CASCADE
 );
 
+
 -- Creates table for series search
 -- see: https://sqlite.org/spellfix1.html
 DROP TABLE IF EXISTS Search;
-CREATE VIRTUAL TABLE IF NOT EXISTS Search USING fts5(ticker, description);
+CREATE VIRTUAL TABLE IF NOT EXISTS Search USING fts5(ticker, description, 
+       tokenize = "unicode61");
 
 -- Used in case of batch insertiong into search table
---INSERT INTO search (ticker, description) SELECT series_id, description FROM series;
+-- INSERT INTO search (ticker, description) SELECT series_id, description FROM series;
 
 -- see: https://stackoverflow.com/questions/70847617/populate-virtual-sqlite-fts5-full-text-search-table-from-content-table
 -- https://kimsereylam.com/sqlite/2020/03/06/full-text-search-with-sqlite.html
+
 
 CREATE TRIGGER search_ai AFTER INSERT ON series
     BEGIN
@@ -168,4 +183,13 @@ CREATE TRIGGER search_del AFTER DELETE ON series
     BEGIN
         INSERT INTO search (ticker, description)
 	VALUES ('delete', old.series_id, old.description)
+    END;
+
+
+CREATE TRIGGER search_au AFTER UPDATE ON series
+    BEGIN
+        INSERT INTO search (ticker, description)
+	VALUES ('delete', old.series_id, old.description);
+	INSERT INTO search (ticker, description)
+        VALUES (new.series_id, new.description);
     END;
