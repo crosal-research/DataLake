@@ -24,6 +24,7 @@ from DBtransactions.loaders.cni import cni_obs
 from DBtransactions.loaders.anfavea import anfavea_obs
 from DBtransactions.loaders.stn import stn_obs
 from DBtransactions.loaders.ecb import ecb_obs
+from DBtransactions.loaders.anbima import anbima_obs
 
 
 fetchers = {
@@ -45,7 +46,8 @@ fetchers = {
     "CNI": cni_obs.fetch,
     "ANFAVEA": anfavea_obs.fetch,
     "STN": stn_obs.fetch,
-    "ECB": ecb_obs.fetch
+    "ECB": ecb_obs.fetch,
+    "ANBIMA": anbima_obs.fetch
     }
 
 
