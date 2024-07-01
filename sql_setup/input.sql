@@ -55,11 +55,12 @@ INSERT INTO Source (source_id, full_name) VALUES ('CNI', 'CONFEDERACAO NACIONAL 
 INSERT INTO Source (source_id, full_name) VALUES ('ANFAVEA', 'ASSOCIACAO NACIONAL DOS PRODUTORES DE VEICULOS AUTOMOTORES');
 INSERT INTO Source (source_id, full_name) VALUES ('STN', 'TESOURO NACIONAL, BRASIL');
 INSERT INTO Source (source_id, full_name) VALUES ('ECB', 'BANCO CENTRAL EUROPEU');
+INSERT INTO Source (source_id, full_name) VALUES ('ANBIMA', 'ASSOCIACAO BRASILEIRA DAS ENTIDADES DOS FINANCEIRO E DE CAPITAIS');
+COMMIT;	      
 
 
 -- INSERT INTO Source (source_id, full_name) VALUES ('APP', 'APP INFO2B');
 
-COMMIT;	      
 
 
 --Insert Surveys
@@ -101,6 +102,8 @@ INSERT INTO Survey (survey_id, description, source_id)
        VALUES ('BLS_LN', 'DADOS DE FORCA DE TRABALHO DOS E.U.A. DO CURRENT POLUTAION SURVEY (SIC)', 'BLS');
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BLS_CE', 'DADOS DE EMPREGO, HORAS TRABALHADAS E GANHOS DO E.U.A. DO CURRENT POPULATION SURVEY', 'BLS');
+
+-- IMF --
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('IMF_PCPS', 'PRECO DE COMMODITIES PRIMARIAS', 'IMF');
 
@@ -183,6 +186,8 @@ INSERT INTO Survey (survey_id, description, source_id)
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('ECB_EXR', 'TAXAS DE CAMBIO EXTRAIDAS DO BANCO CENTRAL EUROPEU', 'ECB');    
 
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('ANBIMA_TAXAS', 'TAXAS INDICATIVAS DOS TÍTULOS PÚBlICOS FEDERAIS', 'ANBIMA');    
 
 
 --APP INFO2B
@@ -190,5 +195,7 @@ INSERT INTO Survey (survey_id, description, source_id)
 --        VALUES ('CORE_IPCA', 'NUCLEOS DO IPCA CALCULADOS PELO O APLICATIVO', 'APP');    
 -- INSERT INTO Survey (survey_id, description, source_id) 
 --        VALUES ('CORE_IPCA15', 'NUCLEOS DO IPCA15 CALCULADOS PELO O APLICATIVO', 'APP');    
--- COMMIT;
+
+COMMIT;
+
        
