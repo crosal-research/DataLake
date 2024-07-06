@@ -44,6 +44,7 @@ def fetch(tickers: List[str], limit:Optional[str]=None) -> List[List[Dict[str, s
     adapter = requests.adapters.HTTPAdapter(pool_connections=100, pool_maxsize=100)
     with requests.Session() as session:
         session.mount("http://https://data.nasdaq.com/api/v3", adapter)
+        print(_url(tickers[0]))
         with executor() as e:
             resps = e.map(lambda tck: session.get(_url(tck), params={'api_key': _key}), tickers)
     return [_process(r, limit) for r in resps]
