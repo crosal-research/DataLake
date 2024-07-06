@@ -34,7 +34,7 @@ class Table:
         falcon.HTTP_200
         resp.text = output.getvalue()
 
-    async def on_post(self, req, reps):
+    async def on_post(self, req, resp):
         """
         Creates new table
         """
