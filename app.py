@@ -17,6 +17,7 @@ from resources.Series import Series
 from resources.Table import Table
 from resources.Cliente import Cliente
 from resources.Survey import Survey
+from resources.Data import Data
 
 # Instanciates falscon.App classe
 app = falcon.asgi.App(middleware=falcon.CORSMiddleware(
@@ -31,6 +32,7 @@ users = Cliente()
 series = Series()
 tables = Table()
 surveys = Survey()
+data = Data()
 
 ### add resources to the route of App ###
 # cliente
@@ -63,3 +65,6 @@ app.add_route('/api/tables/{ticker}', tables) # for deleting tables
 # surveys
 app.add_route('/api/surveys', surveys)
 app.add_route('/api/surveys/{survey_id}', surveys) # for deleting surveys
+
+# data
+app.add_route('/api/data', data)
