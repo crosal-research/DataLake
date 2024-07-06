@@ -1,4 +1,5 @@
 pandas
+numpy
 python-dotenv
 requests
 zeep
@@ -10,3 +11,4 @@ xlrd
 bs4
 pydantic
 python-lsp-server
+unidecode
