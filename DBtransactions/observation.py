@@ -83,9 +83,7 @@ def add_obs(tickers:Optional[List[str]]=None,
         """
     elif survey:
         string_sql_aux = f"""
-        select series.series_id from survey
-        join series on series.survey_id = survey.survey_id
-        where survey.survey_id = {Q}
+        select series_id from series where survey_id = {Q}
         """
     elif source:
         string_sql_aux = f"""
@@ -94,10 +92,11 @@ def add_obs(tickers:Optional[List[str]]=None,
         join series on series.survey_id = survey.survey_id
         where source.source_id = {Q}
         """
-    else:
+    else: # all series from the database
         string_sql_aux = f"""
         select series_id from series
         """
+
     with connect() as conn:
         cur = _cursor(conn)
         if string_sql_aux:
@@ -133,6 +132,3 @@ def add_obs(tickers:Optional[List[str]]=None,
                     cur.execute(exp, (mobs[0][2], dt, mobs[0][2])) 
                 except Exception as e:
                     print(e)
-
-
-                     
