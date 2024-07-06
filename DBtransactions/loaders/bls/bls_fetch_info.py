@@ -13,17 +13,17 @@ from DBtransactions.DBtypes import Series
 config = dotenv_values("./.env")
 _key_bls=config["BLS_KEY"]
 
-path_to_file = os.path.dirname(os.path.abspath(__file__)) + "/datasource.xlsx"
+# path_to_file = os.path.dirname(os.path.abspath(__file__)) + "/datasource.xlsx"
 
 
 INFO = [{'survey': "BLS_CU", 'description': "Consumer Price Index - All Urban Consumer", 
-         'source': "BLS", "Frequency": "Mensal", 'series': 'all'},
+         'source': "BLS", "Frequency": "MENSAL", 'series': 'all'},
         {'survey': "BLS_ND", 'description': "Producer Price Index Industry Data", 
-         'source': "BLS"},
+         'source': "BLS", "Frequency": "MENSAL"},
         {'survey': "BLS_LN", 'description': "Labor Force Statistics from the Current Population Survey (SIC)", 
-         'source': "BLS", 'Frequency': 'Mensa',
+         'source': "BLS", 'Frequency': 'MENSAL',
          'tickers': ["LNS14000000", "LNS11300000", "LNS12000000", "LNS14000006"]}, # Mensal
-        {'survey': "BLS_CE", 'description': "Employment, Hours, and Earnings from the Current Employment Statistics survey (National)", 'source': "BLS", 'frequency': 'Mensal', 
+        {'survey': "BLS_CE", 'description': "Employment, Hours, and Earnings from the Current Employment Statistics survey (National)", 'source': "BLS", 'frequency': 'MENSAL', 
          'tickers': ["CES0000000001", "CES0500000003", "CES0500000001", "CES3000000001", "CES0500000002"] } # Mensal
         ]
 
@@ -41,13 +41,12 @@ def fetch_info(survey: str) -> List[Series]:
     a list of list, where the inner list is three dimnension
     with information about series
     """
-    global resp
-    if survey == "BLS_CU":
+    if survey['survey'] == "BLS_CU":
         ds = pd.read_excel(path_to_file, sheet_name="Pub level",
                            usecols=[0, 1], skiprows=[0], skipfooter=3)
         return  [Series(**{'series_id': "BLS.CUSR0000" + i[0], 
-                       'description': f"{i[1]}, U.S.A. Consumer Price Index (CPI)", 
-                       'survey_id': "BLS_CPI", 'frequency': "MENSAL"}) for i in ds.values]
+                           'description': f"{i[1]}, U.S.A. Consumer Price Index (CPI)", 'last_update': None,
+                           'survey_id': "BLS_CPI", 'frequency': "MENSAL"}) for i in ds.values if i[0] not in ["AAO", "AAOR"]]
     else:
         url = f"https://api.bls.gov/publicAPI/v2/timeseries/data/?"
         headers = {'Content-type': 'application/json'}
@@ -60,7 +59,7 @@ def fetch_info(survey: str) -> List[Series]:
             srs = [Series(**{
                 'series_id': f"BLS.{s['catalog']['series_id']}",
                 'description': s['catalog']['series_title'],
-                'frequency': 'Mensal' if f"BLS_{s['catalog']['survey_abbreviation']}" in ["BLS_LN", "BLS_CE"] else None,
+                'frequency': 'MENSAL' if f"BLS_{s['catalog']['survey_abbreviation']}" in ["BLS_LN", "BLS_CE", "BLS_ND"] else None,
                 'survey_id': f"BLS_{s['catalog']['survey_abbreviation']}"}) 
                    for s in resp.json()["Results"]['series']]
             return srs
