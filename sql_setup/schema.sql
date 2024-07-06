@@ -187,9 +187,10 @@ CREATE TRIGGER search_del AFTER DELETE ON series
 
 
 CREATE TRIGGER search_au AFTER UPDATE ON series
+    FOR EACH ROW
+    WHEN (new.description != old.description)
     BEGIN
-        INSERT INTO search (ticker, description)
-	VALUES ('delete', old.series_id, old.description);
-	INSERT INTO search (ticker, description)
-        VALUES (new.series_id, new.description);
+	UPDATE search SET description = old.description
     END;
+
+
