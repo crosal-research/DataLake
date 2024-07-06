@@ -101,7 +101,7 @@ def query_series(series_tickers:List[str]=[], survey:str='', source:str='') -> L
         cur = _cursor(conn)
         q =  cur.execute(string_sql, series_tickers)
     df = pd.DataFrame(data=q.fetchall(), 
-                      columns=['Ticker', "Descricao", "last_update", "source"])
+                      columns=['Ticker', "Descricao", "last_update", "Fonte"])
     return df.set_index(['Ticker'])
 
 
