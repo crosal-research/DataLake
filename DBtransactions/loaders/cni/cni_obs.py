@@ -17,8 +17,7 @@ from bs4 import BeautifulSoup as bs
 # import from App
 from DBtransactions.DBtypes import Observation
 
-headers = {'User-Agent':
-           'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'}
+headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0'}
 
 url_ind = 'https://www.portaldaindustria.com.br/estatisticas/indicadores-industriais/'
 url_ici = 'https://www.portaldaindustria.com.br/estatisticas/icei-indice-de-confianca-do-empresario-industrial/'
@@ -29,7 +28,6 @@ with open(os.getcwd() + "/DBtransactions/loaders/cni/data.json", 'r') as f:
     DATA = []
     for d in dat:
         DATA.append(dict((k, (lambda i: None if (i=="") else i)(d[k])) for k in d))
-
 
 
 def _process(resp:requests.Response) -> Optional[pd.DataFrame]:
@@ -46,7 +44,6 @@ def _process(resp:requests.Response) -> Optional[pd.DataFrame]:
         dh.columns = ['data']  + [d['series_id'] for d in DATA if d['survey_id'] == 'CNI_ATIV']
         dh = dh.set_index('data')
         dh.index = [pendulum.instance(pendulum.from_format(i, "MM/YYYY")) for i in dh.index]
-
     elif "indicedeconfiancadoempresarioindustrial" in resp.url:
         df = excel.parse(sheet_name="Geral", skiprows=list(range(0,7))).dropna(axis=0, how='all').dropna(axis=1).head().T
         dh = df.iloc[:,[0, 1, 4]]
@@ -67,6 +64,7 @@ def _fetch(survey: str) -> pd.DataFrame:
     else:
         resp = requests.get(url_ici, headers=headers)
     soup = bs(resp.text, "html.parser")
+    print(soup)
     url = [a for a in soup.find_all('a') if 'xlsx' in a.attrs['href']][0].attrs['href']
     return _process(requests.get(url))
 
