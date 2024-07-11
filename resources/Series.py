@@ -55,9 +55,9 @@ class Series:
             series.add_series(**args)
 
         try:
-            falcon.HTTP_201
             await loop.run_in_executor(None, _aux_add_series)
             resp.text = json.dumps({"status": True, "message": "Data upserted in the DB"})
+            falcon.HTTP_201
         except:
             falcon.HTTP_405
             resp.text = json.dumps({"status": False, "message": "Data insertion failed"})
