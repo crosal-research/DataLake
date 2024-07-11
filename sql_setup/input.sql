@@ -102,6 +102,9 @@ INSERT INTO Survey (survey_id, description, source_id)
        VALUES ('BLS_LN', 'DADOS DE FORCA DE TRABALHO DOS E.U.A. DO CURRENT POLUTAION SURVEY (SIC)', 'BLS');
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('BLS_CE', 'DADOS DE EMPREGO, HORAS TRABALHADAS E GANHOS DO E.U.A. DO CURRENT POPULATION SURVEY', 'BLS');
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('BLS_JOLTS', 'DADOS DE ABERTURA, FECHAMENTO E DEMAIS INFORMACOES SOBRE A DINAMICA DA MERCADO DE TRABALHO NOS E.U.A.', 'BLS');
+       
 
 -- IMF --
 INSERT INTO Survey (survey_id, description, source_id) 
@@ -186,6 +189,8 @@ INSERT INTO Survey (survey_id, description, source_id)
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('ECB_EXR', 'TAXAS DE CAMBIO EXTRAIDAS DO BANCO CENTRAL EUROPEU', 'ECB');    
 
+
+-- ANBIMA
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('ANBIMA_TAXAS', 'TAXAS INDICATIVAS DOS TÍTULOS PÚBlICOS FEDERAIS', 'ANBIMA');    
 

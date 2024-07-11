@@ -30,8 +30,8 @@ config = dotenv_values("./.env")
 _key_bls=config["BLS_KEY"]
 
 URL = "https://api.bls.gov/publicAPI/v2/timeseries/data/"
-INI = 2015
-END = 2023
+INI = 2010
+END = 2025
 
 
 def _process(resp: requests.Response)-> List[List[Observation]]:
