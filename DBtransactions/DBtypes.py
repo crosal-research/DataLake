@@ -13,7 +13,7 @@ from pydantic import BaseModel
 
 class Series(BaseModel):
     series_id: str
-    description: Optional[str]
+    description: str
     survey_id: str
     frequency: Optional[str]
     last_update: Optional[str]
