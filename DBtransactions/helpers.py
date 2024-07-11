@@ -61,6 +61,24 @@ def _cursor(conn:sqlite3.Connection) -> sqlite3.Cursor:
     return cur
 
 
+async def async_cursor(func) -> sqlite3.Cursor:
+    """
+    Helper-factory iniciates a cursor with foregin keys
+    automatically activated
+    """
+    async with aiosqlite(DB) as db:
+        async with db.cursor as cur:
+            pass
+        
+#     cur = await conn.cursor()
+#     cur.execute("PRAGMA foreign_keys = ON;") # allows for foreign_keys constraing
+#     cur.execute("PRAGMA journal_model = ON;") # <--
+#         #
+#         # allows for concurrent reads and writes. 
+#         # see https://www.youtube.com/watch?v=86jnwSU1F6Q
+#         # --
+#     return cur
+
 
 
 
