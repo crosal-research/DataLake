@@ -5,7 +5,6 @@
 ##################################################
 
 # import app packages
-import falcon # don't thing I need it
 import falcon.asgi
 
 # import from app
@@ -17,7 +16,8 @@ from resources.Series import Series
 from resources.Table import Table
 from resources.Cliente import Cliente
 from resources.Survey import Survey
-from resources.Data import Data
+from resources.DataObs import DataObs
+from resources.DataSeries import DataSeries
 
 # Instanciates falscon.App classe
 app = falcon.asgi.App(middleware=falcon.CORSMiddleware(
@@ -32,7 +32,8 @@ users = Cliente()
 series = Series()
 tables = Table()
 surveys = Survey()
-data = Data()
+Dobs = DataObs()
+Dseries = DataSeries()
 
 ### add resources to the route of App ###
 # cliente
@@ -67,4 +68,6 @@ app.add_route('/api/surveys', surveys)
 app.add_route('/api/surveys/{survey_id}', surveys) # for deleting surveys
 
 # data
-app.add_route('/api/data', data)
+app.add_route('/api/data/observation', Dobs)
+app.add_route('/api/data/series', Dseries)
+
