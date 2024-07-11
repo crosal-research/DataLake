@@ -22,7 +22,6 @@ from DBtransactions.DBtypes import Observation
 
 
 def fetch(tickers:List[str], limit=None):
-    global dfinal, df, dg
     headers = {'User-Agent':
            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'}
 
@@ -39,10 +38,10 @@ def fetch(tickers:List[str], limit=None):
     with BytesIO() as f:
         f.write(result.content)
         excel = pd.ExcelFile(f, engine="openpyxl")
-        df = pd.read_excel(excel, sheet_name="1.1", 
+        df = pd.read_excel(excel, sheet_name="1.2", 
                            index_col=[0], 
                            header=[0], 
-                           skiprows=[0, 1, 2, 3] + list(range(75, 100))).T
+                           skiprows=[0, 1, 2, 3] + list(range(164, 200))).T
     df.columns = ["STN." + c.split(" ")[0].replace(".", "") for c in df.columns]
     dfinal = df if not limit else df.tail(limit)
     d = {}
@@ -50,6 +49,7 @@ def fetch(tickers:List[str], limit=None):
         for i in dfinal.index:
             if c not in d:
                 d[c] = []
+                print(c)
             v = dfinal.loc[i,c]
             if not np.isnan(v):
                 d[c].append(Observation(**{'series_id': c, 'dat': i.strftime("%Y-%m-%d"), 'valor': dfinal.loc[i, c]}))

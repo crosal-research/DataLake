@@ -2,7 +2,8 @@
   {
     "series_id": "STN.1", "description": "Receita Total. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL", "survey_id": "STN_RES"
     , "last_update": ""
-  },
+  }
+,
   {
     "series_id": "STN.11", "description": "Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
   },
@@ -10,10 +11,46 @@
     "series_id": "STN.1101", "description": "Imposto de Importacao, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
   },
   { 
-    "series_id": "STN.1102", "description": "IPI, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+    "series_id": "STN.1102", "description": "IPI Total, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  },
+  { 
+    "series_id": "STN.11021", "description": "IPI - Fumo, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  },
+  { 
+    "series_id": "STN.11022", "description": "IPI - Bebidas, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  },
+  { 
+    "series_id": "STN.11023", "description": "IPI - Automóvies, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  },
+  { 
+    "series_id": "STN.11024", "description": "IPI - Viculados a Importacao, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  },
+  { 
+    "series_id": "STN.11025", "description": "IPI - Outros, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
   },
   { 
     "series_id": "STN.1103", "description": "Imposto de Renda, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  },
+    { 
+    "series_id": "STN.11031", "description": "Imposto de Renda Pessoa Fisica, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+    },
+    { 
+    "series_id": "STN.11032", "description": "Imposto de Renda Pessoa Juridica, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+    },
+      { 
+    "series_id": "STN.11033", "description": "Imposto de Renda na Fonte, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+      },
+        { 
+    "series_id": "STN.110331", "description": "Imposto de Renda na Fonte - Rendimento do Trabalho, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+	},
+        { 
+    "series_id": "STN.110332", "description": "Imposto de Renda na Fonte - Rendimento do Capital, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+	},
+        { 
+    "series_id": "STN.110333", "description": "Imposto de Renda na Fonte - Rendidento de Residentes no Exterior, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+	},
+        { 
+    "series_id": "STN.110334", "description": "Imposto de Renda na Fonte - Outros Rendimentos, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
   },
   { 
     "series_id": "STN.1104", "description": "IOF, Receita Administrada pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
@@ -48,6 +85,14 @@
     "series_id": "STN.13", "description": "Arrecadação Líquida do RGPS. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
     , "last_update": ""
   },
+    { 
+    "series_id": "STN.131", "description": "Arrecadação Líquida do RGPS - Urbana. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""
+    },
+  { 
+    "series_id": "STN.132", "description": "Arrecadação Líquida do RGPS - Rural. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""
+  },
   { 
     "series_id": "STN.14", "description": "Receita não administradas pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
     , "last_update": ""
@@ -59,8 +104,31 @@
   },
   {
     "series_id": "STN.142", "description": "Dividendos e Participações, Receitas não administratas pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
-  }
-  ,
+  },
+    {
+    "series_id": "STN.1421", "description": "Dividendos e Participações - Banco do Brasil, Receitas não administratas pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+    },
+    {
+    "series_id": "STN.1422", "description": "Dividendos e Participações - BNB, Receitas não administratas pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+    },
+    {
+    "series_id": "STN.1423", "description": "Dividendos e Participações - BNDES, Receitas não administratas pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+    },
+    {
+    "series_id": "STN.1424", "description": "Dividendos e Participações - Caixa Economica Federal, Receitas não administratas pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+    },
+    {
+    "series_id": "STN.1425", "description": "Dividendos e Participações - Empresa Brasileira de Correios e Telegrafos, Receitas não administratas pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+    },
+    {
+    "series_id": "STN.1426", "description": "Dividendos e Participações - Eletrobras, Receitas não administratas pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+    },{
+      "series_id": "STN.1427", "description": "Dividendos e Participações - IRB, Receitas não administratas pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  },{
+    "series_id": "STN.1428", "description": "Dividendos e Participações - Petrobras, Receitas não administratas pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  },{
+    "series_id": "STN.1429", "description": "Dividendos e Participações - Demais Dividendos e Participacoes, Receitas não administratas pela RFB. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  },
   { "series_id": "STN.143", "description": "Contr. Plano de Seguridade Social do Servidor, Receitas não administratas pela RFB. Resultado do Governo Central, R$ Milhoes",  "frequency": "MENSAL","survey_id": "STN_RES"
     , "last_update": ""
   },
@@ -83,6 +151,11 @@
   },
   {
     "series_id": "STN.148", "description": "Demais Receitas, não administratas pela RFB. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+,
+  {
+    "series_id": "STN.1481", "description": "Demais Receitas - Operacoes com Ativos, não administratas pela RFB. Resultado do Governo Central, R$ Milhoes"
     , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
   }
   ,
@@ -133,10 +206,35 @@
   }
   ,
   {
-    "series_id": "STN.42", "description": "Pessoal e Encargos Sociai. Resultado do Governo Central, R$ Milhoes"
+    "series_id": "STN.411", "description": "Benefícios Previdenciários - Urbano. Resultado do Governo Central, R$ Milhoes"
     , "frequency": "MENSAL","survey_id": "STN_RES" , "last_update": ""
   }
   ,
+  {
+	"series_id": "STN.4111", "description": "Benefícios Previdenciários - Urbano, Sentencas Judiciais e Precatorios. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES" , "last_update": ""
+  },
+  {
+    "series_id": "STN.412", "description": "Benefícios Previdenciários - Rural. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES" , "last_update": ""
+  }
+  ,
+  {
+      "series_id": "STN.4121", "description": "Benefícios Previdenciários - Rural, Sentencas Judiciais e Precatorios. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES" , "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.42", "description": "Pessoal e Encargos Social. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES" , "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.421", "description": "Pessoal e Encargos Social, Sentencas Judiciais e Precatorios. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES" , "last_update": ""
+  }
+  ,
+
   {
     "series_id": "STN.43", "description": "Outras Despesas Obrigatória. Resultado do Governo Central, R$ Milhoes"
     , "frequency": "MENSAL","survey_id": "STN_RES" , "last_update": ""
@@ -144,6 +242,21 @@
   ,
   {
     "series_id": "STN.4301", "description": "Abono e Seguro Desemprego, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES" , "last_update": ""
+  }
+  ,
+    {
+    "series_id": "STN.43011", "description": "Abono, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES" , "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.43012", "description": "Seguro Desemprego, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES" , "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.430121", "description": "Seguro Defeso, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes"
     , "frequency": "MENSAL","survey_id": "STN_RES" , "last_update": ""
   }
   ,
@@ -161,6 +274,11 @@
     "series_id": "STN.4304", "description": "Benefícios de Legislação Especial e Indenizações, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""},
   {
     "series_id": "STN.4305", "description": "Benefícios de Prestação Continuada da LOAS/RM, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.43051", "description": "Benefícios de Prestação Continuada da LOAS/RM - Sentencas Judiciais e Precatorios, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes"
     , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
   }
   ,
@@ -201,12 +319,121 @@
     "series_id": "STN.4315", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
     , "last_update": ""},
   {
-    "series_id": "STN.4316", "description": "Transferências AN, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
-  }
+    "series_id": "STN.43151", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""},
+    {
+      "series_id": "STN.431511", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, operações de custeio agropecuario. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+      , "last_update": ""},
+    {
+      "series_id": "STN.431512", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, equalizacao de investimento rural e agroindustrial. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+      , "last_update": ""},
+    {
+      "series_id": "STN.431513", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, política de preços agricolas. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+      , "last_update": ""}
   ,
   {
+    "series_id": "STN.4315131", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, política de preços agricolas - equalizacao de emprestimos do governo federal. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+      , "last_update": ""}
+  ,    
+  {
+    "series_id": "STN.4315132", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, política de preços agricolas - equalizacao de aquisicoes do governo federal. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,    
+  {
+      "series_id": "STN.4315133", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, política de preços agricolas - garantia a sustentacao de precos. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+,
+  { "series_id": "STN.431514", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Pronaf. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+    { "series_id": "STN.4315141", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Pronaf - equalizacao emprestimo do governo federal. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,  { "series_id": "STN.4315142", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Pronaf - concessao de financiamento. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,  { "series_id": "STN.4315143", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Pronaf - aquisicao. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+    { "series_id": "STN.431515", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Proex. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.4315151", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Proex - Equalizacao Emprestimos Governo Federal. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.4315152", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Proex - Concessao de financiamentos. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.431516", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Programa especial de saneamento de ativos (PESA). Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+      { "series_id": "STN.431517", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Alcool. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.431518", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Cacau. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+    { "series_id": "STN.431519", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Programa de subsidio a habitacao de interesse social. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.4315110", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Securitizacao da dívida agricola (Lei 9.138/1995). Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.4315111", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Fundo da Terra/INCRA. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+      { "series_id": "STN.4315112", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Funcafé. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.4315113", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Revitaliza. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.4315114", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Programa de Sustentacao ao Investimento (PSI). Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.4315115", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Operacoes de microcredito produtivo orientado (EQMPO). Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.4315116", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Operacoes de credito destinadas a pessoas com deficiencia (EQPCD). Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.4315117", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Fundo nacional de desenvolvimento (FND). Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.4315118", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Fundo Setorial Audiovisual. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.4315119", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Capitalizacao a Emgea. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.4315120", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Subvencao Parcial à Remuneração por Cessão de Energia Elétrica de Itaipu. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.4315121", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Subvencoes economicas. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.4315122", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Equalizacao dos Fundos FDA/FDNE/FDCO. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.4315123", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Sudene. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.4315124", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Operacoes Oficiais de credito e reordenamento de passivos, Receitas de Recuperacao de subvencoes. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+    { "series_id": "STN.43152", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Proagro, Receitas de Recuperacao de subvencoes. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.43153", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. PNAFE, Receitas de Recuperacao de subvencoes. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  { "series_id": "STN.43154", "description": "Subsídios, Subvenções e Proagr, Despesas Obrigatórias. Demais subsidios e subvencoes. Receitas de Recuperacao de subvencoes. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
+    , "last_update": ""}
+  ,
+  {
+    "series_id": "STN.4316", "description": "Transferências AN, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""},
+  {
     "series_id": "STN.4317", "description": "Transferências Multas ANEE, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
-    , "last_update": ""},
+    , "last_update": ""}
+  ,
   {
     "series_id": "STN.4318", "description": "Impacto Primário do FIE, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES"
     , "last_update": ""},
@@ -215,7 +442,31 @@
   }
   ,
   {
-    "series_id": "STN.4320", "description": "Demais Despesas Obrigatárias, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+    "series_id": "STN.4320", "description": "Demais Despesas Obrigatorias, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.43201", "description": "Demais Despesas Obrigatorias - Auxilio CDE, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+    {
+    "series_id": "STN.43202", "description": "Demais Despesas Obrigatorias - Convenios, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.43203", "description": "Demais Despesas Obrigatorias - Doacoes, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.43204", "description": "Demais Despesas Obrigatorias - FDA/FDNE, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  {
+    "series_id": "STN.43205", "description": "Demais Despesas Obrigatorias - Reserva de Contingencia, Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+    {
+    "series_id": "STN.43206", "description": "Demais Despesas Obrigatorias - ressarcimento Estados/Municipios combustiveis fosseis. Despesas Obrigatórias. Resultado do Governo Central, R$ Milhoes", "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
   }
   ,
   {
@@ -227,7 +478,65 @@
   }
   ,
   {
+    "series_id": "STN.4411", "description": "Obrigatórias com Controle de Fluxo, Beneficio a servidores publicos. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,{
+    "series_id": "STN.4412", "description": "Obrigatórias com Controle de Fluxo, Bolsa Familia e Auxilio Brasil. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,{
+    "series_id": "STN.4413", "description": "Obrigatórias com Controle de Fluxo, Saude. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,{
+    "series_id": "STN.4414", "description": "Obrigatórias com Controle de Fluxo, Educacao. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,{
+    "series_id": "STN.4415", "description": "Obrigatórias com Controle de Fluxo, Demais. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL","survey_id": "STN_RES", "last_update": ""
+  }
+  ,
+  {
     "series_id": "STN.442", "description": "Despesas Discricionárias do Governo Central, R$ Milhoes. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL", "survey_id": "STN_RES", "last_update": "" 
+  }
+  ,
+    {
+    "series_id": "STN.4421", "description": "Despesas Discricionárias em Saude do Governo Central, R$ Milhoes. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL", "survey_id": "STN_RES", "last_update": "" 
+  }
+  ,  {
+    "series_id": "STN.4422", "description": "Despesas Discricionárias em Educacao do Governo Central, R$ Milhoes. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL", "survey_id": "STN_RES", "last_update": "" 
+  }
+  ,  {
+    "series_id": "STN.4423", "description": "Despesas Discricionárias em Defesa do Governo Central, R$ Milhoes. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL", "survey_id": "STN_RES", "last_update": "" 
+  }
+  ,  {
+    "series_id": "STN.4424", "description": "Despesas Discricionárias em Transporte do Governo Central, R$ Milhoes. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL", "survey_id": "STN_RES", "last_update": "" 
+  }
+  ,  {
+    "series_id": "STN.4425", "description": "Despesas Discricionárias em Administracao do Governo Central, R$ Milhoes. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL", "survey_id": "STN_RES", "last_update": "" 
+  }
+  ,  {
+    "series_id": "STN.4426", "description": "Despesas Discricionárias em Ciencia e Tecnologia do Governo Central, R$ Milhoes. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL", "survey_id": "STN_RES", "last_update": "" 
+  }
+  ,  {
+    "series_id": "STN.4427", "description": "Despesas Discricionárias em Seguranca Publica do Governo Central, R$ Milhoes. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL", "survey_id": "STN_RES", "last_update": "" 
+  }
+  ,  {
+    "series_id": "STN.4428", "description": "Despesas Discricionárias em Assitencia Social do Governo Central, R$ Milhoes. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL", "survey_id": "STN_RES", "last_update": "" 
+  }
+  ,  {
+    "series_id": "STN.4429", "description": "Despesas Discricionárias em demais itens do Governo Central, R$ Milhoes. Resultado do Governo Central, R$ Milhoes"
     , "frequency": "MENSAL", "survey_id": "STN_RES", "last_update": "" 
   }
   ,
@@ -245,6 +554,13 @@
     , "last_update": ""},
   {
     "series_id": "STN.62", "description": "Ajuste Metodologico Caixa - Competência. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL" ,"survey_id": "STN_RES"
+    , "last_update": ""},
+    {
+    "series_id": "STN.63", "description": "Ajuste Metodologico Recursos nao sacados do PIS/PASEP. Resultado do Governo Central, R$ Milhoes"
+    , "frequency": "MENSAL" ,"survey_id": "STN_RES"
+    , "last_update": ""},  {
+      "series_id": "STN.64", "description": "Ajuste Metodologico Compensacoes LC 194/2022 (pre-acordo União e Estados/DF). Resultado do Governo Central, R$ Milhoes"
     , "frequency": "MENSAL" ,"survey_id": "STN_RES"
     , "last_update": ""},
   {

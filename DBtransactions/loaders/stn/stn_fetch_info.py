@@ -10,7 +10,8 @@ with open(os.getcwd() + "/DBtransactions/loaders/stn/data.json", "r") as f:
     dat = json.loads(f.read())
     DATA = []
     for d in dat:
-        DATA.append(dict((k, (lambda i: None if (i=="") else i)(d[k])) for k in d))
+        if d['series_id'] != 'STN.431512':
+            DATA.append(dict((k, (lambda i: None if (i=="") else i)(d[k])) for k in d))
 
     
 def fetch_info(data: List[Dict[str, str]]) -> List[Series]:
