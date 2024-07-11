@@ -33,7 +33,7 @@ def add_series(source:Optional[str]=None,
         	  survey_id=excluded.survey_id,
         	  frequency=excluded.frequency;
         """
-    def _input(linfo: List[Series]) -> List[Tuple[str]]:
+    def _input(linfo: List[Series]) -> Tuple[str]:
         """
         Helper function to raise letters to upper case
         """
@@ -46,7 +46,6 @@ def add_series(source:Optional[str]=None,
         linfo = fetch_infos(survey=survey)
     else:
         linfo = fetch_infos(tickers=tickers)
-
     with connect() as conn:
         cur = _cursor(conn)
         try:
