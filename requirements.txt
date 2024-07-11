@@ -12,3 +12,4 @@ bs4
 pydantic
 python-lsp-server
 unidecode
+aiosqlite
