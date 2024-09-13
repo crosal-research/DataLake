@@ -7,8 +7,7 @@ from DBtransactions.DBtypes import Series
 
 # Final
 # years for which add series for year-end estimates
-anos = [2023, 2024, 2025, 2026]
-
+anos = [2023, 2024, 2025, 2026, 2027]
 
 def fetch_info() -> List[Series]:
     """
@@ -34,4 +33,5 @@ def fetch_info() -> List[Series]:
     series.append({"series_id": "BCB.IPCAEXP_12M", 
                    "description": 'Expectativa mediana do IPCA 12 meses a frente, Brasil', "frequency": "DAILY", 
                    "last_update": None, "survey_id": 'BCB_EXP_12M'})
+
     return [Series(**s) for s in series]
