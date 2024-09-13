@@ -24,13 +24,22 @@ from DBtransactions.DBtypes import Observation
 def fetch(tickers:List[str], limit=None):
     headers = {'User-Agent':
            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36'}
-
     url = "https://www.tesourotransparente.gov.br/publicacoes/boletim-resultado-do-tesouro-nacional-rtn"
-    resp = requests.get(url, headers=headers)
-    soup = bs(resp.text, "html.parser")
-    url = [a for a in soup.find_all('a') if ('title' in a.attrs) and ('serie_historica' in a.attrs['title'])][0].attrs['href']
+    dat = pendulum.today()
+    i = 0
+    while i < 10:
+        dat_new = dat.subtract(months=i)
+        new_url = url + f'/{dat_new.year}/{dat_new.month - i}'
+        resp = requests.get(new_url, headers=headers)
+        if resp.ok:
+            soup = bs(resp.text, "html.parser")
+            url_final = [a for a in soup.find_all('a') if ('title' in a.attrs) and ('serie_historica' in a.attrs['title'])][0].attrs['href']
+            break
+        else:
+            i = i + 1
 
-    new_resp = requests.get(url, headers=headers)
+
+    new_resp = requests.get(url_final, headers=headers)
     content = bs(new_resp.text, "html.parser")
     new_url = content.find_all("frame")[0].attrs["src"]
     
@@ -49,8 +58,7 @@ def fetch(tickers:List[str], limit=None):
         for i in dfinal.index:
             if c not in d:
                 d[c] = []
-                print(c)
-            v = dfinal.loc[i,c]
+            v = dfinal.loc[i,c]    
             if not np.isnan(v):
                 d[c].append(Observation(**{'series_id': c, 'dat': i.strftime("%Y-%m-%d"), 'valor': dfinal.loc[i, c]}))
     return list(d.values())
