@@ -5,7 +5,6 @@
 # https://www.bls.gov/cpi/additional-resources/index-publication-level.htm
 # https://beta.bls.gov/dataQuery/find?fq=survey:[cu]&s=popularity:D
 # https://www.bls.gov/help/hlpforma.htm#CU
-
 # Makes sure the fetch function return List[Observation]
 # date: 11/04/2023
 ###########################################################
@@ -81,10 +80,9 @@ def fetch(tickers: List[str], ini: int=INI,
     """
     tickers = [tck.split(".")[1] for tck in tickers]
     with ThreadPoolExecutor(max_workers=None) as executor:
-        dfs = list(executor.map(lambda x: _fetch_aux(list(x)),
-                                np.array_split(tickers, 9)))
-    if len(dfs) <= 1:
-        return dfs
-    obs_all = reduce(lambda x, y: x + y, dfs)
-    return obs_all
-
+        ls = list(executor.map(lambda x: _fetch_aux(list(x)),
+                                np.array_split(tickers, 9), timeout=90))
+    if len(ls) <= 1:
+        return ls
+    lss = reduce(lambda x, y: x + y, ls)
+    return lss
