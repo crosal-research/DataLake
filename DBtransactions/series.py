@@ -17,7 +17,6 @@ from DBtransactions.helpers import Q
 from DBtransactions.loaders.fetcher_info import fetch_infos
 from DBtransactions.DBtypes import Series
 
-
 def add_series(source:Optional[str]=None,
                survey: Optional[str]=None,
                tickers:List[Optional[str]]=None) -> None:
