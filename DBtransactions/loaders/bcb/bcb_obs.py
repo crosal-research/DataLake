@@ -35,21 +35,26 @@ def _process(resp:requests.models.Response) -> Optional[dict]:
     if resp.ok:
         try:
             tck = str(int((resp.url).split("bcdata.sgs.")[1].split("/dados")[0]))
-            obs = resp.json()
-            return [Observation(**{'series_id': f"BCB.{tck}", 
-                                   'dat': pendulum.from_format(o['data'], "DD/MM/YYYY").to_date_string(), 
-                                   'valor': o['valor']}) for o in obs if o['valor']]
+            try:
+                obs = resp.json()
+                print(f"OK: {resp.url}")
+                return [Observation(**{'series_id': f"BCB.{tck}", 
+                       'dat': pendulum.from_format(o['data'], "DD/MM/YYYY").to_date_string(), 
+                       'valor': o['valor']}) for o in obs if o['valor']]
+            except json.decoder.JSONDecodeError as e: # when bcb returns invalid json
+                print(f"Off: {resp.url}: {e}")
+                return None
         except:
-            print(f"Could not process {resp.url}")
+            print(f"Off: Could not process {resp.url}") # when bcb resouce is not avalilable
             return None
     else:
-        print(f"Failed request {resp.url}")
+        print(f"Off: Failed request: {resp.url}")
         return None
 
 
 def fetch(tickers: List[str], limit: Optional[int]=None) -> List[Observation]:
     """
-    Fetch the observations from the bcb's api. 
+    Fetches the observations from the bcb's api. 
     """
     urls = (build_url(tck, limit=limit) for tck in tickers)
 
@@ -59,5 +64,5 @@ def fetch(tickers: List[str], limit: Optional[int]=None) -> List[Observation]:
 
     with requests.session() as session:
         with executor() as e:
-            js = e.map(lambda url:_process(session.get(url)), list(urls))
+            js = e.map(lambda url:_process(session.get(url)), list(urls), timeout=90)
     return list(filter(_pos_process, js))
