@@ -28,11 +28,11 @@ class Series:
             loop = asyncio.get_running_loop()
             df = await loop.run_in_executor(None, series.query_series,q)
             if tp == 'json':
-                resp.media = ([{'ticker': str(df.loc[i, 'Ticker']), 
-                                'descricao': str(df.loc[i, 'Descricao']), 
-                                'last_update': str(df.loc[i, 'last_update']), 
-                                'source': str(df.loc[i, 'source'])}
-                               for i in df.index])
+                resp.media = [{'ticker': i, 
+                                         'descricao': df.loc[i, 'Descricao'], 
+                                         'last_update': str(df.loc[i, 'last_update']), 
+                                         'fonte': df.loc[i, 'Fonte']}
+                                        for i in df.index ]
             else:
                 output = io.StringIO()
                 df.loc[q].to_csv(output, sep=";")
