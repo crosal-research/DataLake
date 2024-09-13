@@ -56,7 +56,7 @@ def process(resp:requests.models.Response, limit=None) -> pd.DataFrame:
                                'dat': i.strftime("%Y-%m-%d"), 
                                'valor': df_new.loc[i, ticker]}) for i in df_new.index ]
     else:
-        print(f"Could not reache {resp.url}")
+        print(f"Off: Could not reache {resp.url}")
 
 
 def fetch(tickers: list, limit: Optional[int]=None) -> None:
@@ -72,8 +72,5 @@ def fetch(tickers: list, limit: Optional[int]=None) -> None:
     with requests.session() as session:
         with executor() as e:
             srs = list(e.map(lambda url:process(session.get(url, headers=headers), limit=limit), 
-                             list(urls)))
-    
+                             list(urls), timeout=120))
     return srs
-
-
