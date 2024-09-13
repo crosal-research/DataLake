@@ -64,7 +64,6 @@ def _fetch(survey: str) -> pd.DataFrame:
     else:
         resp = requests.get(url_ici, headers=headers)
     soup = bs(resp.text, "html.parser")
-    print(soup)
     url = [a for a in soup.find_all('a') if 'xlsx' in a.attrs['href']][0].attrs['href']
     return _process(requests.get(url))
 
@@ -89,7 +88,8 @@ def fetch(tickers: List[str], limit=None) -> List[List[Observation]]:
                 d[c] = []
             if not np.isnan(df.loc[i,c]):
                 d[c].append(Observation(**{'series_id': c, 
-                                           'dat': i.date().strftime("%d-%m-%Y"), 
+                                           'dat': i.date().strftime("%Y-%m-%d"), 
                                            'valor': df.loc[i, c]}))
+                
     return list(d.values())
 
