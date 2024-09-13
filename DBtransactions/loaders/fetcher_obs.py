@@ -25,6 +25,7 @@ from DBtransactions.loaders.anfavea import anfavea_obs
 from DBtransactions.loaders.stn import stn_obs
 from DBtransactions.loaders.ecb import ecb_obs
 from DBtransactions.loaders.anbima import anbima_obs
+from DBtransactions.loaders.eurostat import eurostat_obs
 
 
 fetchers = {
@@ -47,7 +48,8 @@ fetchers = {
     "ANFAVEA": anfavea_obs.fetch,
     "STN": stn_obs.fetch,
     "ECB": ecb_obs.fetch,
-    "ANBIMA": anbima_obs.fetch
+    "ANBIMA": anbima_obs.fetch,
+    "EUROSTAT": eurostat_obs.fetch
     }
 
 
@@ -68,8 +70,8 @@ def fetch(tickers: List[str],
             sources[s].append(tck)
         else: 
             sources[s] = [tck]
-
     llobs = []
     for s in sources:
         llobs= llobs + fetchers[s](sources[s], limit=limit)
     return llobs
+
