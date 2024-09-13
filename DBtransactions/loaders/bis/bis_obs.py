@@ -60,5 +60,5 @@ def fetch(tickers:List[str],
             srs = list(e.map(lambda url:
                              _process(session.get(url, 
                                                   params={'startPeriod': ini, 
-                                                        'detail': 'dataonly'})), urls))
+                                                          'detail': 'dataonly'})), urls, timeout=120))
     return srs
