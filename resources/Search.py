@@ -34,7 +34,7 @@ class Search:
                     output = io.StringIO()
                     df.to_csv(output, sep=";")
                     resp.text = output.getvalue()
-                resp.status = falcon.HTTP_200
+                    resp.status = falcon.HTTP_200
             except _ as e:
                 print(e)
                 resp.status = falco.HTTP_500
