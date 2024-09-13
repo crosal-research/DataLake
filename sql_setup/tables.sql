@@ -60,4 +60,4 @@ INSERT INTO series_utable (utable_id, series_id)
     ('TBL.PMC_SA', 'IBGE.8884/V/7170/C11046/56738'); -- PMC Motociclecas e peças
 COMMIT;
 
--- 
+
