@@ -30,6 +30,8 @@ from DBtransactions.loaders.anfavea import anfavea_fetch_info
 from DBtransactions.loaders.stn import stn_fetch_info
 from DBtransactions.loaders.ecb import ecb_fetch_info
 from DBtransactions.loaders.anbima import anbima_fetch_info
+from DBtransactions.loaders.eurostat import eurostat_fetch_info
+from DBtransactions.loaders.prev import prev_fetch_info
 #from DBtransactions.loaders.nucleos_ipca import nucleos_ipca_fetch_info
 
 dispatcher = {
@@ -53,7 +55,9 @@ dispatcher = {
     "STN": stn_fetch_info.fetch_info,
 #    "NUCLEOS_IPCA": nucleos_ipca_fetch_info.fetch_info,
     "ECB": ecb_fetch_info.fetch_info,
-    "ANBIMA": anbima_fetch_info.fetch_info
+    "ANBIMA": anbima_fetch_info.fetch_info,
+    "EUROSTAT": eurostat_fetch_info.fetch_info,
+    "PREV": prev_fetch_info.fetch_info
  }
 
 
@@ -94,9 +98,13 @@ def fetch_infos(source:Optional[str]=None,
         elif source == "STN":
             srs = dispatcher[source](stn_fetch_info.DATA)
         elif source == "ECB":
-            srs = dispatcher[source](ecb_fetch_info.DATA)
+            srs = dispatcher[source]()
         elif source == "ANBIMA":
             srs = dispatcher[source]()
+        elif source == "EUROSTAT":
+            srs = dispatcher[source]()
+        elif source == "PREV":
+            srs = dispatcher[source](prev_fetch_info.DATA)
 
         # elif source == "NUCLEOS_IPCA":
         #     srs = dispatcher[source](nucleos_ipca_fetch_info.SERIES)
@@ -144,9 +152,14 @@ def fetch_infos(source:Optional[str]=None,
         elif "STN" in survey:
             srs = dispatcher["STN"](stn_fetch_info.DATA)
         elif "ECB" in survey:
-            srs = dispatcher["ECB"](ecb_fetch_info.DATA)
+            srs = dispatcher["ECB"](survey)
         elif "ANBIMA" in survey:
             srs = dispatcher["ANBIMA"]()
+        elif "EUROSTAT" in survey:
+            srs = dispatcher["EUROSTAT"]()
+        elif "PREV" in survey:
+            srs = dispatcher["PREV"](prev_fetch_info.DATA)
+
         # elif "IPCA" in survey:
         #     srs = dispatcher["NUCLEOS_IPCA"](s for s in nucleos_ipca_fetch_info.SERIES if s['survey_id'] == survey)
         else:
