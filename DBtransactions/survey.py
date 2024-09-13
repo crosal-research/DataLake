@@ -3,7 +3,6 @@
 # sruvey: base de dados
 ##################################################
 
-
 # import from system
 import os
 from typing import List, Tuple, Optional
