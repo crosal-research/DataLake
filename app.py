@@ -19,7 +19,7 @@ from resources.Survey import Survey
 from resources.DataObs import DataObs
 from resources.DataSeries import DataSeries
 
-# Instanciates falscon.App classe
+# Instanciates falcon.App classe
 app = falcon.asgi.App(middleware=falcon.CORSMiddleware(
     allow_origins='*', allow_credentials='*'))
 
@@ -46,14 +46,12 @@ app.add_route('/api/accounts', conta)
 # search
 app.add_route('/api/search', search)
 
-
 # observation
 app.add_route('/api/observations', observations)
 
 # users - don't think I need it.
-# app.add_route('/api/users', cliente)
-# app.add_route('/api/users/{email}', cliente) # for deleting users
-
+app.add_route('/api/users', cliente)
+app.add_route('/api/users/{email}', cliente) # for deleting users
 
 # series 
 app.add_route('/api/series', series)
@@ -68,6 +66,5 @@ app.add_route('/api/surveys', surveys)
 app.add_route('/api/surveys/{survey_id}', surveys) # for deleting surveys
 
 # data
-app.add_route('/api/data/observation', Dobs)
+app.add_route('/api/data/observations', Dobs)
 app.add_route('/api/data/series', Dseries)
-
