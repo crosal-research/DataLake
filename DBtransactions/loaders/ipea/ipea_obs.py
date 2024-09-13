@@ -30,7 +30,6 @@ def process(resp:str, limit:Optional[int]=None) -> Optional[List[Observation]]:
     """
     url = resp.url
     ticker = "IPEA." + (resp.url).split("('")[1].split("')")[0]
-#    dd = resp.json()['value'][limit:] if limit is not None else resp.json()['value']
     dd = resp.json()['value']
     if resp.ok:
         return [Observation(**{"dat": d['VALDATA'].split("T")[0], 
@@ -49,6 +48,6 @@ def fetch(tickers:List[str], limit:Optional[int]=None) -> List[List[Observation]
     urls =[build_url(tck.split(".")[1]) for tck in tickers]
     with requests.session() as session:
         with executor() as e:
-            obs = list(e.map(lambda u: process(session.get(u), limit), urls))
+            obs = list(e.map(lambda u: process(session.get(u), limit), urls, timeout=60))
     return obs
 
