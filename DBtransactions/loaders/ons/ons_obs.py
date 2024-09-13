@@ -13,10 +13,9 @@ import requests, pendulum
 # import app
 from DBtransactions.DBtypes import Observation
 
-
-URL = 'https://ons-dl-prod-opendata.s3.amazonaws.com/dataset/ena_subsistema_di/'
-FINAL = 2023
-INI = 2000
+URL = 'https://ons-aws-prod-opendata.s3.amazonaws.com/dataset/ena_subsistema_di/'
+FINAL = 2024
+INI = 2001
 
 def _build_url(ano:str):
     """
