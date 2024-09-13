@@ -55,7 +55,10 @@ INSERT INTO Source (source_id, full_name) VALUES ('CNI', 'CONFEDERACAO NACIONAL 
 INSERT INTO Source (source_id, full_name) VALUES ('ANFAVEA', 'ASSOCIACAO NACIONAL DOS PRODUTORES DE VEICULOS AUTOMOTORES');
 INSERT INTO Source (source_id, full_name) VALUES ('STN', 'TESOURO NACIONAL, BRASIL');
 INSERT INTO Source (source_id, full_name) VALUES ('ECB', 'BANCO CENTRAL EUROPEU');
-INSERT INTO Source (source_id, full_name) VALUES ('ANBIMA', 'ASSOCIACAO BRASILEIRA DAS ENTIDADES DOS FINANCEIRO E DE CAPITAIS');
+INSERT INTO Source (source_id, full_name) VALUES ('ANBIMA', 'ASSOCIACAO BRASILEIRA DAS ENTIDADES DO SISTEMA FINANCEIRO E DE CAPITAIS');
+INSERT INTO Source (source_id, full_name) VALUES ('EUROSTAT', 'INSTITUTO DE ESTATISTICA DA UNIÃO EUROPEIA');
+INSERT INTO Source (source_id, full_name) VALUES ('PREV', 'MINISTERIO DA PREVIDENCIA SOCIAL DO BRASIL');
+
 COMMIT;	      
 
 
@@ -76,11 +79,11 @@ INSERT INTO Survey (survey_id, description, source_id)
 INSERT INTO Survey (survey_id, description, source_id)
       VALUES ('IBGE_CN', 'CONTAS NACIONAIS TRIMESTRAIS, BRASIL', 'IBGE');
 INSERT INTO Survey (survey_id, description, source_id)
-      VALUES ('IBGE_IPCA', 'Indice de Preco ao Consumidor amplo, Brasil', 'IBGE');
+      VALUES ('IBGE_IPCA', 'INDICE DE PRECO AO CONSUMIDOR AMPLO, BRASIL', 'IBGE');
 INSERT INTO Survey (survey_id, description, source_id)
-      VALUES ('IBGE_IPCA15', 'Indice de Preco ao Consumidor amplo-15, Brasil', 'IBGE');
+      VALUES ('IBGE_IPCA15', 'INDICE DE PRECO AO CONSUMIDOR AMPLO-15, BRASIL', 'IBGE');
 INSERT INTO Survey (survey_id, description, source_id)
-      VALUES ('IBGE_PNAD', 'Pesquisa Nacional de Amostra Domiliar Continuada, Brasil', 'IBGE');                              
+      VALUES ('IBGE_PNAD', 'PESQUISA NACIONAL DE AMOSTRA DOMILIAR CONTINUADA, BRASIL', 'IBGE');                              
 -- FRED ---
 INSERT INTO Survey (survey_id, description, source_id)
       VALUES ('FRED_ECON', 'DADOS ECONÔMICOS DISPONIBILIZADOS PELO FRED', 'FRED');
@@ -145,25 +148,25 @@ INSERT INTO Survey (survey_id, description, source_id)
 
 --NBSC--
 INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('NBSC_PIBY', 'DADOS ANUALIZADOS DO PIB E SEUS COMPONENTES', 'NBSC');
+       VALUES ('NBSC_PIBY', 'DADOS ANUALIZADOS DO PIB E SEUS COMPONENTES, CHINA', 'NBSC');
 INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('NBSC_PIBQ', 'DADOS TRIMESTRAIS DO PIB E SEUS COMPONENTES COM AJUSTE SAZONAL', 'NBSC');                       
+       VALUES ('NBSC_PIBQ', 'DADOS TRIMESTRAIS DO PIB E SEUS COMPONENTES COM AJUSTE SAZONAL, CHINA', 'NBSC');                       
 INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('NBSC_CPI', 'INDICE DE PREÇO AO CONSUMIDOR E SEUS PRINCIPAIS COMPONENTES', 'NBSC');                       
+       VALUES ('NBSC_CPI', 'INDICE DE PREÇO AO CONSUMIDOR E SEUS PRINCIPAIS COMPONENTES, CHINA', 'NBSC');                       
 INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('NBSC_PPI', 'INDICE DE PREÇO AO PRODUTOR E SEUS PRINCIPAIS COMPONENTES', 'NBSC');                       
+       VALUES ('NBSC_PPI', 'INDICE DE PREÇO AO PRODUTOR E SEUS PRINCIPAIS COMPONENTES, CHINA', 'NBSC');                       
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('NBSC_TRADE', 'DADOS DA BALANÇA COMERCIAL, CHINA', 'NBSC');
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('NBSC_PMI', 'PMI OFICIAL DA CHINA E SEUS COMPONENTES', 'NBSC');
 INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('NBSC_IND', 'PRODUCAO INDUSTRIAL, CHINA', 'NBSC');
+       VALUES ('NBSC_IND', 'DADOS DE PRODUCAO INDUSTRIAL, CHINA', 'NBSC');
 INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('NBSC_RETAIL', 'VAREJO CHINA E SEUS COMPONENTES', 'NBSC');                            
+       VALUES ('NBSC_RETAIL', 'DADOS VAREJO E SEUS COMPONENTES, CHINA', 'NBSC');                            
 
 --CAGED--
 INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('NCAGED', 'NOVO DADOS DO CAGED', 'CAGED');
+       VALUES ('NCAGED', 'NOVO DADOS DO CAGED, BRASIL', 'CAGED');
 COMMIT;
 
 --NASDAQ
@@ -188,11 +191,31 @@ INSERT INTO Survey (survey_id, description, source_id)
 -- BANCO CENTRAL EUROPEU
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('ECB_EXR', 'TAXAS DE CAMBIO EXTRAIDAS DO BANCO CENTRAL EUROPEU', 'ECB');    
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('ECB_FM', 'TAXAS DE JUROS DE POLITICA MONETARIA DO BANCO CENTRAL EUROPEU', 'ECB');    
 
 
 -- ANBIMA
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('ANBIMA_TAXAS', 'TAXAS INDICATIVAS DOS TÍTULOS PÚBlICOS FEDERAIS', 'ANBIMA');    
+
+-- EUROSTAT
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('NAMQ_10_GDP', 'ESTATISTICA DE PRODUTO INTERNO BRUTO (PIB) E SEUS COMPONENTES PARA UE E PAISES', 'EUROSTAT');    
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('STS_INPR_M', 'PRODUÇÃO INDUSTRIAL E SEUS COMPONENTES PARA UE E PAISES ', 'EUROSTAT');    
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('PRC_HICP_MIDX', 'INFLACAO AO CONSUMIDOR HARMONIZADA E SEUS COMPONENTES PARA EU E PAISES', 'EUROSTAT');    
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('STS_TRTU_M', 'VENDAS DO VAREJO E DO ATACADO E SEUS COMPONENTES PARA EU E PAISES', 'EUROSTAT');    
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('UNE_RT_M', 'DADOS DO MERCADO DE TRABALHO  PARA EU E PAISES', 'EUROSTAT');    
+
+
+
+-- PREVIDENCIA SOCIAL
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('PREV_EST', 'ESTATISTICAS MENSAIS DO SISTEMA DE PREVIDENCIA SOCIAL, BRASIL', 'PREV');    
 
 
 --APP INFO2B
