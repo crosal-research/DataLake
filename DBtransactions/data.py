@@ -53,7 +53,7 @@ async def add_data_obs(llobs: List[List[Observation]]) -> None:
                     except Exception as e:
                         await db.rollback()
                         print(e)
-
+        
 
 
 # To be implemented
