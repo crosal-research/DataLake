@@ -31,6 +31,7 @@ class DataObs:
         csv = await req.bounded_stream.read()
         try:
             df = pd.read_csv(io.BytesIO(csv), sep=";", decimal=",").dropna(axis=1, how='all')
+            df.columns = [c.replace(" ", "") for c in df.columns]
             df.set_index(['data'], inplace=True)
             df.index = [pendulum.from_format(d, "DD/MM/YYYY").to_date_string() for d in df.index]
             lx = []
@@ -38,11 +39,9 @@ class DataObs:
                 lx.append([Observation(**{'dat': dat, 
                             'valor': df.loc[dat, c], 
                             'series_id': c}) for dat in df.index])
-                
-            # loop = asyncio.get_running_loop()
-            # loop.run_in_executor(None, add_data, lx)
             await add_data_obs(lx)
+            resp.status = falcon.HTTP_200
         except Exception as e:
             print(e)
-
+            resp.status = falcon.HTTP_405
         
