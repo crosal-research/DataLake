@@ -1,8 +1,9 @@
 ############################################################
 # see: http://pdet.mte.gov.br/novo-caged 
-# Fetches the observations for Caged
+# Fetches the observations for Caged's observations
 # last change:
 ############################################################
+
 # import from app
 from typing import List, Dict
 from functools import reduce
@@ -74,7 +75,6 @@ def fetch(tickers: List[str], limit=None) -> List[List[Dict]]:
                 dfs)
     df.columns = [f"CAGED.{t}".upper() for t in ('est', 'adm', 'deslig', 'saldo', 'est_adjs' , 'adm_adjs', 'deslig_adjs', 'saldo_adjs')]
     df = _re_index(df.copy())
-    # df = df.tail(limit)
     d = {}
     for c in tickers:
         for i in df.index:
