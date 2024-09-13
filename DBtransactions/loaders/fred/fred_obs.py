@@ -54,5 +54,5 @@ def fetch(tickers: List[str], limit: Optional[int] = None) -> List[List[Observat
     urls =[build_fred(key, tck.split(".")[1], limit) for tck in tickers]
     with requests.session() as session:
         with executor() as e:
-            obs = list(e.map(lambda url: process(session.get(url)), urls))
+            obs = list(e.map(lambda url: process(session.get(url)), urls, timeout=20))
     return obs
