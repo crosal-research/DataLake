@@ -31,19 +31,27 @@ def _process(resp: requests.models.Response)-> List[Observation]:
     Handles the sucessful response to a request to the ibge api.
     Return a Dataframe per response
     """
-    tbl = (re.compile("\d+")).findall(resp.url)[0]
-    ticker = "IBGE." + ((resp.url).split("t/")[1]).split("/p")[0]
-    ls = resp.json()
-    c = [k for k in ls[0] if (("Mês" in ls[0][k]) or ("Trimestre" in ls[0][k]))][0]
-    dt = "T" if ls[0][c] == "Trimestre (Código)" else "M"
-    if dt == 'M':
-        return [Observation(**{'dat': pendulum.from_format(l[c], "YYYYMM").to_date_string(), 
-                               'valor': l["V"], 
-                               'series_id': ticker}) for l in ls[1:] if re.match("-?\d+", l["V"]) is not None ]
+    if resp.status == 200:
+        try:
+            ticker = "IBGE." + ((resp.url).split("t/")[1]).split("/p")[0]
+            print(f"OK: {ticker}")
+            tbl = (re.compile("\d+")).findall(resp.url)[0]
+            ls = resp.json()
+            c = [k for k in ls[0] if (("Mês" in ls[0][k]) or ("Trimestre" in ls[0][k]))][0]
+            dt = "T" if ls[0][c] == "Trimestre (Código)" else "M"
+            if dt == 'M':
+                return [Observation(**{'dat': pendulum.from_format(l[c], "YYYYMM").to_date_string(), 
+                                       'valor': l["V"], 
+                                       'series_id': ticker}) for l in ls[1:] if re.match("-?\d+", l["V"]) is not None ]
 
-    return [Observation(**{'dat': pendulum.from_format(l[c][:4] + str(l[c][4:6][1]), "YYYYQ").to_date_string(), 
-                           'valor': l["V"], 
-                           'series_id': ticker}) for l in ls[1:] if re.match("-?\d+", l["V"]) is not None]
+            return [Observation(**{'dat': pendulum.from_format(l[c][:4] + str(l[c][4:6][1]), "YYYYQ").to_date_string(), 
+                                   'valor': l["V"], 
+                                   'series_id': ticker}) for l in ls[1:] if re.match("-?\d+", l["V"]) is not None]
+        except Exception as e:
+            print(f"file ibge_obs: {e}")
+    else:
+        print(f"Off: {resp.url}")
+        return None
 
 
 def fetch(tickers:List[str], limit:Optional[str]=None) -> List[List[Observation]]:
@@ -59,8 +67,19 @@ def fetch(tickers:List[str], limit:Optional[str]=None) -> List[List[Observation]
     ctx.options |= 0x4  # ssl.OP_LEGACY_SERVER_CONNECT
     urls = [_build_url(tck, limit=limit) for tck in tickers]
     with urllib3.PoolManager(ssl_context=ctx) as https: # used in order to circunvent ssl_legacy problem
-    # with urllib3.HTTPSConnectionPool(host="apisidra.ibge.gov.br", maxsize=10, ssl_context=ctx) as https: # used in order to circunvent ssl_legacy problem        
+    # with urllib3.HTTPSConnectionPool(host="apisidra.ibge.gov.br", maxsize=10, ssl_context=ctx) as https: # used in order to circunvent ssl_legacy problem
+        def _fetch(_url):
+            try:
+                resp = https.request("GET", _url)
+                return _process(resp)
+            except Exception as e:
+                print(f"Off: {_url}, {e}")
+                return None
+
         with executor() as e:
-            ls = list(e.map(lambda url: _process(https.request("GET", url)), urls))
+            try:
+                ls = [l for l in list(e.map(_fetch, urls, timeout=90)) if l is not None]
+            except Exception as e:
+                print(f"File ibge_obs: {e}")
     return ls
 
