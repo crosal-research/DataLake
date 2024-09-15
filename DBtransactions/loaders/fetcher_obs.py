@@ -26,6 +26,7 @@ from DBtransactions.loaders.stn import stn_obs
 from DBtransactions.loaders.ecb import ecb_obs
 from DBtransactions.loaders.anbima import anbima_obs
 from DBtransactions.loaders.eurostat import eurostat_obs
+from DBtransactions.loaders.abcr import abcr_obs
 
 
 fetchers = {
@@ -49,7 +50,8 @@ fetchers = {
     "STN": stn_obs.fetch,
     "ECB": ecb_obs.fetch,
     "ANBIMA": anbima_obs.fetch,
-    "EUROSTAT": eurostat_obs.fetch
+    "EUROSTAT": eurostat_obs.fetch,
+    "ABCR": abcr_obs.fetch
     }
 
 
