@@ -6,9 +6,11 @@
 from typing import List, Optional
 from functools import reduce
 from concurrent.futures import ThreadPoolExecutor as executor
+from io import StringIO
 
 # packages import
 import requests, pendulum
+import pandas as pd
 
 # import app
 from DBtransactions.DBtypes import Observation
@@ -21,6 +23,7 @@ def _build_url(ano:str):
     """
     build the relevant url to fetch data
     """
+    # return URL + f"ENA_DIARIO_SUBSISTEMA_{ano}.csv"
     return URL + f"ENA_DIARIO_SUBSISTEMA_{ano}.csv"
 
 
@@ -29,12 +32,15 @@ def _process(resp:requests.Response) -> Optional[List[Observation]]:
     Takes a resquests.Response object, processes it and returns
     a list of the Observation object
     """
-    info = list(map(lambda line: line.split(';'), 
-               (resp.text).split("\n")))
-    return [Observation(**{'series_id': f"ONS.ENAPERC_{l[0]}", 
-             'dat': l[2], 
-             'valor': l[-1]}) for l in info[1:-1]]
-
+    # info = list(map(lambda line: line.split(';'), 
+    #            (resp.text).split("\n")))
+    
+    if(resp.ok):
+        df = pd.read_csv(StringIO(resp.text), sep=";", decimal=",")
+        return [Observation(**{'series_id': f"ONS.ENAPERC_{df.loc[i, ['id_subsistema']][0]}", 
+                               'dat': df.loc[i, ["ena_data"]][0], 
+                               'valor': df.loc[i, ["ena_bruta_regiao_percentualmlt"]][0]}) for i in df.index]
+    return None
 
 def fetch(tickers: List[str], limit:Optional[str]=None) -> List[List[Observation]]:
     """
