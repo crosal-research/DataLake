@@ -47,7 +47,7 @@ INSERT INTO Source (source_id, full_name)
 INSERT INTO Source (source_id, full_name)
        VALUES ('CEPEA', 'CENTRO DE ESTUDOS AVANCADOS EM ECONOMIA APLICADA');
 INSERT INTO Source (source_id, full_name)
-       VALUES ('CPB', 'INSTITUTO DE ESTATISTICA DA HOLANDA');
+      VALUES ('CPB', 'INSTITUTO DE ESTATISTICA DA HOLANDA');
 INSERT INTO Source (source_id, full_name) VALUES ('NBSC', 'NATIONAL BUREAU OF STATISTICS OF CHINA');
 INSERT INTO Source (source_id, full_name) VALUES ('CAGED', 'DADOS DO MERCADO DE TRABALHO CELETISTA, PDET');
 INSERT INTO Source (source_id, full_name) VALUES ('NASDAQ', 'DADOS DE INDICES DE ATIVOS EXTRAIDOS DA NASDAQ');
@@ -211,14 +211,16 @@ INSERT INTO Survey (survey_id, description, source_id)
        VALUES ('STS_TRTU_M', 'VENDAS DO VAREJO E DO ATACADO E SEUS COMPONENTES PARA EU E PAISES', 'EUROSTAT');    
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('UNE_RT_M', 'DADOS DO MERCADO DE TRABALHO  PARA EU E PAISES', 'EUROSTAT');    
-INSERT INTO Survey (survey_id, description, source_id) 
-       VALUES ('ABCR_FLUXO', 'DADOS DO MERCADO DE TRABALHO  PARA EU E PAISES', 'ABCR');    
 
 
 
 -- PREVIDENCIA SOCIAL
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('PREV_EST', 'ESTATISTICAS MENSAIS DO SISTEMA DE PREVIDENCIA SOCIAL, BRASIL', 'PREV');    
+
+-- ABCR
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('ABCR_FLUXO', 'DADOS DO MERCADO DE TRABALHO  PARA EU E PAISES', 'ABCR');    
 
 
 --APP INFO2B
@@ -228,5 +230,3 @@ INSERT INTO Survey (survey_id, description, source_id)
 --        VALUES ('CORE_IPCA15', 'NUCLEOS DO IPCA15 CALCULADOS PELO O APLICATIVO', 'APP');    
 
 COMMIT;
-
-       
