@@ -5,8 +5,8 @@ from typing import List, Dict
 from DBtransactions.DBtypes import Series
 
 
-
 __all__ = ['SERIES', 'fetch_info']
+
 
 DATA = [
     {'series_id': "PREV.CONCE_TOTALQ",
