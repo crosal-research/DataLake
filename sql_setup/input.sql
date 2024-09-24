@@ -59,6 +59,7 @@ INSERT INTO Source (source_id, full_name) VALUES ('ANBIMA', 'ASSOCIACAO BRASILEI
 INSERT INTO Source (source_id, full_name) VALUES ('EUROSTAT', 'INSTITUTO DE ESTATISTICA DA UNIÃO EUROPEIA');
 INSERT INTO Source (source_id, full_name) VALUES ('PREV', 'MINISTERIO DA PREVIDENCIA SOCIAL DO BRASIL');
 INSERT INTO Source (source_id, full_name) VALUES ('ABCR', 'ASSOCIAÇÃO BRASILEIRA DE CONCESSIONARIAS DE RODOVIAS');
+INSERT INTO Source (source_id, full_name) VALUES ('OUKS', 'OFFICE OF NATIONAL STATISTICS, UK');
 
 COMMIT;	      
 
@@ -92,8 +93,6 @@ INSERT INTO Survey (survey_id, description, source_id)
       VALUES ('FRED_FIN', 'DADOS FINANCEIROS DISPONIBILIZADOS PELO FRED', 'FRED');
 
 -- IPEA --
-INSERT INTO Survey (survey_id, description, source_id)
-      VALUES ('IPEA', 'DADOS GENERICOS DISPONIBILIZADOS PELO IPEA', 'IPEA');
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('IPEA_ECON', 'DADOS ECONOMICOS DISPONIBILIZADOS PELO IPEA', 'IPEA');   
 INSERT INTO Survey (survey_id, description, source_id) 
@@ -221,6 +220,16 @@ INSERT INTO Survey (survey_id, description, source_id)
 -- ABCR
 INSERT INTO Survey (survey_id, description, source_id) 
        VALUES ('ABCR_FLUXO', 'DADOS DO MERCADO DE TRABALHO  PARA EU E PAISES', 'ABCR');    
+
+-- OUKS
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('OUKS_CPI', 'INFLAÇÃO AO CONSUMIDOR DO REINO UNIDO', 'OUKS');    
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('OUKS_RSI', 'VENDAS DO VAREJO DO REINO UNIDO', 'OUKS');    
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('OUKS_DIOP', 'PROUDUCAO INDUSTRIAL DO REINO UNIDO', 'OUKS');    
+INSERT INTO Survey (survey_id, description, source_id) 
+       VALUES ('OUKS_MGDP', 'INDICADORES DE ATIVIDADE MENSAL DO REINO UNIDO', 'OUKS');    
 
 
 --APP INFO2B
