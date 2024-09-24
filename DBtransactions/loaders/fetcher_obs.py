@@ -27,6 +27,7 @@ from DBtransactions.loaders.ecb import ecb_obs
 from DBtransactions.loaders.anbima import anbima_obs
 from DBtransactions.loaders.eurostat import eurostat_obs
 from DBtransactions.loaders.abcr import abcr_obs
+from DBtransactions.loaders.ons_uk import ons_uk_obs
 
 
 fetchers = {
@@ -51,7 +52,8 @@ fetchers = {
     "ECB": ecb_obs.fetch,
     "ANBIMA": anbima_obs.fetch,
     "EUROSTAT": eurostat_obs.fetch,
-    "ABCR": abcr_obs.fetch
+    "ABCR": abcr_obs.fetch,
+    "OUKS": ons_uk_obs.fetch,
     }
 
 
@@ -76,4 +78,3 @@ def fetch(tickers: List[str],
     for s in sources:
         llobs= llobs + fetchers[s](sources[s], limit=limit)
     return llobs
-

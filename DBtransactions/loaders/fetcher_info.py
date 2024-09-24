@@ -33,6 +33,7 @@ from DBtransactions.loaders.anbima import anbima_fetch_info
 from DBtransactions.loaders.eurostat import eurostat_fetch_info
 from DBtransactions.loaders.prev import prev_fetch_info
 from DBtransactions.loaders.abcr import abcr_fetch_info
+from DBtransactions.loaders.ons_uk import ons_uk_fetch_info
 #from DBtransactions.loaders.nucleos_ipca import nucleos_ipca_fetch_info
 
 dispatcher = {
@@ -59,7 +60,8 @@ dispatcher = {
     "ANBIMA": anbima_fetch_info.fetch_info,
     "EUROSTAT": eurostat_fetch_info.fetch_info,
     "PREV": prev_fetch_info.fetch_info,
-    "ABCR": abcr_fetch_info.fetch_info
+    "ABCR": abcr_fetch_info.fetch_info,
+    "OUKS": ons_uk_fetch_info.fetch_info
  }
 
 
@@ -109,6 +111,8 @@ def fetch_infos(source:Optional[str]=None,
             srs = dispatcher[source](prev_fetch_info.DATA)
         elif source == "ABCR":
             srs = dispatcher[source](abcr_fetch_info.DATA)
+        elif source == "OUKS":
+            srs = dispatcher[source](ons_en_fetch_info.DATA)
 
         # elif source == "NUCLEOS_IPCA":
         #     srs = dispatcher[source](nucleos_ipca_fetch_info.SERIES)
@@ -165,7 +169,8 @@ def fetch_infos(source:Optional[str]=None,
             srs = dispatcher["PREV"](prev_fetch_info.DATA)
         elif "ABCR" in survey:
             srs = dispatcher["ABCR"](abcr_fetch_info.DATA)
-
+        elif "OUKS" in survey:
+            srs = dispatcher["OUKS"](abcr_fetch_info.DATA)
         # elif "IPCA" in survey:
         #     srs = dispatcher["NUCLEOS_IPCA"](s for s in nucleos_ipca_fetch_info.SERIES if s['survey_id'] == survey)
         else:
