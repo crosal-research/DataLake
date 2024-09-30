@@ -57,12 +57,18 @@ def fetch(tickers: List[str], limit: Optional[int]=None) -> List[Observation]:
     Fetches the observations from the bcb's api. 
     """
     urls = (build_url(tck, limit=limit) for tck in tickers)
+    headers = {
+        'User-Agent': 'python-requests/2.31.0',
+        'Accept-Encoding': 'gzip, deflate',
+        'Accept': '*/*',
+        'Connection': 'keep-alive'
+    }
 
     def _pos_process(obs):
         if obs is not None:
             return obs
-
+    
     with requests.session() as session:
         with executor() as e:
-            js = e.map(lambda url:_process(session.get(url)), list(urls), timeout=90)
+            js = e.map(lambda url:_process(session.get(url, headers=headers)), list(urls), timeout=200)
     return list(filter(_pos_process, js))
