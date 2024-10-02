@@ -68,7 +68,7 @@ def add_obs(tickers:Optional[List[str]]=None,
             limit:Optional[int] | Optional[str]=None) -> None:
     """
     Insere/substitui dados para list the series,
-    series de um survey, de uma fonte ou de toda
+    series de um, survey, de uma fonte ou de toda
     a base de dados
     """
     string_sql = f"""
