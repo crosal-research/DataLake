@@ -14,7 +14,7 @@ import pendulum
 import aiosqlite # does not commit automatically
 
 from DBtransactions.DBtypes import Observation, Series
-from DBtransactions.helpers import DB, Q
+from DBtransactions.helpers import Q
 
 async def add_data_obs(llobs: List[List[Observation]]) -> None:
     """

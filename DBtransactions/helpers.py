@@ -16,7 +16,7 @@ from dotenv import dotenv_values
 
 
 config = dotenv_values(f"./.env")
-DB = f"{config['DB_sqlite']}"
+DB_sqlite = f"{config['DB_sqlite']}"
 
 # import the right sql engine
 if config['ENV'] == "DEV":
@@ -24,7 +24,6 @@ if config['ENV'] == "DEV":
 
 # character for interpolation to avoid sql injection attack
 Q = '?' if config['ENV'] == "DEV" else "%s"
-
 
 
 # Helpers
@@ -43,7 +42,7 @@ def connect():
     Opens a connects with an specific
     connections
     """
-    return engine.connect(DB)
+    return engine.connect(DB_sqlite)
 
 
 def _cursor(conn:sqlite3.Connection) -> sqlite3.Cursor:
@@ -59,26 +58,3 @@ def _cursor(conn:sqlite3.Connection) -> sqlite3.Cursor:
         # see https://www.youtube.com/watch?v=86jnwSU1F6Q
         # --
     return cur
-
-
-async def async_cursor(func) -> sqlite3.Cursor:
-    """
-    Helper-factory iniciates a cursor with foregin keys
-    automatically activated
-    """
-    async with aiosqlite(DB) as db:
-        async with db.cursor as cur:
-            pass
-        
-#     cur = await conn.cursor()
-#     cur.execute("PRAGMA foreign_keys = ON;") # allows for foreign_keys constraing
-#     cur.execute("PRAGMA journal_model = ON;") # <--
-#         #
-#         # allows for concurrent reads and writes. 
-#         # see https://www.youtube.com/watch?v=86jnwSU1F6Q
-#         # --
-#     return cur
-
-
-
-

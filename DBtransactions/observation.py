@@ -11,7 +11,7 @@ import uvloop
 
 # import from app
 from DBtransactions.helpers import _cursor, connect, _parser_to_input
-from DBtransactions.helpers import Q, DB
+from DBtransactions.helpers import Q
 from DBtransactions.loaders.fetcher_obs import fetch
 from DBtransactions.DBtypes import Observation
 
