@@ -51,8 +51,10 @@ case $1 in
 	      ;;
     "help") echo "Type either build, load, run or backup "
 	    ;;
-    *) echo "Type help"
+    *) 
+	echo "Type help"
        ;;
+
 esac
 
 exit 0
