@@ -14,13 +14,13 @@ import pendulum
 import aiosqlite # does not commit automatically
 
 from DBtransactions.DBtypes import Observation, Series
-from DBtransactions.helpers import Q
+from DBtransactions.helpers import Q, DB_sqlite
 
 async def add_data_obs(llobs: List[List[Observation]]) -> None:
     """
     Insert observation in the database
     """
-    async with aiosqlite.connect(DB) as db:
+    async with aiosqlite.connect(DB_sqlite) as db:
         async with db.cursor() as cur:
             await cur.execute("PRAGMA foreign_keys = ON;") # allows for foreign_keys constraing
             await cur.execute("PRAGMA journal_model = ON;") # <--
@@ -61,7 +61,7 @@ async def add_data_series(lseries: List[Series]) -> None:
     """
     Insert observation in the database
     """
-    async with aiosqlite.connect(DB) as db:
+    async with aiosqlite.connect(DB_sqlite) as db:
         async with db.cursor() as cur:
             await cur.execute("PRAGMA foreign_keys = ON;") # allows for foreign_keys constraing
             await cur.execute("PRAGMA journal_model = ON;") # <--
