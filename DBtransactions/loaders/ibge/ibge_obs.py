@@ -49,6 +49,7 @@ def _process(resp: requests.models.Response)-> List[Observation]:
                                    'series_id': ticker}) for l in ls[1:] if re.match("-?\d+", l["V"]) is not None]
         except Exception as e:
             print(f"file ibge_obs: {e}")
+            return None
     else:
         print(f"Off: {resp.url}")
         return None
