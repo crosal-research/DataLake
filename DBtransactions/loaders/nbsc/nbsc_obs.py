@@ -75,6 +75,7 @@ def fetch(series: List[str], limit=None) -> List[List[Observation]]:
 
     def _fetch(survey):
         # Parameters for constructing the query string
+        
         valuecode = [d['valuecode'] for d in DATA if d['survey'] == survey][0]
         params = {
             "m": "QueryData", # Method of easyquery.htm to call
